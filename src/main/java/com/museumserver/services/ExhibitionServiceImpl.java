@@ -11,6 +11,11 @@ import com.museumserver.entity.models.Exhibition;
 
 @Service
 public class ExhibitionServiceImpl implements IExhibitionService {
+	
+	public void setDAO(Object dao) {
+		this.exhibitionDao = (IExhibitionDAO) dao;
+	}
+	
 	@Autowired
 	private IExhibitionDAO exhibitionDao;
 
@@ -36,10 +41,8 @@ public class ExhibitionServiceImpl implements IExhibitionService {
 	}
 
 	@Override
-	public void updateExhibition(Exhibition exhibition) {
-
+	public Exhibition updateExhibition(Exhibition exhibition) {
 		if (exhibitionDao.existsById(exhibition.getId())) {
-			
 			Exhibition original = exhibitionDao.findById(exhibition.getId()).get();
 			
 			if (exhibition.getName() != null)
@@ -54,8 +57,9 @@ public class ExhibitionServiceImpl implements IExhibitionService {
 			if (exhibition.getLocation() != null)
 				original.setLocation(exhibition.getLocation());
 
-			exhibitionDao.save(original);
+			return exhibitionDao.save(original);
 		}
+		return null;
 
 	}
 
