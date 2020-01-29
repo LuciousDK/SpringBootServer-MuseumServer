@@ -15,5 +15,5 @@ public interface IExhibitionService {
 
 	public void addExhibition(Exhibition exhibition);
 
-	public void updateExhibition(Exhibition exhibition);
+	public Exhibition updateExhibition(Exhibition exhibition);
 }
