@@ -40,19 +40,19 @@ public class ExhibitionServiceTest {
 	}
 	
 	@Test
-	public void addExhibitionTest() {
+	public void updateExhibitionTest() {
 
 		
 		Date date = new Date(System.currentTimeMillis());
 
 		Exhibition expected = new Exhibition(1l, "Pepe", date, date, "Area 51");
 		
+		exhibitionService.updateExhibition(expected);
 		
 
-		assertNotNull( exhibitionService.updateExhibition(expected));
+		assertEquals( exhibitionService.getExhibition(1l).toString(), expected.toString());
 
 	}
-	
 	@AfterEach
 	public void tearDown() {
 

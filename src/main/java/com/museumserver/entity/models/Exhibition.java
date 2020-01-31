@@ -88,6 +88,15 @@ public class Exhibition implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String toString() {
+		String result ="";
+		result += "ID: "+this.id+"\n";
+		result += "Name: "+this.name+"\n";
+		result += "Opening Date: "+this.openingDate+"\n";
+		result += "Closing Date: "+this.closingDate+"\n";
+		result += "Location: "+this.location+"\n";
+		return result;
+	}
 
 	
 }
