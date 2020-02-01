@@ -8,14 +8,13 @@ import org.springframework.stereotype.Service;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.repositories.ExhibitionRepository;
 
-
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
-	
+
 	public void setRepository(Object repository) {
 		this.exhibitionRepository = (ExhibitionRepository) repository;
 	}
-	
+
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
 
@@ -36,7 +35,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public Exhibition addExhibition(Exhibition exhibition) {
 
-			return exhibitionRepository.save(exhibition);
+		return exhibitionRepository.save(exhibition);
 
 	}
 
@@ -44,7 +43,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public Exhibition updateExhibition(Exhibition exhibition) {
 		if (exhibitionRepository.existsById(exhibition.getId())) {
 			Exhibition original = exhibitionRepository.findById(exhibition.getId()).get();
-			
+
 			if (exhibition.getName() != null)
 				original.setName(exhibition.getName());
 
@@ -69,6 +68,5 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 			return exhibitionRepository.findById(id).get();
 		return null;
 	}
-	
 
 }
