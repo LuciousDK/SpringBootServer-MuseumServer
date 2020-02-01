@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.museumserver.entity.models.Exhibition;
-import com.museumserver.services.IExhibitionService;
+import com.museumserver.services.ExhibitionService;
 
 @RestController
 @CrossOrigin(origins = "*")
 public class ExhibitionController {
 
 	@Autowired
-	private IExhibitionService exhibitionService;
+	private ExhibitionService exhibitionService;
 
 	@GetMapping("/exhibitions")
 	public List<Exhibition> getExhibitions() {

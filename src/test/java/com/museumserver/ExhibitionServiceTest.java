@@ -6,15 +6,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.Date;
 
-import com.museumserver.entity.dao.IExhibitionDAO;
 import com.museumserver.entity.models.Exhibition;
+import com.museumserver.entity.repositories.ExhibitionRepository;
 import com.museumserver.services.ExhibitionServiceImpl;
 
 
@@ -23,7 +22,7 @@ import com.museumserver.services.ExhibitionServiceImpl;
 public class ExhibitionServiceTest {
 
 	@Autowired
-	private IExhibitionDAO exhibitionDao;
+	private ExhibitionRepository exhibitionRepository;
 	
 	@Autowired
 	private ExhibitionServiceImpl exhibitionService;
@@ -34,7 +33,7 @@ public class ExhibitionServiceTest {
 	@BeforeEach
 	public void setUp() {
 		exhibitionService = new ExhibitionServiceImpl();
-		exhibitionService.setDAO(exhibitionDao);
+		exhibitionService.setRepository(exhibitionRepository);
 		originalExhibition = exhibitionService.getExhibition(1l);
 		
 	}

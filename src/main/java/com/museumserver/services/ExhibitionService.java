@@ -5,7 +5,7 @@ import java.util.List;
 import com.museumserver.entity.models.Exhibition;
 
 
-public interface IExhibitionService {
+public interface ExhibitionService {
 
 	public Exhibition getExhibition(Long id);
 	
@@ -13,7 +13,7 @@ public interface IExhibitionService {
 
 	public void deleteExhibition(long id);
 
-	public void addExhibition(Exhibition exhibition);
+	public Exhibition addExhibition(Exhibition exhibition);
 
 	public Exhibition updateExhibition(Exhibition exhibition);
 }
