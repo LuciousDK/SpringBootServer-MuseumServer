@@ -36,6 +36,7 @@ CREATE TABLE public.artworks
     name VARCHAR(255) NOT NULL,
     author VARCHAR(255),
     country VARCHAR(255),
+    description VARCHAR(255),
     exhibition_id INTEGER,
     PRIMARY KEY (id),
     FOREIGN KEY (exhibition_id)
