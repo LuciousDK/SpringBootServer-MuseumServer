@@ -37,13 +37,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		http
+		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/exhibitions","/artworks","/media","/beacons","/exhibition/**","/artwork/**","/media/**","/beacon/**").permitAll()
-			.antMatchers(HttpMethod.PUT,"/exhibition/**","/artwork/**","/media/**","/beacon/**").authenticated()
-			.antMatchers(HttpMethod.POST,"/exhibition/**","/artwork/**","/media/**","/beacon/**").authenticated()
-			.antMatchers(HttpMethod.DELETE,"/exhibition/**","/artwork/**","/media/**","/beacon/**").authenticated()
 			.antMatchers(HttpMethod.GET,"/administrators/**","/administrator/**").authenticated()
+			.antMatchers(HttpMethod.GET, "/**").permitAll()
+			.antMatchers(HttpMethod.PUT,"/**").authenticated()
+			.antMatchers(HttpMethod.POST,"/**").authenticated()
+			.antMatchers(HttpMethod.DELETE,"/**").authenticated()
 			.and()
 			.httpBasic()
 			.and()

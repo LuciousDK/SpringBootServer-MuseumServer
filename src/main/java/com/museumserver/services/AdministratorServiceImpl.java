@@ -3,6 +3,7 @@ package com.museumserver.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Administrator;
@@ -34,6 +35,10 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 	@Override
 	public Administrator addAdministrator(Administrator administrator) {
+		String password = administrator.getPassword();
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		password = passwordEncoder.encode(password);
+		administrator.setPassword(password);
 
 		return administratorRepository.save(administrator);
 
@@ -55,7 +60,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 
 			if (administrator.getPassword() != null)
 				original.setPassword(administrator.getPassword());
-
 
 			return administratorRepository.save(original);
 		}
