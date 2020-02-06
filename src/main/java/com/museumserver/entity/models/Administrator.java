@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name="administrators")
 public class Administrator implements Serializable {
@@ -21,18 +22,23 @@ public class Administrator implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(DataViews.DefaultData.class)
 	private Long id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String email;
 	
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String username;
 
 	@Column(name="first_name")
+	@JsonView(DataViews.DefaultData.class)
 	private String firstName;
 
 	@Column(name="last_name")
+	@JsonView(DataViews.DefaultData.class)
 	private String lastName;
 
 	@JsonIgnore
@@ -41,10 +47,12 @@ public class Administrator implements Serializable {
 	
 	@JsonIgnoreProperties({ "administrators" })
 	@OneToMany(mappedBy = "administrator", fetch = FetchType.LAZY)
+	@JsonView(DataViews.BeaconModificationsData.class)
 	private List<BeaconModification> beaconModifications;
 	
 	@JsonIgnoreProperties({ "administrators" })
 	@OneToMany(mappedBy = "administrator", fetch = FetchType.LAZY)
+	@JsonView(DataViews.MediaModificationsData.class)
 	private List<MediaModification> mediaModifications;
 	
 	public Administrator() {

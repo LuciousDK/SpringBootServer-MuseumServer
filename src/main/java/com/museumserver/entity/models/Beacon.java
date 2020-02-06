@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name="beacons")
 public class Beacon implements Serializable {
@@ -21,13 +22,16 @@ public class Beacon implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(DataViews.DefaultData.class)
 	private Long id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String mac;
 	
 	@JsonIgnoreProperties({ "beacons" })
 	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
+	@JsonView(DataViews.BeaconModificationsData.class)
 	private List<BeaconModification> modifications;
 	
 	public Beacon() {

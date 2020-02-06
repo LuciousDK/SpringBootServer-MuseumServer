@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.museumserver.entity.models.BeaconModification;
+import com.museumserver.entity.models.DataViews;
 import com.museumserver.services.BeaconModificationService;
 
 @RestController
@@ -21,18 +23,21 @@ public class BeaconModificationController {
 	BeaconModificationService beaconModificationService;
 
 	@GetMapping("/beacon/modifications")
+	@JsonView(DataViews.ModificationsRequest.class)
 	public List<BeaconModification> getAllModifications() {
 		return beaconModificationService.getAllModifications();
 	}
 
 	@GetMapping("/beacon/modifications/administrator/{administratorId}")
+	@JsonView(DataViews.ModificationsRequest.class)
 	public List<BeaconModification> getAdministratorModifications(@PathVariable("administratorId") Long administratorId) {
 		return beaconModificationService.getAdministratorModifications(administratorId);
 	}
 
 	@GetMapping("/beacon/modifications/{beaconId}")
+	@JsonView(DataViews.ModificationsRequest.class)
 	public List<BeaconModification> getBeaconModifications(@PathVariable("beaconId") Long beaconId) {
-		return beaconModificationService.getAdministratorModifications(beaconId);
+		return beaconModificationService.getBeaconModifications(beaconId);
 	}
 
 	@PostMapping("/beacon/newModification")

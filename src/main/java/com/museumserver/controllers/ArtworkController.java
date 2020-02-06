@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.museumserver.entity.models.Artwork;
+import com.museumserver.entity.models.DataViews;
 import com.museumserver.services.ArtworkService;
 
 @RestController
@@ -23,11 +25,13 @@ public class ArtworkController {
 	private ArtworkService artworkService;
 
 	@GetMapping("/artworks")
+	@JsonView(DataViews.DefaultData.class)
 	public List<Artwork> getArtworks() {
 		return artworkService.getArtworks();
 	}
 
 	@GetMapping("/artwork/{id}")
+	@JsonView(DataViews.DefaultData.class)
 	public Artwork getArtwork(@PathVariable("id") Long id) {
 		return artworkService.getArtwork(id);
 	}

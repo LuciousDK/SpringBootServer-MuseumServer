@@ -9,6 +9,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class MediaModificationId implements Serializable{
 	
@@ -16,14 +18,17 @@ public class MediaModificationId implements Serializable{
 
 	@GeneratedValue
 	@Column(name = "date")
+	@JsonView(DataViews.DefaultData.class)
 	private Timestamp date;
 
 	@NotNull
 	@Column(name = "administrator_id")
+	@JsonView(DataViews.DefaultData.class)
 	private Long administratorId;
 
 	@NotNull
 	@Column(name = "media_id")
+	@JsonView(DataViews.DefaultData.class)
 	private Long mediaId;
 	
 	public MediaModificationId() {

@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name = "media_modifications")
 public class MediaModification implements Serializable {
@@ -16,20 +17,24 @@ public class MediaModification implements Serializable {
 	private static final long serialVersionUID = 7831655863977697411L;
 
 	@EmbeddedId
+	@JsonView(DataViews.DefaultData.class)
 	private MediaModificationId id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String description;
 
 	
 	@JsonIgnoreProperties({ "mediaModifications" })
 	@ManyToOne
 	@JoinColumn(name = "media_id", insertable = false, updatable = false)
+	@JsonView(DataViews.MediaData.class)
 	private Media media;
 	
 	@JsonIgnoreProperties({ "mediaModifications" })
 	@ManyToOne
 	@JoinColumn(name = "administrator_id", insertable = false, updatable = false)
+	@JsonView(DataViews.AdministratorData.class)
 	private Administrator administrator;
 	
 	
