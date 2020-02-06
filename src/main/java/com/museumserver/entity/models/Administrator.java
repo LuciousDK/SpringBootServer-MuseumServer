@@ -1,12 +1,18 @@
 package com.museumserver.entity.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name="administrators")
 public class Administrator implements Serializable {
@@ -29,8 +35,17 @@ public class Administrator implements Serializable {
 	@Column(name="last_name")
 	private String lastName;
 
+	@JsonIgnore
 	@Column
 	private String password;
+	
+	@JsonIgnoreProperties({ "administrators" })
+	@OneToMany(mappedBy = "administrator", fetch = FetchType.LAZY)
+	private List<BeaconModification> beaconModifications;
+	
+	@JsonIgnoreProperties({ "administrators" })
+	@OneToMany(mappedBy = "administrator", fetch = FetchType.LAZY)
+	private List<MediaModification> mediaModifications;
 	
 	public Administrator() {
 		super();

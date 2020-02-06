@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.museumserver.services.UserService;
 
@@ -27,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
 	}
-	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 		auth.userDetailsService(userDetailsService).passwordEncoder(bcrypt);
@@ -46,6 +48,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.httpBasic()
 			.and()
 			.logout();
+	}
+	
+	
+	@Configuration
+	public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
+	    @Override
+	    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+	        registry.addResourceHandler("/img/**").addResourceLocations("file:img/");
+	        registry.addResourceHandler("/video/**").addResourceLocations("file:video/");
+	        registry.addResourceHandler("/audio/**").addResourceLocations("file:audio/");
+	    }
 	}
 	
 }

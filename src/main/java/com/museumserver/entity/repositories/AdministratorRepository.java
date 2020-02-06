@@ -4,8 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import com.museumserver.entity.models.Administrator;
 
-
-public interface AdministratorRepository extends CrudRepository<Administrator,Long>{
-Administrator findByUsername(String username);
+public interface AdministratorRepository extends CrudRepository<Administrator, Long> {
+	Administrator findByUsername(String username);
 }
-
