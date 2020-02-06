@@ -71,10 +71,12 @@ CREATE TABLE public.administrators
 (
     id INTEGER DEFAULT NEXTVAL('administrator_id_seq'),
     email VARCHAR(255) NOT NULL,
+    username VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
     first_name VARCHAR(255) NOT NULL,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+  	CONSTRAINT username_UNIQUE UNIQUE (username)
 );
 
 CREATE TABLE public.artwork_media
@@ -161,9 +163,9 @@ INSERT INTO public.beacons(artwork_id,mac) VALUES
 (2,'PAME293'),
 (2,'UDMG012');
 
-INSERT INTO public.administrators(first_name, last_name, email, password) VALUES
-('Luat','Dinh','luatdb@gmail.com','1234'),
-('Richard','Vinueza','richardvr@gmail.com','1234');
+INSERT INTO public.administrators(first_name, last_name, email, password, username) VALUES
+('Luat','Dinh','luatdb@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','luatdb'),
+('Richard','Vinueza','richardvr@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','richardvr');
 SELECT * FROM public.administrators;
 INSERT INTO public.beacon_modifications(date,administrator_id,beacon_id,description) VALUES
 ('2019-11-19 20:00:00', 1, 1, 'Hello'),

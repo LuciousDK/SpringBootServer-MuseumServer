@@ -19,6 +19,9 @@ public class Administrator implements Serializable {
 
 	@Column
 	private String email;
+	
+	@Column
+	private String username;
 
 	@Column(name="first_name")
 	private String firstName;
@@ -28,17 +31,18 @@ public class Administrator implements Serializable {
 
 	@Column
 	private String password;
-
+	
 	public Administrator() {
 		super();
 	}
 
-	public Administrator(Long id, String email, String first_name, String last_name, String password) {
+	public Administrator(Long id, String email, String username, String firstName, String lastName, String password) {
 		super();
 		this.id = id;
 		this.email = email;
-		this.firstName = first_name;
-		this.lastName = last_name;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.password = password;
 	}
 
@@ -58,20 +62,28 @@ public class Administrator implements Serializable {
 		this.email = email;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}
 
-	public void setFirstName(String first_name) {
-		this.firstName = first_name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(String last_name) {
-		this.lastName = last_name;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public String getPassword() {
@@ -86,5 +98,4 @@ public class Administrator implements Serializable {
 		return serialVersionUID;
 	}
 
-	
 }
