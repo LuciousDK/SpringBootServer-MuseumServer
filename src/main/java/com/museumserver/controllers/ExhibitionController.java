@@ -1,5 +1,6 @@
 package com.museumserver.controllers;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ public class ExhibitionController {
 	private ExhibitionService exhibitionService;
 
 	@GetMapping("/exhibitions")
-	public List<Exhibition> getExhibitions() {
+	public List<Exhibition> getExhibitions() throws IOException {
+		System.err.println("Present Project Directory : "+ System.getProperty("user.dir"));
 		return exhibitionService.getExhibitions();
 	}
 
@@ -46,6 +48,5 @@ public class ExhibitionController {
 	public void removeExhibition(@RequestParam("id") Long id) {
 		exhibitionService.deleteExhibition(id);
 	}
-	
 
 }

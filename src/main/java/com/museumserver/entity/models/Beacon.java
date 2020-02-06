@@ -1,12 +1,17 @@
 package com.museumserver.entity.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity(name="beacons")
 public class Beacon implements Serializable {
@@ -21,14 +26,19 @@ public class Beacon implements Serializable {
 	@Column
 	private String mac;
 	
+	@JsonIgnoreProperties({ "beacons" })
+	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
+	private List<BeaconModification> modifications;
+	
 	public Beacon() {
 		super();
 	}
-	
-	public Beacon(Long id, String mac) {
+
+	public Beacon(Long id, String mac, List<BeaconModification> modifications) {
 		super();
 		this.id = id;
 		this.mac = mac;
+		this.modifications = modifications;
 	}
 
 	public Long getId() {
@@ -47,11 +57,18 @@ public class Beacon implements Serializable {
 		this.mac = mac;
 	}
 
+	public List<BeaconModification> getModifications() {
+		return modifications;
+	}
+
+	public void setModifications(List<BeaconModification> modifications) {
+		this.modifications = modifications;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-
+	
 	
 	
 }
