@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity(name="exhibitions")
 public class Exhibition implements Serializable {
 
@@ -16,18 +18,23 @@ public class Exhibition implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(DataViews.DefaultData.class)
 	private Long id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String name;
 
 	@Column(name="opening_date")
+	@JsonView(DataViews.DefaultData.class)
 	private Date openingDate;
 
 	@Column(name="closing_date")
+	@JsonView(DataViews.DefaultData.class)
 	private Date closingDate;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String location;
 
 

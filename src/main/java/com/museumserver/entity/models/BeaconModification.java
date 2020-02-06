@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name = "beacon_modifications")
 public class BeaconModification implements Serializable {
@@ -16,22 +17,24 @@ public class BeaconModification implements Serializable {
 	private static final long serialVersionUID = -4805807971373971002L;
 
 	@EmbeddedId
+	@JsonView(DataViews.DefaultData.class)
 	private BeaconModificationId id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String description;
 
-	
 	@JsonIgnoreProperties({ "beaconModifications" })
 	@ManyToOne
 	@JoinColumn(name = "beacon_id", insertable = false, updatable = false)
+	@JsonView(DataViews.BeaconData.class)
 	private Beacon beacon;
 	
 	@JsonIgnoreProperties({ "beaconModifications" })
 	@ManyToOne
 	@JoinColumn(name = "administrator_id", insertable = false, updatable = false)
+	@JsonView(DataViews.AdministratorData.class)
 	private Administrator administrator;
-	
 	
 	public BeaconModificationId getId() {
 		return id;

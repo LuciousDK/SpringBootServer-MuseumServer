@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.museumserver.entity.models.DataViews;
 import com.museumserver.entity.models.Media;
 import com.museumserver.services.MediaService;
 
@@ -23,11 +25,13 @@ public class MediaController {
 	private MediaService mediaService;
 
 	@GetMapping("/medias")
+	@JsonView(DataViews.MediaRequest.class)
 	public List<Media> getMedias() {
 		return mediaService.getMedias();
 	}
 
 	@GetMapping("/media/{id}")
+	@JsonView(DataViews.MediaRequest.class)
 	public Media getMedia(@PathVariable("id") Long id) {
 		return mediaService.getMedia(id);
 	}

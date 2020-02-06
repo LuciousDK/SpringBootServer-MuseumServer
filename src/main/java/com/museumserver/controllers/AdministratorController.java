@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.museumserver.entity.models.Administrator;
+import com.museumserver.entity.models.DataViews;
 import com.museumserver.services.AdministratorService;
 
 @RestController
@@ -23,11 +25,13 @@ public class AdministratorController {
 	private AdministratorService administratorService;
 
 	@GetMapping("/administrators")
+	@JsonView(DataViews.AdministratorsRequest.class)
 	public List<Administrator> getAdministrators() {
 		return administratorService.getAdministrators();
 	}
 
 	@GetMapping("/administrator/{id}")
+	@JsonView(DataViews.AdministratorsRequest.class)
 	public Administrator getAdministrator(@PathVariable("id") Long id) {
 		return administratorService.getAdministrator(id);
 	}

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name="media")
 public class Media implements Serializable {
@@ -20,22 +21,28 @@ public class Media implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(DataViews.DefaultData.class)
 	private Long id;
 
 	@Column(name = "display_name")
+	@JsonView(DataViews.DefaultData.class)
 	private String displayName;
 
 	@Column(name = "file_name")
+	@JsonView(DataViews.DefaultData.class)
 	private String fileName;
 
 	@Column(name = "file_type")
+	@JsonView(DataViews.DefaultData.class)
 	private String fileType;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String extension;
 	
 	@JsonIgnoreProperties({ "media" })
 	@OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
+	@JsonView(DataViews.MediaModificationsData.class)
 	private List<MediaModification> modifications;
 
 	public Media(Long id, String displayName, String fileName, String fileType, String extension,

@@ -9,6 +9,8 @@ import javax.persistence.Embeddable;
 import javax.persistence.GeneratedValue;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Embeddable
 public class BeaconModificationId implements Serializable{
 	
@@ -16,14 +18,17 @@ public class BeaconModificationId implements Serializable{
 
 	@GeneratedValue
 	@Column(name = "date")
+	@JsonView(DataViews.DefaultData.class)
 	private Timestamp date;
 
 	@NotNull
 	@Column(name = "administrator_id")
+	@JsonView(DataViews.DefaultData.class)
 	private Long administratorId;
 
 	@NotNull
 	@Column(name = "beacon_id")
+	@JsonView(DataViews.DefaultData.class)
 	private Long beaconId;
 	
 	public BeaconModificationId() {

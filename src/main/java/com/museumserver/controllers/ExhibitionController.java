@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.museumserver.entity.models.DataViews;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.services.ExhibitionService;
 
@@ -24,11 +26,13 @@ public class ExhibitionController {
 	private ExhibitionService exhibitionService;
 
 	@GetMapping("/exhibitions")
+	@JsonView(DataViews.DefaultData.class)
 	public List<Exhibition> getExhibitions() throws IOException {
 		return exhibitionService.getExhibitions();
 	}
 
 	@GetMapping("/exhibition/{id}")
+	@JsonView(DataViews.DefaultData.class)
 	public Exhibition getExhibition(@PathVariable("id") Long id) {
 		return exhibitionService.getExhibition(id);
 	}

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 @Entity(name="artworks")
 public class Artwork implements Serializable {
 
@@ -15,18 +17,23 @@ public class Artwork implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonView(DataViews.DefaultData.class)
 	private Long id;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String name;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String author;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String country;
 
 	@Column
+	@JsonView(DataViews.DefaultData.class)
 	private String description;
 
 

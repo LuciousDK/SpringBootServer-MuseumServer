@@ -21,8 +21,6 @@ public class UserService implements UserDetailsService{
 	@Autowired
 	private AdministratorRepository repository; 
 	
-	
-
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Administrator admin = repository.findByUsername(username);
