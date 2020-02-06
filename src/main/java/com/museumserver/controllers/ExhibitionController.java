@@ -25,7 +25,6 @@ public class ExhibitionController {
 
 	@GetMapping("/exhibitions")
 	public List<Exhibition> getExhibitions() throws IOException {
-		System.err.println("Present Project Directory : "+ System.getProperty("user.dir"));
 		return exhibitionService.getExhibitions();
 	}
 
