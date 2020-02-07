@@ -63,13 +63,42 @@ public class Artwork implements Serializable {
 	@JsonView(DataViews.ExhibitionData.class)
 	private Exhibition exhibition;
 
-	public Artwork(Long id, String name, String author, String country, String description) {
+
+	public Artwork(Long id, String name, String author, String country, String description, List<Beacon> beacons,
+			List<Media> media, Exhibition exhibition) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.country = country;
 		this.description = description;
+		this.beacons = beacons;
+		this.media = media;
+		this.exhibition = exhibition;
+	}
+
+	public List<Beacon> getBeacons() {
+		return beacons;
+	}
+
+	public void setBeacons(List<Beacon> beacons) {
+		this.beacons = beacons;
+	}
+
+	public List<Media> getMedia() {
+		return media;
+	}
+
+	public void setMedia(List<Media> media) {
+		this.media = media;
+	}
+
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
 	}
 
 	public Artwork() {

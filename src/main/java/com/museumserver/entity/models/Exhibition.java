@@ -57,14 +57,32 @@ public class Exhibition implements Serializable {
 	@JsonView(DataViews.MediaListData.class)
 	private List<Media> media;
 
-
-	public Exhibition(Long id, String name, Date openingDate, Date closingDate, String location){
+	public Exhibition(Long id, String name, Date openingDate, Date closingDate, String location, List<Artwork> artworks,
+			List<Media> media) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.openingDate = openingDate;
 		this.closingDate = closingDate;
 		this.location = location;
+		this.artworks = artworks;
+		this.media = media;
+	}
+
+	public List<Artwork> getArtworks() {
+		return artworks;
+	}
+
+	public void setArtworks(List<Artwork> artworks) {
+		this.artworks = artworks;
+	}
+
+	public List<Media> getMedia() {
+		return media;
+	}
+
+	public void setMedia(List<Media> media) {
+		this.media = media;
 	}
 
 	public Exhibition() {
