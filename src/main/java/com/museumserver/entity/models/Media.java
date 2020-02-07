@@ -56,8 +56,9 @@ public class Media implements Serializable {
 	@ManyToMany(mappedBy = "media")
 	private List<Exhibition> exhibitions;
 
+
 	public Media(Long id, String displayName, String fileName, String fileType, String extension,
-			List<MediaModification> modifications) {
+			List<MediaModification> modifications, List<Artwork> artworks, List<Exhibition> exhibitions) {
 		super();
 		this.id = id;
 		this.displayName = displayName;
@@ -65,7 +66,30 @@ public class Media implements Serializable {
 		this.fileType = fileType;
 		this.extension = extension;
 		this.modifications = modifications;
+		this.artworks = artworks;
+		this.exhibitions = exhibitions;
 	}
+
+	
+	public List<Artwork> getArtworks() {
+		return artworks;
+	}
+
+
+	public void setArtworks(List<Artwork> artworks) {
+		this.artworks = artworks;
+	}
+
+
+	public List<Exhibition> getExhibitions() {
+		return exhibitions;
+	}
+
+
+	public void setExhibitions(List<Exhibition> exhibitions) {
+		this.exhibitions = exhibitions;
+	}
+
 
 	public Media(){
 		super();
