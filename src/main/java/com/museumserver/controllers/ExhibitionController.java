@@ -26,13 +26,13 @@ public class ExhibitionController {
 	private ExhibitionService exhibitionService;
 
 	@GetMapping("/exhibitions")
-	@JsonView(DataViews.DefaultData.class)
+	@JsonView(DataViews.ExhibitionRequest.class)
 	public List<Exhibition> getExhibitions() throws IOException {
 		return exhibitionService.getExhibitions();
 	}
 
 	@GetMapping("/exhibition/{id}")
-	@JsonView(DataViews.DefaultData.class)
+	@JsonView(DataViews.ExhibitionRequest.class)
 	public Exhibition getExhibition(@PathVariable("id") Long id) {
 		return exhibitionService.getExhibition(id);
 	}

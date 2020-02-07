@@ -166,7 +166,7 @@ INSERT INTO public.beacons(artwork_id,mac) VALUES
 INSERT INTO public.administrators(first_name, last_name, email, password, username) VALUES
 ('Luat','Dinh','luatdb@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','luatdb'),
 ('Richard','Vinueza','richardvr@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','richardvr');
-SELECT * FROM public.administrators;
+
 INSERT INTO public.beacon_modifications(date,administrator_id,beacon_id,description) VALUES
 ('2019-11-19 20:00:00', 1, 1, 'Hello'),
 ('2019-11-19 21:00:00', 1, 1, 'nothing changed'),
@@ -184,3 +184,11 @@ INSERT INTO public.media_modifications(date,administrator_id,media_id,descriptio
 ('2019-11-19 21:00:00', 1, 1, 'nothing changed'),
 ('2019-11-19 20:00:00', 1, 2, 'something changed');
 
+INSERT INTO public.artwork_media(artwork_id, media_id) VALUES
+('1','1'),
+('1','2'),
+('4','5'),
+('5','4');
+
+INSERT INTO public.exhibition_media(exhibition_id, media_id) VALUES
+('1','3');

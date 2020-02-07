@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -44,6 +45,16 @@ public class Media implements Serializable {
 	@OneToMany(mappedBy = "media", fetch = FetchType.LAZY)
 	@JsonView(DataViews.MediaModificationsData.class)
 	private List<MediaModification> modifications;
+
+	@JsonIgnoreProperties({ "media" })
+	@JsonView(DataViews.ArtworkListData.class)
+	@ManyToMany(mappedBy = "media")
+	private List<Artwork> artworks;
+
+	@JsonIgnoreProperties({ "media" })
+	@JsonView(DataViews.ExhibitionListData.class)
+	@ManyToMany(mappedBy = "media")
+	private List<Exhibition> exhibitions;
 
 	public Media(Long id, String displayName, String fileName, String fileType, String extension,
 			List<MediaModification> modifications) {
