@@ -1,0 +1,68 @@
+
+body{
+    background: url(../img/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main-section{
+    margin:0 auto;
+    margin-top:25%;
+    padding: 0;
+}
+
+.modal-content{
+    background-color: lightblue;
+    opacity: .85;
+    padding: 20px 20px;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+form{
+	margin-bottom:10px;
+}
+
+.icon-img img{
+	width: 200px;
+	margin-bottom : 10px;
+	
+}
+
+.form-group input{
+    height: 42px;
+    font-size: 18px;
+    border:0;
+    padding-left: 54px;
+    border-radius: 5px;
+}
+
+.form-group::before{
+    font-family: "Font Awesome\ 5 Free";
+    position: absolute;
+    left: 28px;
+    font-size: 22px;
+    padding-top:4px;
+}
+
+.form-group#user-group::before{
+    content: "\f007";
+}
+
+.form-group#contrasena-group::before{
+    content: "\f023";
+}
+
+.alert{
+	margin: 0px;
+}
+
+button{
+    width: 60%;
+}
+
+.forgot{
+    padding: 5px 0;
+}
+
+.forgot a{
+    color: white;
+}
