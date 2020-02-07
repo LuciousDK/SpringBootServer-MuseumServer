@@ -2,13 +2,20 @@ package com.museumserver.entity.models;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name="exhibitions")
@@ -36,6 +43,19 @@ public class Exhibition implements Serializable {
 	@Column
 	@JsonView(DataViews.DefaultData.class)
 	private String location;
+	
+	@JsonIgnoreProperties({ "exhibitions" })
+	@OneToMany(mappedBy = "exhibition", fetch = FetchType.LAZY)
+	@JsonView(DataViews.ArtworkListData.class)
+	private List<Artwork> artworks;
+
+	@ManyToMany
+	@JsonIgnoreProperties({ "exhibitions" })
+	@JoinTable(name = "exhibition_media", 
+			  joinColumns = @JoinColumn(name = "exhibition_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "media_id"))
+	@JsonView(DataViews.MediaListData.class)
+	private List<Media> media;
 
 
 	public Exhibition(Long id, String name, Date openingDate, Date closingDate, String location){

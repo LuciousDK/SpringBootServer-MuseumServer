@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,16 +35,31 @@ public class Beacon implements Serializable {
 	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
 	@JsonView(DataViews.BeaconModificationsData.class)
 	private List<BeaconModification> modifications;
+
+	@JsonIgnoreProperties({ "beacons" })
+	@ManyToOne
+	@JoinColumn(name = "artwork_id", insertable = false, updatable = false)
+	@JsonView(DataViews.ArtworkData.class)
+	private Artwork artwork;
 	
 	public Beacon() {
 		super();
 	}
-
-	public Beacon(Long id, String mac, List<BeaconModification> modifications) {
+	
+	public Beacon(Long id, String mac, List<BeaconModification> modifications, Artwork artwork) {
 		super();
 		this.id = id;
 		this.mac = mac;
 		this.modifications = modifications;
+		this.artwork = artwork;
+	}
+
+	public Artwork getArtwork() {
+		return artwork;
+	}
+
+	public void setArtwork(Artwork artwork) {
+		this.artwork = artwork;
 	}
 
 	public Long getId() {

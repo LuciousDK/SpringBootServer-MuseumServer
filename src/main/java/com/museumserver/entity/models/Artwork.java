@@ -1,13 +1,21 @@
 package com.museumserver.entity.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name="artworks")
@@ -35,8 +43,25 @@ public class Artwork implements Serializable {
 	@Column
 	@JsonView(DataViews.DefaultData.class)
 	private String description;
+	
+	@JsonIgnoreProperties({ "artworks" })
+	@OneToMany(mappedBy = "artwork", fetch = FetchType.LAZY)
+	@JsonView(DataViews.BeaconListData.class)
+	private List<Beacon> beacons;
 
-
+	@ManyToMany
+	@JsonIgnoreProperties({ "artworks" })
+	@JoinTable(name = "artwork_media", 
+			  joinColumns = @JoinColumn(name = "artwork_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "media_id"))
+	@JsonView(DataViews.MediaListData.class)
+	private List<Media> media;
+	
+	@JsonIgnoreProperties({ "artworks" })
+	@ManyToOne
+	@JoinColumn(name = "exhibition_id", insertable = false, updatable = false)
+	@JsonView(DataViews.ExhibitionData.class)
+	private Exhibition exhibition;
 
 	public Artwork(Long id, String name, String author, String country, String description) {
 		super();

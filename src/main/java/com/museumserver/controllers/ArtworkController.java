@@ -25,13 +25,13 @@ public class ArtworkController {
 	private ArtworkService artworkService;
 
 	@GetMapping("/artworks")
-	@JsonView(DataViews.DefaultData.class)
+	@JsonView(DataViews.ArtworkRequest.class)
 	public List<Artwork> getArtworks() {
 		return artworkService.getArtworks();
 	}
 
 	@GetMapping("/artwork/{id}")
-	@JsonView(DataViews.DefaultData.class)
+	@JsonView(DataViews.ArtworkRequest.class)
 	public Artwork getArtwork(@PathVariable("id") Long id) {
 		return artworkService.getArtwork(id);
 	}
