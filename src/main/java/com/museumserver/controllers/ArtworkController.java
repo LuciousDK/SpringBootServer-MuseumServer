@@ -1,6 +1,9 @@
 package com.museumserver.controllers;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -37,19 +40,20 @@ public class ArtworkController {
 	}
 
 	@PostMapping("/artwork")
-	public void addArtwork(Artwork artwork) {
+	public void addArtwork(Artwork artwork, HttpServletResponse response) throws IOException {
 		artworkService.addArtwork(artwork);
+		response.sendRedirect("/obras");
 	}
 
 	@PutMapping("/artwork")
-	public void updateArtwork(Artwork artwork) {
+	public void updateArtwork(Artwork artwork, HttpServletResponse response) throws IOException {
 		artworkService.updateArtwork(artwork);
+		response.sendRedirect("/obras");
 	}
 
 	@DeleteMapping("/artwork")
 	public void removeArtwork(@RequestParam("id") Long id) {
 		artworkService.deleteArtwork(id);
 	}
-	
 
 }

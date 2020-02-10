@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Introducir Titulo</title>
+
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
+    <script type="text/javascript" th:src="@{/js/artworks.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/global.css" th:href="@{/css/global.css}">
+
+    <link rel="stylesheet" type="text/css" href="css/artworks.css" th:href="@{/css/artworks.css}">
+
+</head>
+
+<body>
+
+	<nav class="navbar  navbar-expand-sm bg-dark navbar-dark">
+		<a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
+
+		<ul class="navbar-nav">
+			<li class="nav-item"><a class="nav-link" href="index">Inicio</a></li>
+			<li class="nav-item active inactiveLink"><a class="nav-link" href="#">Obras</a></li>
+			<li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
+			<li class="nav-item"><a class="nav-link" href="beacons">Beacons</a></li>
+		</ul>
+		<div class="ml-auto">
+		<a class="btn btn-dark" href="#"><i class="fas fa-plus"></i>
+			Nuevo Admin</a>
+		<a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
+			Salir</a>
+		</div>
+	</nav>
+
+    <div class="container mt-3">
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-info" data-toggle="modal" data-target="#creation-modal"><span
+                        class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+            </div>
+
+            <input class="form-control" id="search-bar" type="text" placeholder="Search..">
+        </div>
+        <div class="modal fade" id="creation-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <form action="#" th:action="@{/artwork}" th:object="${newArtwork}" method="POST">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Nuevo Registro <button type="button" class="close"
+                                    data-dismiss="modal">&times;</button></h4>
+                        </div>
+
+                        <div class="modal-body">
+                            Nombre:&nbsp; <input type="text" name="name" th:field="*{name}" placeholder="Nombre" /></br>
+                            Autor:&nbsp; <input type="text" name="author" th:field="*{author}"
+                                placeholder="Autor" /></br>
+                            País:&nbsp; <input type="text" name="country" th:field="*{country}"
+                                placeholder="País" /></br>
+                            Descripción:&nbsp; <input type="text" name="description" th:field="*{description}"
+                                placeholder="Descripción" /></br>
+
+                            Exhibición:&nbsp;
+                        </div>
+
+                        <div class="modal-footer">
+                            <button name="submit" class="btn btn-info" type="submit" value="0">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Nombre </th>
+                    <th> Autor </th>
+                    <th> País </th>
+                    <th> Descripción </th>
+                    <th> Exhibición </th>
+                </tr>
+            </thead>
+            <tbody id="artworks-table">
+                <tr th:if="${artworks.empty}">
+                    <td colspan="5"> No se ha encontrado ninguna obra. </td>
+                </tr>
+                <tr th:each="artwork : ${artworks}">
+                    <td><span th:text="${artwork.id}"></span></td>
+                    <td><span th:text="${artwork.name}"></span></td>
+                    <td><span th:text="${artwork.author}"></span></td>
+                    <td><span th:text="${artwork.country}"></span></td>
+                    <td><span th:text="${artwork.description}"></span></td>
+                    <td><span th:text="${artwork.exhibition?.name}"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+
+</html>
