@@ -21,7 +21,7 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Override
 	public List<Exhibition> getExhibitions() {
 
-		return (List<Exhibition>) exhibitionRepository.findAll();
+		return (List<Exhibition>) exhibitionRepository.findAllByOrderByIdAsc();
 
 	}
 

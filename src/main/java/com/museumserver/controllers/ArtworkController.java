@@ -40,20 +40,22 @@ public class ArtworkController {
 	}
 
 	@PostMapping("/artwork")
-	public void addArtwork(Artwork artwork, HttpServletResponse response) throws IOException {
-		artworkService.addArtwork(artwork);
+	public void addArtwork(Artwork artwork, @RequestParam(required = false, value = "exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
+		
+		artworkService.addArtwork(artwork, exhibitionId);
 		response.sendRedirect("/obras");
 	}
 
 	@PutMapping("/artwork")
-	public void updateArtwork(Artwork artwork, HttpServletResponse response) throws IOException {
-		artworkService.updateArtwork(artwork);
+	public void updateArtwork(Artwork artwork, @RequestParam("exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
+		artworkService.updateArtwork(artwork, exhibitionId);
 		response.sendRedirect("/obras");
 	}
 
-	@DeleteMapping("/artwork")
-	public void removeArtwork(@RequestParam("id") Long id) {
+	@PostMapping("/artwork/delete")
+	public void removeArtwork(@RequestParam("id") Long id, HttpServletResponse response) throws IOException {
 		artworkService.deleteArtwork(id);
+		response.sendRedirect("/obras");
 	}
 
 }

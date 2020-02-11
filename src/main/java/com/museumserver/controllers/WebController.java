@@ -75,8 +75,8 @@ public class WebController {
 	    public ModelAndView artworks() {
 		 
 	        ModelAndView mav = new ModelAndView("artworks");
-	        mav.addObject("artworks", artworkRepository.findAll());
-	        mav.addObject("exhibitions", exhibitionRepository.findAll());
+	        mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
+	        mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 
 	        mav.addObject("newArtwork", new Artwork());
 	        return mav;

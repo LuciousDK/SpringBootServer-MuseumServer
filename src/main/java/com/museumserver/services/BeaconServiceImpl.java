@@ -21,7 +21,7 @@ public class BeaconServiceImpl implements BeaconService {
 	@Override
 	public List<Beacon> getBeacons() {
 
-		return (List<Beacon>) beaconRepository.findAll();
+		return (List<Beacon>) beaconRepository.findAllByOrderByIdAsc();
 
 	}
 

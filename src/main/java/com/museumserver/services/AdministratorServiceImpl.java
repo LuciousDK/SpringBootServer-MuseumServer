@@ -22,7 +22,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	@Override
 	public List<Administrator> getAdministrators() {
 
-		return (List<Administrator>) administratorRepository.findAll();
+		return (List<Administrator>) administratorRepository.findAllByOrderByIdAsc();
 
 	}
 

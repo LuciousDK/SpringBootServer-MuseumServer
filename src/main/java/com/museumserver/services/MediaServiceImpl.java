@@ -21,7 +21,7 @@ public class MediaServiceImpl implements MediaService {
 	@Override
 	public List<Media> getMedias() {
 
-		return (List<Media>) mediaRepository.findAll();
+		return (List<Media>) mediaRepository.findAllByOrderByIdAsc();
 
 	}
 
