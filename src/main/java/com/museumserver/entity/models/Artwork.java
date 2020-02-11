@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
-@Entity(name="artworks")
+@Entity(name = "artworks")
 public class Artwork implements Serializable {
 
 	private static final long serialVersionUID = 7628166745670913872L;
@@ -43,7 +43,7 @@ public class Artwork implements Serializable {
 	@Column
 	@JsonView(DataViews.DefaultData.class)
 	private String description;
-	
+
 	@JsonIgnoreProperties({ "artworks" })
 	@OneToMany(mappedBy = "artwork", fetch = FetchType.LAZY)
 	@JsonView(DataViews.BeaconListData.class)
@@ -51,18 +51,15 @@ public class Artwork implements Serializable {
 
 	@ManyToMany
 	@JsonIgnoreProperties({ "artworks" })
-	@JoinTable(name = "artwork_media", 
-			  joinColumns = @JoinColumn(name = "artwork_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "media_id"))
+	@JoinTable(name = "artwork_media", joinColumns = @JoinColumn(name = "artwork_id"), inverseJoinColumns = @JoinColumn(name = "media_id"))
 	@JsonView(DataViews.MediaListData.class)
 	private List<Media> media;
-	
+
 	@JsonIgnoreProperties({ "artworks" })
 	@ManyToOne
-	@JoinColumn(name = "exhibition_id", insertable = false, updatable = false)
+	@JoinColumn(name = "exhibition_id", insertable = true, updatable = true)
 	@JsonView(DataViews.ExhibitionData.class)
 	private Exhibition exhibition;
-
 
 	public Artwork(Long id, String name, String author, String country, String description, List<Beacon> beacons,
 			List<Media> media, Exhibition exhibition) {
@@ -149,7 +146,21 @@ public class Artwork implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String toJSON() {
+		String result = "{" + "\"id\":" + this.id +
+						",\"name\":\""+this.name+
+						"\",\"country\":\""+this.country+
+						"\",\"author\":\""+this.author+
+						"\",\"description\":\""+this.description+
+						"\",\"exhibitionId\":";
+		
+		if(this.exhibition!=null) {
+			result+=+this.exhibition.getId()+"}";
+		}else {
+			result += "\"\"}";
+		}
 
+		return result;
+	}
 
-	
 }

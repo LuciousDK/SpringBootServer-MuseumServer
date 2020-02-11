@@ -12,7 +12,7 @@ public interface ArtworkService {
 
 	public void deleteArtwork(long id);
 
-	public Artwork addArtwork(Artwork artwork);
+	public void addArtwork(Artwork artwork, Long exhibitionId);
 
-	public Artwork updateArtwork(Artwork artwork);
+	public Artwork updateArtwork(Artwork artwork, Long exhibitionId);
 }

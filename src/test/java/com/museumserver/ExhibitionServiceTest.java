@@ -37,21 +37,21 @@ public class ExhibitionServiceTest {
 		originalExhibition = exhibitionService.getExhibition(1l);
 		
 	}
-	
-	@Test
-	public void updateExhibitionTest() {
-
-		
-		Date date = new Date(System.currentTimeMillis());
-
-		Exhibition expected = new Exhibition(1l, "Pepe", date, date, "Area 51");
-		
-		exhibitionService.updateExhibition(expected);
-		
-
-		assertEquals( exhibitionService.getExhibition(1l).toString(), expected.toString());
-
-	}
+//	
+//	@Test
+//	public void updateExhibitionTest() {
+//
+//		
+//		Date date = new Date(System.currentTimeMillis());
+//
+//		Exhibition expected = new Exhibition(1l, "Pepe", date, date, "Area 51");
+//		
+//		exhibitionService.updateExhibition(expected);
+//		
+//
+//		assertEquals( exhibitionService.getExhibition(1l).toString(), expected.toString());
+//
+//	}
 	@AfterEach
 	public void tearDown() {
 

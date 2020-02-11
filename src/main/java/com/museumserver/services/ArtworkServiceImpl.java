@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.repositories.ArtworkRepository;
+import com.museumserver.entity.repositories.ExhibitionRepository;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
@@ -18,10 +19,13 @@ public class ArtworkServiceImpl implements ArtworkService {
 	@Autowired
 	private ArtworkRepository artworkRepository;
 
+	@Autowired
+	private ExhibitionRepository exhibitionRepository;
+
 	@Override
 	public List<Artwork> getArtworks() {
 
-		return (List<Artwork>) artworkRepository.findAll();
+		return (List<Artwork>) artworkRepository.findAllByOrderByIdAsc();
 
 	}
 
@@ -33,14 +37,20 @@ public class ArtworkServiceImpl implements ArtworkService {
 	}
 
 	@Override
-	public Artwork addArtwork(Artwork artwork) {
+	public void addArtwork(Artwork artwork, Long exhibitionId) {
+		
+		if(exhibitionId!=null) {
+			if(exhibitionRepository.existsById(exhibitionId)) {
+				artwork.setExhibition(exhibitionRepository.findById(exhibitionId).get());
+			}
+		}
 
-		return artworkRepository.save(artwork);
+		artworkRepository.save(artwork);
 
 	}
 
 	@Override
-	public Artwork updateArtwork(Artwork artwork) {
+	public Artwork updateArtwork(Artwork artwork, Long exhibitionId) {
 		if (artworkRepository.existsById(artwork.getId())) {
 			Artwork original = artworkRepository.findById(artwork.getId()).get();
 
@@ -56,7 +66,12 @@ public class ArtworkServiceImpl implements ArtworkService {
 			if (artwork.getDescription() != null)
 				original.setDescription(artwork.getDescription());
 
-
+			if(exhibitionId!=null) {
+				if(exhibitionRepository.existsById(exhibitionId)) {
+					artwork.setExhibition(exhibitionRepository.findById(exhibitionId).get());
+				}
+			}
+			
 			return artworkRepository.save(original);
 		}
 		return null;
