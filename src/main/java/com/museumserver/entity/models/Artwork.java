@@ -171,12 +171,7 @@ public class Artwork implements Serializable {
 				result+=",";
 			}
 			counter++;
-			result +="{" + "\"id\":" + media.getId() +
-					",\"displayName\":\""+media.getDisplayName()+
-					"\",\"fileName\":\""+media.getFileName()+
-					"\",\"fileExtension\":\""+media.getExtension()+
-					"\",\"fileType\":\""+media.getFileType()+
-					"\"}";
+			result +=media.toJSON();
 		}
 		result+="]";
 		return result;

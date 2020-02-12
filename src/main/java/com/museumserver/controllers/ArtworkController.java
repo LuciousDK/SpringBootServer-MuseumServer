@@ -7,11 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,8 +44,8 @@ public class ArtworkController {
 		response.sendRedirect("/obras");
 	}
 
-	@PutMapping("/artwork")
-	public void updateArtwork(Artwork artwork, @RequestParam("exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
+	@PostMapping("/artwork/update")
+	public void updateArtwork(Artwork artwork, @RequestParam(required = false, value = "exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
 		artworkService.updateArtwork(artwork, exhibitionId);
 		response.sendRedirect("/obras");
 	}
