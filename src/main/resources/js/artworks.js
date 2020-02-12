@@ -13,17 +13,17 @@ function editArtwork(artwork){
  form["id"].value = artworkJSON.id;
  form["name"].value = artworkJSON.name;
 
- if(artworkJSON.author==null)
+ if(artworkJSON.author=="null")
   form["author"].value = "";
  else
   form["author"].value = artworkJSON.author;
 
- if(artworkJSON.country==null)
+ if(artworkJSON.country=="null")
   form["country"].value = "";
  else
  form["country"].value = artworkJSON.country;
 
- if( artworkJSON.description==null)
+ if( artworkJSON.description=="null")
   form["description"].value ="";
  else
   form["description"].value= artworkJSON.description;
