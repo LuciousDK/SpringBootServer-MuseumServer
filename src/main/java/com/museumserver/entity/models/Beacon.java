@@ -90,6 +90,18 @@ public class Beacon implements Serializable {
 		return serialVersionUID;
 	}
 	
-	
+	public String toJSON() {
+		String result = "{" + "\"id\":" + this.id +
+						",\"mac\":\""+this.mac+
+						"\",\"artworkId\":";
+		
+		if(this.artwork!=null) {
+			result+=+this.artwork.getId()+"}";
+		}else {
+			result += "\"\"}";
+		}
+
+		return result;
+	}
 	
 }
