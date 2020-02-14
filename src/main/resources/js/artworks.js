@@ -59,3 +59,50 @@ function changeSideTab(evt, sideTabName) {
   document.getElementById(sideTabName).style.display = "block";
   evt.currentTarget.className += " active";
 }
+
+
+function allowDrop(ev) {
+  if(ev.target.id=="assigned-media"||ev.target.id=="unassigned-media"){
+  ev.preventDefault();}
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var card =document.getElementById(data)
+  ev.target.appendChild(card);
+  if(ev.target.id =="assigned-media"){
+    var artworkId = card.id.split("-")[1];
+    var mediaId= card.id.split("-")[2];
+    addMedia(artworkId,mediaId);
+  }
+  if(ev.target.id =="unassigned-media"){
+    var artworkId = card.id.split("-")[1];
+    var mediaId= card.id.split("-")[2];
+    removeMedia(artworkId,mediaId);
+  }
+}
+function removeMedia(artworkId, mediaId){
+  var http = new XMLHttpRequest();
+  var url = apiUrl+"/artwork/removeMedia";
+  var formData = new FormData();
+
+  formData.append("artworkId", artworkId);
+  formData.append("mediaId", mediaId);
+  http.open("POST", url, true);
+  http.send(formData);
+}
+function addMedia(artworkId, mediaId){
+  var http = new XMLHttpRequest();
+  var url = apiUrl+"/artwork/addMedia";
+  var formData = new FormData();
+
+  formData.append("artworkId", artworkId);
+  formData.append("mediaId", mediaId);
+  http.open("POST", url, true);
+  http.send(formData);
+}

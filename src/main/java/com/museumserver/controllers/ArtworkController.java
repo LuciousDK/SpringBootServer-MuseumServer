@@ -44,6 +44,18 @@ public class ArtworkController {
 		response.sendRedirect("/obras");
 	}
 
+	@PostMapping("/artwork/addMedia")
+	public void addMedia(@RequestParam("artworkId") Long artworkId , @RequestParam("mediaId") Long mediaId){
+
+		artworkService.addMedia(artworkId, mediaId);
+	}
+
+	@PostMapping("/artwork/removeMedia")
+	public void removeMedia(@RequestParam("artworkId") Long artworkId , @RequestParam("mediaId") Long mediaId){
+
+		artworkService.removeMedia(artworkId, mediaId);
+	}
+
 	@PostMapping("/artwork/update")
 	public void updateArtwork(Artwork artwork, @RequestParam(required = false, value = "exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
 		artworkService.updateArtwork(artwork, exhibitionId);

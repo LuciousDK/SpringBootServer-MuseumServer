@@ -173,8 +173,8 @@ INSERT INTO public.beacon_modifications(date,administrator_id,beacon_id,descript
 ('2019-11-19 20:00:00', 1, 2, 'something changed');
 
 INSERT INTO public.media(file_type,file_name,display_name,extension) VALUES
-('image','la_gioconda','La Gioconda - Mona Lisa','jpg'),
-('video','la_gioconda_following_eyes', 'La Gioconda - Following Eyes','mp4'),
+('image','la_gioconda','Mona Lisa','jpg'),
+('video','la_gioconda_following_eyes', 'Following Eyes','mp4'),
 ('audio','o_fortuna','O Fortuna - Carl Orff','mp3'),
 ('image','la_ejecucion_de_cadoudal','La Ejecución de George Cadoudal','jpg'),
 ('image','la_libertad_guiando_al_pueblo','La Libertad Guiando al Pueblo','jpg');

@@ -14,5 +14,9 @@ public interface ArtworkService {
 
 	public void addArtwork(Artwork artwork, Long exhibitionId);
 
+	public void addMedia(Long artworkId, Long mediaId);
+
+	public void removeMedia(Long artworkId, Long mediaId);
+
 	public Artwork updateArtwork(Artwork artwork, Long exhibitionId);
 }
