@@ -147,6 +147,15 @@ public class Media implements Serializable {
 		return serialVersionUID;
 	}
 	
+	public String toJSON() {
+		String result ="{" + "\"id\":" +this.id +
+				",\"displayName\":\""+this.displayName+
+				"\",\"fileName\":\""+this.fileName+
+				"\",\"fileExtension\":\""+this.extension+
+				"\",\"fileType\":\""+this.fileType+
+				"\"}";
+		return result;
+	}
 
 	
 }

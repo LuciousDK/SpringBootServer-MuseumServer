@@ -1,4 +1,5 @@
-(function() {
+const apiUrl ='http://localhost:8080';
+  (function() {
     'use strict';
     window.addEventListener('load', function() {
       var forms = document.getElementsByClassName('needs-validation');

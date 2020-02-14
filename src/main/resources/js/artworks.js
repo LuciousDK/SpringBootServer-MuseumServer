@@ -31,3 +31,78 @@ function editArtwork(artwork){
  form["exhibitionId"].value = artworkJSON.exhibitionId;
  
 }
+
+function changeTab(evt, tabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function changeSideTab(evt, sideTabName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("side-tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("side-tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(sideTabName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+function allowDrop(ev) {
+  if(ev.target.id=="assigned-media"||ev.target.id=="unassigned-media"){
+  ev.preventDefault();}
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  var card =document.getElementById(data)
+  ev.target.appendChild(card);
+  if(ev.target.id =="assigned-media"){
+    var artworkId = card.id.split("-")[1];
+    var mediaId= card.id.split("-")[2];
+    addMedia(artworkId,mediaId);
+  }
+  if(ev.target.id =="unassigned-media"){
+    var artworkId = card.id.split("-")[1];
+    var mediaId= card.id.split("-")[2];
+    removeMedia(artworkId,mediaId);
+  }
+}
+function removeMedia(artworkId, mediaId){
+  var http = new XMLHttpRequest();
+  var url = apiUrl+"/artwork/removeMedia";
+  var formData = new FormData();
+
+  formData.append("artworkId", artworkId);
+  formData.append("mediaId", mediaId);
+  http.open("POST", url, true);
+  http.send(formData);
+}
+function addMedia(artworkId, mediaId){
+  var http = new XMLHttpRequest();
+  var url = apiUrl+"/artwork/addMedia";
+  var formData = new FormData();
+
+  formData.append("artworkId", artworkId);
+  formData.append("mediaId", mediaId);
+  http.open("POST", url, true);
+  http.send(formData);
+}

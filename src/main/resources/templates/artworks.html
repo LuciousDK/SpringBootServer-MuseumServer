@@ -45,116 +45,331 @@
         </div>
     </nav>
 
-    <div class="container mt-3">
+    <div class="tab">
+        <button class="tablinks active" onclick="changeTab(event, 'artworkList')">Listado</button>
+        <button class="tablinks" onclick="changeTab(event, 'artworkMedias')">Multimedia</button>
+    </div>
 
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <button class="btn btn-info" data-toggle="modal" data-target="#creation-modal"><span
-                        class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+
+    <div id="artworkList" class="tabcontent">
+        <div class="container mt-3">
+
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <button class="btn btn-info" data-toggle="modal" data-target="#creation-modal"><span
+                            class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+                </div>
+
+                <input class="form-control" id="search-bar" type="text" placeholder="Search..">
             </div>
+            <div class="modal fade" id="creation-modal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
 
-            <input class="form-control" id="search-bar" type="text" placeholder="Search..">
-        </div>
-        <div class="modal fade" id="creation-modal">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
+                        <form action="#" class="needs-validation" name="artwork-form" onsubmit="return validateForm()"
+                            th:action="@{/artwork/update}" th:object="${newArtwork}" method="POST" novalidate>
 
-                    <form action="#" class="needs-validation" name="artwork-form" onsubmit="return validateForm()"
-                        th:action="@{/artwork}" th:object="${newArtwork}" method="POST" novalidate>
-
-                        <div class="modal-header">
-                            <h4 class="modal-title">Nuevo Registro</h4>
-                            <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
-                        </div>
-
-
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}" />
+                            <div class="modal-header">
+                                <h4 class="modal-title">Nuevo Registro</h4>
+                                <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
                             </div>
-                            <div class="form-group">
-                                <label for="name">Nombre</label>
-                                <input class="form-control" type="text" id="name" name="name" th:field="*{name}"
-                                    placeholder="Introducir Nombre" required />
-                                <div class="invalid-feedback">
-                                    Debe introducir un nombre.
+
+
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Nombre</label>
+                                    <input class="form-control" type="text" id="name" name="name" th:field="*{name}"
+                                        placeholder="Introducir Nombre" required />
+                                    <div class="invalid-feedback">
+                                        Debe introducir un nombre.
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="author">Autor</label>
+                                    <input class="form-control" type="text" id="author" name="author"
+                                        th:field="*{author}" placeholder="Autor" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="country">País</label>
+                                    <input class="form-control" type="text" id="country" name="country"
+                                        th:field="*{country}" placeholder="País" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Descripción</label>
+                                    <input class="form-control" type="text" id="description" name="description"
+                                        th:field="*{description}" placeholder="Descripción" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="exhibition">Exhibición</label>
+                                    <select class="form-control" id="exhibitionId" name="exhibitionId">
+                                        <option value="" selected>No Asignado</option>
+                                        <option th:each="exhibition : ${exhibitions}" th:text="${exhibition.name}"
+                                            th:value="${exhibition.id}"></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="author">Autor</label>
-                                <input class="form-control" type="text" id="author" name="author" th:field="*{author}"
-                                    placeholder="Autor" />
-                            </div>
-                            <div class="form-group">
-                                <label for="country">País</label>
-                                <input class="form-control" type="text" id="country" name="country"
-                                    th:field="*{country}" placeholder="País" />
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Descripción</label>
-                                <input class="form-control" type="text" id="description" name="description"
-                                    th:field="*{description}" placeholder="Descripción" />
+
+                            <div class="modal-footer">
+                                <button name="submit" class="btn btn-info" type="submit" value="0">Guardar</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
 
-                            <div class="form-group">
-                                <label for="exhibition">Exhibición</label>
-                                <select class="form-control" id="exhibitionId" name="exhibitionId">
-                                    <option value="" selected>No Asignado</option>
-                                    <option th:each="exhibition : ${exhibitions}" th:text="${exhibition.name}"
-                                        th:value="${exhibition.id}"></option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <div class="modal-footer">
-                            <button name="submit" class="btn btn-info" type="submit" value="0">Guardar</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
+                        </form>
 
-
-                    </form>
-
+                    </div>
                 </div>
             </div>
+
+            <table class="table table-bordered table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th> Id </th>
+                        <th> Nombre </th>
+                        <th> Autor </th>
+                        <th> País </th>
+                        <th> Descripción </th>
+                        <th> Exhibición </th>
+                    </tr>
+                </thead>
+                <tbody id="artworks-table">
+                    <tr th:if="${artworks.empty}">
+                        <td colspan="6"> No se ha encontrado ninguna obra. </td>
+                    </tr>
+                    <tr th:each="artwork : ${artworks}">
+                        <td><span th:text="${artwork.id}"></span></td>
+                        <td><span th:text="${artwork.name}"></span></td>
+                        <td><span th:text="${artwork.author}"></span></td>
+                        <td><span th:text="${artwork.country}"></span></td>
+                        <td><span th:text="${artwork.description}"></span></td>
+                        <td th:if="${artwork.exhibition!=null}"><span th:text="${artwork.exhibition?.name}"></span></td>
+                        <td th:if="${artwork.exhibition==null}"><span>No Asignado</span></td>
+                        <td>
+                            <div style="display: inline;" class="icon-container"
+                                th:attr="onclick=|editArtwork('${artwork.toJSON()}')|" data-toggle="modal"
+                                data-target="#creation-modal">
+                                <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
+                            <form style="display: inline;" th:action="@{artwork/delete}" method="post"
+                                th:object="${artwork}">
+                                <input type="hidden" name="id" th:value="*{id}" />
+                                <button style="border: none; background: none;" type="submit" value="Submit"
+                                    class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
+                            </form>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="artworkMedias" class="tabcontent" style="display: none;">
+        <div class="side-tab">
+            <div id="top-divider"></div>
+            <button th:each="artwork : ${artworks}" class="side-tablinks"
+                th:attr="onclick=|changeSideTab(event,'${artwork.getId()}')|" th:text="${artwork.name}">London</button>
         </div>
 
-        <table class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th> Id </th>
-                    <th> Nombre </th>
-                    <th> Autor </th>
-                    <th> País </th>
-                    <th> Descripción </th>
-                    <th> Exhibición </th>
-                </tr>
-            </thead>
-            <tbody id="artworks-table">
-                <tr th:if="${artworks.empty}">
-                    <td colspan="6"> No se ha encontrado ninguna obra. </td>
-                </tr>
-                <tr th:each="artwork : ${artworks}">
-                    <td><span th:text="${artwork.id}"></span></td>
-                    <td><span th:text="${artwork.name}"></span></td>
-                    <td><span th:text="${artwork.author}"></span></td>
-                    <td><span th:text="${artwork.country}"></span></td>
-                    <td><span th:text="${artwork.description}"></span></td>
-                    <td th:if="${artwork.exhibition!=null}"><span th:text="${artwork.exhibition?.name}"></span></td>
-                    <td th:if="${artwork.exhibition==null}"><span>No Asignado</span></td>
-                    <td>
-                        <div style="display: inline;" class="icon-container"
-                            th:attr="onclick=|editArtwork('${artwork.toJSON()}')|" data-toggle="modal"
-                            data-target="#creation-modal">
-                            <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
-                        <form style="display: inline;" th:action="@{artwork/delete}" method="post" th:object="${artwork}">
-                            <input type="hidden" name="id" th:value="*{id}" />
-                            <button style="border: none; background: none;" type="submit" value="Submit"  class="icon-container"><i
-                                    class="fas fa-times" style="color: red;"></i></button>
-                        </form>
-                </tr>
-            </tbody>
-        </table>
+        <div th:each="artwork : ${artworks}" th:id="${artwork.id}" class="side-tabcontent">
+
+
+            <div class="row main-container">
+                <div class="col-sm-6">
+                    <h4>Asignados</h4>
+                </div>
+                <div class="col-sm-6">
+                    <h4>No Asignados</h4>
+                </div>
+                <div id="assigned-media" class="col-sm-6 " ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                    <div th:each="media : ${artwork.media}" class="card" th:id="|media-${artwork.id}-${media.id}|"
+                        draggable="true" ondragstart="drag(event)">
+                        <div class="card-header bg-info">
+                            <p th:text="${media.displayName}"></p>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${media.fileType == 'image'}">
+                                <a type="button" data-toggle="modal"
+                                    th:data-target="|#modal-${artwork.id}-${media.id}|">
+                                    <img th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${artwork.id}-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img th:src="|/img/${media.fileName}.${media.extension}|"
+                                                    alt="Image Not Found"></a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${media.fileType == 'video'}">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
+                                    <img src="/img/default-video.png" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <video height="500" controls>
+                                                    <source th:src="|/video/${media.fileName}.${media.extension}|"
+                                                        type="video/mp4">
+                                                </video>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${media.fileType == 'audio'}">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
+                                    <img src="/img/default-audio.png" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <audio controls>
+                                                    <source th:src="|/audio/${media.fileName}.${media.extension}|"
+                                                        type="audio/mp3">
+                                                </audio>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div id="unassigned-media" class="col-sm-6" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+
+                    <div th:each="media : ${medias}" th:object="${media}" th:if="!${artwork.media.contains(media)}"
+                        class="card" draggable="true" ondragstart="drag(event)"
+                        th:id="|media-${artwork.id}-${media.id}|">
+                        <div class="card-header bg-info">
+                            <p th:text="${media.displayName}"></p>
+                        </div>
+                        <div class="card-body">
+                            <div th:if="${media.fileType == 'image'}">
+                                <a type="button" data-toggle="modal"
+                                    th:data-target="|#modal-${artwork.id}-${media.id}|">
+                                    <img th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${artwork.id}-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img th:src="|/img/${media.fileName}.${media.extension}|"
+                                                    alt="Image Not Found"></a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${media.fileType == 'video'}">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
+                                    <img src="/img/default-video.png" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <video height="500" controls>
+                                                    <source th:src="|/video/${media.fileName}.${media.extension}|"
+                                                        type="video/mp4">
+                                                </video>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div th:if="${media.fileType == 'audio'}">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
+                                    <img src="/img/default-audio.png" alt="Image Not Found"></a>
+
+                                <div class="modal fade" th:id="|modal-${media.id}|">
+
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header">
+                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                                </h4>
+                                                <button type="button" class="close"
+                                                    data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <audio controls>
+                                                    <source th:src="|/audio/${media.fileName}.${media.extension}|"
+                                                        type="audio/mp3">
+                                                </audio>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
+
+
 
 </body>
 

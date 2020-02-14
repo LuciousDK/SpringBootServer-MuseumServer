@@ -2,3 +2,8 @@
     pointer-events: none;
     cursor: default;
  }
+ 
+body {font-family: Arial;
+
+    height: 100%;
+    width: 100%;}

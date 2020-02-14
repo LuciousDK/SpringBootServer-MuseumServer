@@ -121,4 +121,15 @@ public class Administrator implements Serializable {
 		return serialVersionUID;
 	}
 
+	public String toJSON() {
+		String result = "{" + "\"id\":" + this.id +
+						",\"firstName\":\""+this.firstName+
+						"\",\"lastName\":\""+this.lastName+
+						"\",\"username\":\""+this.username+
+						"\",\"email\":\""+this.email+
+						"\"}";
+
+		return result;
+	}
+	
 }

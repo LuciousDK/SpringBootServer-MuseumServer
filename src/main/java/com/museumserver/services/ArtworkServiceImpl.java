@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.repositories.ArtworkRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
+import com.museumserver.entity.repositories.MediaRepository;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
@@ -21,6 +22,9 @@ public class ArtworkServiceImpl implements ArtworkService {
 
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
+
+	@Autowired
+	private MediaRepository mediaRepository;
 
 	@Override
 	public List<Artwork> getArtworks() {
@@ -83,6 +87,29 @@ public class ArtworkServiceImpl implements ArtworkService {
 		if (artworkRepository.existsById(id))
 			return artworkRepository.findById(id).get();
 		return null;
+	}
+
+	@Override
+	public void addMedia(Long artworkId, Long mediaId) {
+
+		Artwork original = artworkRepository.findById(artworkId).get();
+			if(mediaRepository.existsById(mediaId)) {
+				original.getMedia().add((mediaRepository.findById(mediaId).get()));
+			}
+			artworkRepository.save(original);
+		
+		
+	}
+	@Override
+	public void removeMedia(Long artworkId, Long mediaId) {
+
+		Artwork original = artworkRepository.findById(artworkId).get();
+			if(mediaRepository.existsById(mediaId)) {
+				original.getMedia().remove(mediaRepository.findById(mediaId).get());
+			}
+			artworkRepository.save(original);
+		
+		
 	}
 
 }

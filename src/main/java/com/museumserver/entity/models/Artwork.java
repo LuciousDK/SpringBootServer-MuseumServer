@@ -162,5 +162,19 @@ public class Artwork implements Serializable {
 
 		return result;
 	}
+	
+	public String getMediaJSON() {
+		String result = "[";
+		int counter =0;
+		for(Media media : media) {
+			if(counter !=0) {
+				result+=",";
+			}
+			counter++;
+			result +=media.toJSON();
+		}
+		result+="]";
+		return result;
+	}
 
 }
