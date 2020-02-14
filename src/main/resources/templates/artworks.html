@@ -245,10 +245,10 @@
                     </div>
 
                 </div>
-
+                <!-- Modal per Media -->
                 <div th:each="media : ${medias}">
 
-                    <div  class="modal fade" th:id="|modal-${media.id}|">
+                    <div class="modal fade" th:id="|modal-${media.id}|">
 
                         <div class="modal-dialog modal-dialog-centered modal-xl">
                             <div class="modal-content">
@@ -259,8 +259,9 @@
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
                                 <div class="modal-body">
-                                    <img th:if="${media.fileType== 'image'}" th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found">
-                                    <video th:if="${media.fileType== 'video'}"  width="100%"height="auto" controls>
+                                    <img th:if="${media.fileType== 'image'}"
+                                        th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found">
+                                    <video th:if="${media.fileType== 'video'}" width="100%" height="auto" controls>
                                         <source th:src="|/video/${media.fileName}.${media.extension}|" type="video/mp4">
                                     </video>
                                     <audio th:if="${media.fileType== 'audio'}" controls>

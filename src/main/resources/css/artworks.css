@@ -88,7 +88,7 @@ table {
   display: none;
 }
 
-.row{
+.row {
   margin: 0px;
   text-align: center;
 }
@@ -100,19 +100,18 @@ table {
 }
 
 .card-header {
-  padding :0px;
+  padding: 0px;
 }
 
-.card-body{
+.card-body {
   padding: 10px;
 }
-.card-body img{
+.card-body img {
   height: 100px;
 }
 
-.card-header *{
-  margin :0px;
-
+.card-header * {
+  margin: 0px;
 }
 
 #assigned-media {
@@ -128,14 +127,14 @@ table {
   border-right: none;
 }
 
-.modal-body img{
+.modal-body img {
   height: 500px;
 }
-img{
+img {
   max-width: 100%;
-user-select: none;
--moz-user-select: none;
--webkit-user-drag: none;
--webkit-user-select: none;
--ms-user-select: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
 }
