@@ -57,7 +57,7 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-info" data-toggle="modal" data-target="#creation-modal"><span
+                    <button class="btn btn-info" onclick="newArtwork()" data-toggle="modal" data-target="#creation-modal"><span
                             class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
                 </div>
 
@@ -67,11 +67,11 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
-                        <form action="#" class="needs-validation" name="artwork-form" onsubmit="return validateForm()"
-                            th:action="@{/artwork/update}" th:object="${newArtwork}" method="POST" novalidate>
+                        <form action="#" class="needs-validation" name="artwork-form" onsubmit="saveArtwork()"
+                            th:action="@{/artwork}" th:object="${newArtwork}" method="POST" novalidate>
 
                             <div class="modal-header">
-                                <h4 class="modal-title">Nuevo Registro</h4>
+                                <h4 class="modal-title">Editor de Registro</h4>
                                 <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
                             </div>
 

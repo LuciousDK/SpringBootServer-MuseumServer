@@ -84,6 +84,16 @@ public class WebController {
 		return mav;
 	}
 
+	@RequestMapping(value = "archivos", method = RequestMethod.GET)
+	public ModelAndView medias() {
+
+		ModelAndView mav = new ModelAndView("medias");
+		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
+		mav.addObject("newArtwork", new Artwork());
+
+		return mav;
+	}
+
 	@RequestMapping(value = "exhibiciones", method = RequestMethod.GET)
 	public ModelAndView exhibitions() {
 
@@ -91,14 +101,7 @@ public class WebController {
 
 		return mav;
 	}
-
-	@RequestMapping(value = "archivos", method = RequestMethod.GET)
-	public ModelAndView medias() {
-
-		ModelAndView mav = new ModelAndView("medias");
-
-		return mav;
-	}
+	
 	@RequestMapping(value = "balizas", method = RequestMethod.GET)
 	public ModelAndView beacons() {
 
