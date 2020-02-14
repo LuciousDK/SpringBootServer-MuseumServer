@@ -191,81 +191,20 @@
                         </div>
                         <div class="card-body">
                             <div th:if="${media.fileType == 'image'}">
-                                <a type="button" data-toggle="modal"
-                                    th:data-target="|#modal-${artwork.id}-${media.id}|">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found"></a>
-
-                                <div class="modal fade" th:id="|modal-${artwork.id}-${media.id}|">
-
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img th:src="|/img/${media.fileName}.${media.extension}|"
-                                                    alt="Image Not Found"></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div th:if="${media.fileType == 'video'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img src="/img/default-video.png" alt="Image Not Found"></a>
 
-                                <div class="modal fade" th:id="|modal-${media.id}|">
 
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <video height="500" controls>
-                                                    <source th:src="|/video/${media.fileName}.${media.extension}|"
-                                                        type="video/mp4">
-                                                </video>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div th:if="${media.fileType == 'audio'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img src="/img/default-audio.png" alt="Image Not Found"></a>
 
-                                <div class="modal fade" th:id="|modal-${media.id}|">
 
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <audio controls>
-                                                    <source th:src="|/audio/${media.fileName}.${media.extension}|"
-                                                        type="audio/mp3">
-                                                </audio>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
@@ -283,87 +222,60 @@
                         </div>
                         <div class="card-body">
                             <div th:if="${media.fileType == 'image'}">
-                                <a type="button" data-toggle="modal"
-                                    th:data-target="|#modal-${artwork.id}-${media.id}|">
+                                <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found"></a>
 
-                                <div class="modal fade" th:id="|modal-${artwork.id}-${media.id}|">
 
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <img th:src="|/img/${media.fileName}.${media.extension}|"
-                                                    alt="Image Not Found"></a>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div th:if="${media.fileType == 'video'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img src="/img/default-video.png" alt="Image Not Found"></a>
 
-                                <div class="modal fade" th:id="|modal-${media.id}|">
 
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <video height="500" controls>
-                                                    <source th:src="|/video/${media.fileName}.${media.extension}|"
-                                                        type="video/mp4">
-                                                </video>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <div th:if="${media.fileType == 'audio'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                                     <img src="/img/default-audio.png" alt="Image Not Found"></a>
 
-                                <div class="modal fade" th:id="|modal-${media.id}|">
 
-                                    <div class="modal-dialog modal-dialog-centered modal-xl">
-                                        <div class="modal-content">
-
-                                            <div class="modal-header">
-                                                <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
-                                                </h4>
-                                                <button type="button" class="close"
-                                                    data-dismiss="modal">&times;</button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <audio controls>
-                                                    <source th:src="|/audio/${media.fileName}.${media.extension}|"
-                                                        type="audio/mp3">
-                                                </audio>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
 
                         </div>
 
                     </div>
+
                 </div>
+                <!-- Modal per Media -->
+                <div th:each="media : ${medias}">
+
+                    <div class="modal fade" th:id="|modal-${media.id}|">
+
+                        <div class="modal-dialog modal-dialog-centered modal-xl">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                                    </h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <img th:if="${media.fileType== 'image'}"
+                                        th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found">
+                                    <video th:if="${media.fileType== 'video'}" width="100%" height="auto" controls>
+                                        <source th:src="|/video/${media.fileName}.${media.extension}|" type="video/mp4">
+                                    </video>
+                                    <audio th:if="${media.fileType== 'audio'}" controls>
+                                        <source th:src="|/audio/${media.fileName}.${media.extension}|" type="audio/mp3">
+                                    </audio>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
             </div>
 
         </div>

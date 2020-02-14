@@ -1,35 +1,35 @@
-$(document).ready(function(){
-    $("#search-bar").on("keyup", function() {
-      var value = $(this).val().toLowerCase();
-      $("#artworks-table tr").filter(function() {
-        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-      });
+$(document).ready(function() {
+  $("#search-bar").on("keyup", function() {
+    var value = $(this)
+      .val()
+      .toLowerCase();
+    $("#artworks-table tr").filter(function() {
+      $(this).toggle(
+        $(this)
+          .text()
+          .toLowerCase()
+          .indexOf(value) > -1
+      );
     });
   });
+});
 
-function editArtwork(artwork){
- var artworkJSON = JSON.parse(artwork);
- var form = document.forms["artwork-form"];
- form["id"].value = artworkJSON.id;
- form["name"].value = artworkJSON.name;
+function editArtwork(artwork) {
+  var artworkJSON = JSON.parse(artwork);
+  var form = document.forms["artwork-form"];
+  form["id"].value = artworkJSON.id;
+  form["name"].value = artworkJSON.name;
 
- if(artworkJSON.author=="null")
-  form["author"].value = "";
- else
-  form["author"].value = artworkJSON.author;
+  if (artworkJSON.author == "null") form["author"].value = "";
+  else form["author"].value = artworkJSON.author;
 
- if(artworkJSON.country=="null")
-  form["country"].value = "";
- else
- form["country"].value = artworkJSON.country;
+  if (artworkJSON.country == "null") form["country"].value = "";
+  else form["country"].value = artworkJSON.country;
 
- if( artworkJSON.description=="null")
-  form["description"].value ="";
- else
-  form["description"].value= artworkJSON.description;
+  if (artworkJSON.description == "null") form["description"].value = "";
+  else form["description"].value = artworkJSON.description;
 
- form["exhibitionId"].value = artworkJSON.exhibitionId;
- 
+  form["exhibitionId"].value = artworkJSON.exhibitionId;
 }
 
 function changeTab(evt, tabName) {
@@ -60,10 +60,10 @@ function changeSideTab(evt, sideTabName) {
   evt.currentTarget.className += " active";
 }
 
-
 function allowDrop(ev) {
-  if(ev.target.id=="assigned-media"||ev.target.id=="unassigned-media"){
-  ev.preventDefault();}
+  if (ev.target.id == "assigned-media" || ev.target.id == "unassigned-media") {
+    ev.preventDefault();
+  }
 }
 
 function drag(ev) {
@@ -73,22 +73,23 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   var data = ev.dataTransfer.getData("text");
-  var card =document.getElementById(data)
+  var card = document.getElementById(data);
   ev.target.appendChild(card);
-  if(ev.target.id =="assigned-media"){
+  if (ev.target.id == "assigned-media") {
     var artworkId = card.id.split("-")[1];
-    var mediaId= card.id.split("-")[2];
-    addMedia(artworkId,mediaId);
+    var mediaId = card.id.split("-")[2];
+    addMedia(artworkId, mediaId);
   }
-  if(ev.target.id =="unassigned-media"){
+  if (ev.target.id == "unassigned-media") {
     var artworkId = card.id.split("-")[1];
-    var mediaId= card.id.split("-")[2];
-    removeMedia(artworkId,mediaId);
+    var mediaId = card.id.split("-")[2];
+    removeMedia(artworkId, mediaId);
   }
 }
-function removeMedia(artworkId, mediaId){
+
+function removeMedia(artworkId, mediaId) {
   var http = new XMLHttpRequest();
-  var url = apiUrl+"/artwork/removeMedia";
+  var url = apiUrl + "/artwork/removeMedia";
   var formData = new FormData();
 
   formData.append("artworkId", artworkId);
@@ -96,9 +97,10 @@ function removeMedia(artworkId, mediaId){
   http.open("POST", url, true);
   http.send(formData);
 }
-function addMedia(artworkId, mediaId){
+
+function addMedia(artworkId, mediaId) {
   var http = new XMLHttpRequest();
-  var url = apiUrl+"/artwork/addMedia";
+  var url = apiUrl + "/artwork/addMedia";
   var formData = new FormData();
 
   formData.append("artworkId", artworkId);
