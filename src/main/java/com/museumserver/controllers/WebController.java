@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.museumserver.entity.models.Artwork;
+import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.repositories.AdministratorRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
 import com.museumserver.entity.repositories.BeaconModificationRepository;
@@ -44,42 +45,66 @@ public class WebController {
 
 	@Autowired
 	private MediaModificationRepository mediaModificationRepository;
-	
-	@GetMapping({"/","login"})
+
+	@GetMapping({ "/", "login" })
 	public String login() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
-		    return "redirect:index";
+			return "redirect:index";
 		}
 		return "login";
 	}
-	
-	 @RequestMapping(value = "index", method = RequestMethod.GET)
-	    public ModelAndView index() {
-		 
-		 	HashMap<String,Long> quantities = new HashMap<String, Long>();
-		 	quantities.put("obras", artworkRepository.count());
-		 	quantities.put("exhibiciones", exhibitionRepository.count());
-		 	quantities.put("administradores", administratorRepository.count());
-		 	quantities.put("beacons", beaconRepository.count());
-		 	quantities.put("media", mediaRepository.count());
-		 
-	        ModelAndView mav = new ModelAndView("index");
-	        mav.addObject("cantidades", quantities);
-	        return mav;
-	    }
-	 
-	 @RequestMapping(value = "obras", method = RequestMethod.GET)
-	    public ModelAndView artworks() {
-		 
-	        ModelAndView mav = new ModelAndView("artworks");
-	        mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
-	        mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
-	        mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
 
-	        mav.addObject("newArtwork", new Artwork());
-	        return mav;
-	    }
+	@RequestMapping(value = "index", method = RequestMethod.GET)
+	public ModelAndView index() {
+
+		HashMap<String, Long> quantities = new HashMap<String, Long>();
+		quantities.put("obras", artworkRepository.count());
+		quantities.put("exhibiciones", exhibitionRepository.count());
+		quantities.put("administradores", administratorRepository.count());
+		quantities.put("beacons", beaconRepository.count());
+		quantities.put("media", mediaRepository.count());
+
+		ModelAndView mav = new ModelAndView("index");
+		mav.addObject("cantidades", quantities);
+		return mav;
+	}
+
+	@RequestMapping(value = "obras", method = RequestMethod.GET)
+	public ModelAndView artworks() {
+
+		ModelAndView mav = new ModelAndView("artworks");
+		mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
+		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
+		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
+
+		mav.addObject("newArtwork", new Artwork());
+		return mav;
+	}
+
+	@RequestMapping(value = "exhibiciones", method = RequestMethod.GET)
+	public ModelAndView exhibitions() {
+
+		ModelAndView mav = new ModelAndView("exhibitions");
+
+		return mav;
+	}
+
+	@RequestMapping(value = "archivos", method = RequestMethod.GET)
+	public ModelAndView medias() {
+
+		ModelAndView mav = new ModelAndView("medias");
+
+		return mav;
+	}
+	@RequestMapping(value = "balizas", method = RequestMethod.GET)
+	public ModelAndView beacons() {
+
+		ModelAndView mav = new ModelAndView("beacons");
+
+		return mav;
+	}
+
 }
