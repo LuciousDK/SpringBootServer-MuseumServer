@@ -61,8 +61,8 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
-                    <form action="#" class="needs-validation" name="media-form"
-                        th:action="@{/media}" th:object="${newMedia}" onsubmit="submitForm()" method="POST" novalidate>
+                    <form action="#" class="needs-validation" name="media-form" enctype="multipart/form-data"
+                        th:object="${newMedia}" onsubmit="submitForm(event)" novalidate>
 
                         <div class="modal-header">
                             <h4 class="modal-title">Editar Registro</h4>
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="file" id="file" name="file" accept=".mav,.jpg,.jpeg,.png,.mp4,.mp3,.mov"/>
+                                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" />
                             </div>
                         </div>
 
@@ -116,9 +116,12 @@
                     <td><span th:text="${media.id}"></span></td>
                     <td><span th:text="${media.displayName}"></span></td>
                     <td>
-                        <span th:if="${media.fileType == 'image'}" th:text="|/img/${media.fileName}.${media.extension}|"></span>
-                        <span th:if="${media.fileType == 'video'}" th:text="|/video/${media.fileName}.${media.extension}|"></span>
-                        <span th:if="${media.fileType == 'audio'}" th:text="|/audio/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'image'}"
+                            th:text="|/img/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'video'}"
+                            th:text="|/video/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'audio'}"
+                            th:text="|/audio/${media.fileName}.${media.extension}|"></span>
                     </td>
                     <td>
                         <span th:if="${media.fileType == 'image'}"> Imagen </span>
@@ -130,12 +133,10 @@
                             th:attr="onclick=|editArtwork('${media.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
                             <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
-                        <form style="display: inline;" th:action="@{media/delete}" method="post"
-                            th:object="${media}">
-                            <input type="hidden" name="id" th:value="*{id}" />
-                            <button style="border: none; background: none;" type="submit" value="Submit"
-                                class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
-                        </form>
+
+                        <button th:onclick="|deleteMedia(${media.id})|"style="border: none; background: none;" type="submit" value="Submit"
+                            class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
+
                 </tr>
             </tbody>
         </table>
