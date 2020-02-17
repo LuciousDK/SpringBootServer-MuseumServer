@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.Exhibition;
+import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.AdministratorRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
 import com.museumserver.entity.repositories.BeaconModificationRepository;
@@ -89,7 +90,7 @@ public class WebController {
 
 		ModelAndView mav = new ModelAndView("medias");
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
-		mav.addObject("newArtwork", new Artwork());
+		mav.addObject("newMedia", new Media());
 
 		return mav;
 	}

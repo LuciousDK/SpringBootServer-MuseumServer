@@ -61,11 +61,11 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
 
-                    <form action="#" class="needs-validation" name="artwork-form" onsubmit="return validateForm()"
-                        th:action="@{/artwork/update}" th:object="${newArtwork}" method="POST" novalidate>
+                    <form action="#" class="needs-validation" name="media-form"
+                        th:action="@{/media}" th:object="${newMedia}" onsubmit="submitForm()" method="POST" novalidate>
 
                         <div class="modal-header">
-                            <h4 class="modal-title">Nuevo Registro</h4>
+                            <h4 class="modal-title">Editar Registro</h4>
                             <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
                         </div>
 
@@ -76,35 +76,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="name">Nombre</label>
-                                <input class="form-control" type="text" id="name" name="name" th:field="*{name}"
+                                <input class="form-control" type="text" id="name" name="name" th:field="*{displayName}"
                                     placeholder="Introducir Nombre" required />
                                 <div class="invalid-feedback">
                                     Debe introducir un nombre.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="author">Autor</label>
-                                <input class="form-control" type="text" id="author" name="author"
-                                    th:field="*{author}" placeholder="Autor" />
-                            </div>
-                            <div class="form-group">
-                                <label for="country">País</label>
-                                <input class="form-control" type="text" id="country" name="country"
-                                    th:field="*{country}" placeholder="País" />
-                            </div>
-                            <div class="form-group">
-                                <label for="description">Descripción</label>
-                                <input class="form-control" type="text" id="description" name="description"
-                                    th:field="*{description}" placeholder="Descripción" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="exhibition">Exhibición</label>
-                                <select class="form-control" id="exhibitionId" name="exhibitionId">
-                                    <option value="" selected>No Asignado</option>
-                                    <option th:each="exhibition : ${exhibitions}" th:text="${exhibition.name}"
-                                        th:value="${exhibition.id}"></option>
-                                </select>
+                                <input type="file" id="file" name="file" accept=".mav,.jpg,.jpeg,.png,.mp4,.mp3,.mov"/>
                             </div>
                         </div>
 
@@ -125,31 +104,34 @@
                 <tr>
                     <th> Id </th>
                     <th> Nombre </th>
-                    <th> Autor </th>
-                    <th> País </th>
-                    <th> Descripción </th>
-                    <th> Exhibición </th>
+                    <th> Ubicación </th>
+                    <th> Tipo </th>
                 </tr>
             </thead>
-            <tbody id="artworks-table">
-                <tr th:if="${artworks.empty}">
-                    <td colspan="6"> No se ha encontrado ninguna obra. </td>
+            <tbody id="medias-table">
+                <tr th:if="${medias.empty}">
+                    <td colspan="4"> No se ha encontrado ningún archivo. </td>
                 </tr>
-                <tr th:each="artwork : ${artworks}">
-                    <td><span th:text="${artwork.id}"></span></td>
-                    <td><span th:text="${artwork.name}"></span></td>
-                    <td><span th:text="${artwork.author}"></span></td>
-                    <td><span th:text="${artwork.country}"></span></td>
-                    <td><span th:text="${artwork.description}"></span></td>
-                    <td th:if="${artwork.exhibition!=null}"><span th:text="${artwork.exhibition?.name}"></span></td>
-                    <td th:if="${artwork.exhibition==null}"><span>No Asignado</span></td>
+                <tr th:each="media : ${medias}">
+                    <td><span th:text="${media.id}"></span></td>
+                    <td><span th:text="${media.displayName}"></span></td>
+                    <td>
+                        <span th:if="${media.fileType == 'image'}" th:text="|/img/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'video'}" th:text="|/video/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'audio'}" th:text="|/audio/${media.fileName}.${media.extension}|"></span>
+                    </td>
+                    <td>
+                        <span th:if="${media.fileType == 'image'}"> Imagen </span>
+                        <span th:if="${media.fileType == 'video'}"> Video</span>
+                        <span th:if="${media.fileType == 'audio'}"> Audio </span>
+                    </td>
                     <td>
                         <div style="display: inline;" class="icon-container"
-                            th:attr="onclick=|editArtwork('${artwork.toJSON()}')|" data-toggle="modal"
+                            th:attr="onclick=|editArtwork('${media.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
                             <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
-                        <form style="display: inline;" th:action="@{artwork/delete}" method="post"
-                            th:object="${artwork}">
+                        <form style="display: inline;" th:action="@{media/delete}" method="post"
+                            th:object="${media}">
                             <input type="hidden" name="id" th:value="*{id}" />
                             <button style="border: none; background: none;" type="submit" value="Submit"
                                 class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
