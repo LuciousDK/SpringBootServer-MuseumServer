@@ -129,11 +129,11 @@
                 <tr th:if="${medias.empty}">
                     <td colspan="4"> No se ha encontrado ningún archivo. </td>
                 </tr>
-                <tr th:each="media : ${medias}" data-toggle="modal" th:data-target="|#modal-${media.id}|"
+                <tr th:each="media : ${medias}" 
                     th:object="${media}">
-                    <td><span th:text="${media.id}"></span></td>
-                    <td><span th:text="${media.displayName}"></span></td>
-                    <td>
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span th:text="${media.id}"></span></td>
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span th:text="${media.displayName}"></span></td>
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                         <span th:if="${media.fileType == 'image'}"
                             th:text="|/img/${media.fileName}.${media.extension}|"></span>
                         <span th:if="${media.fileType == 'video'}"
@@ -141,16 +141,16 @@
                         <span th:if="${media.fileType == 'audio'}"
                             th:text="|/audio/${media.fileName}.${media.extension}|"></span>
                     </td>
-                    <td>
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                         <span th:if="${media.fileType == 'image'}"> Imagen </span>
                         <span th:if="${media.fileType == 'video'}"> Video</span>
                         <span th:if="${media.fileType == 'audio'}"> Audio </span>
                     </td>
                     <td>
-                        <div style="display: inline;" class="icon-container"
+                        <button style="display: inline;border: none; background: none;" class="icon-container"
                             th:attr="onclick=|editMedia('${media.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
-                            <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
+                            <img class="edit-icon" th:src="@{/img/edit-icon.png}"></button>
 
                         <button th:onclick="|deleteMedia(${media.id})|" style="border: none; background: none;"
                             type="submit" value="Submit" class="icon-container"><i class="fas fa-times"
