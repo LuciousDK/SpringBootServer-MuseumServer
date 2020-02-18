@@ -38,12 +38,20 @@
             <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
             <li class="nav-item active inactiveLink"><a class="nav-link" href="archivos">Archivos</a></li>
         </ul>
-        <div class="ml-auto">
-            <a class="btn btn-dark" href="#"><i class="fas fa-plus"></i>
-                Nuevo Admin</a>
-            <a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
-                Salir</a>
-        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    Aministradores
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
+                    <a class="dropdown-item" ><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
+                    Salir</a></li>
+        </ul>
     </nav>
 
 
@@ -51,8 +59,8 @@
 
         <div class="input-group">
             <div class="input-group-prepend">
-                <button class="btn btn-info" data-toggle="modal" onclick="resetForm()"data-target="#creation-modal"><span
-                        class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+                <button class="btn btn-info" data-toggle="modal" onclick="resetForm()"
+                    data-target="#creation-modal"><span class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
             </div>
 
             <input class="form-control" id="search-bar" type="text" placeholder="Search..">
@@ -73,9 +81,12 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}" />
-                                <input class="form-control" type="hidden" id="fileName" name="fileName" th:field="*{fileName}" />
-                                <input class="form-control" type="hidden" id="extension" name="extension" th:field="*{extension}" />
-                                <input class="form-control" type="hidden" id="fileType" name="fileType" th:field="*{fileType}" />
+                                <input class="form-control" type="hidden" id="fileName" name="fileName"
+                                    th:field="*{fileName}" />
+                                <input class="form-control" type="hidden" id="extension" name="extension"
+                                    th:field="*{extension}" />
+                                <input class="form-control" type="hidden" id="fileType" name="fileType"
+                                    th:field="*{fileType}" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Nombre</label>
@@ -118,8 +129,8 @@
                 <tr th:if="${medias.empty}">
                     <td colspan="4"> No se ha encontrado ningún archivo. </td>
                 </tr>
-                <tr th:each="media : ${medias}" data-toggle="modal"
-                th:data-target="|#modal-${media.id}|" th:object="${media}">
+                <tr th:each="media : ${medias}" data-toggle="modal" th:data-target="|#modal-${media.id}|"
+                    th:object="${media}">
                     <td><span th:text="${media.id}"></span></td>
                     <td><span th:text="${media.displayName}"></span></td>
                     <td>
@@ -141,8 +152,9 @@
                             data-target="#creation-modal">
                             <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
 
-                        <button th:onclick="|deleteMedia(${media.id})|"style="border: none; background: none;" type="submit" value="Submit"
-                            class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
+                        <button th:onclick="|deleteMedia(${media.id})|" style="border: none; background: none;"
+                            type="submit" value="Submit" class="icon-container"><i class="fas fa-times"
+                                style="color: red;"></i></button>
 
                 </tr>
             </tbody>

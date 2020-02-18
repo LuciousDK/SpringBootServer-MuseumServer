@@ -27,8 +27,8 @@
 </head>
 
 <body>
-	<nav class="navbar  navbar-expand-sm bg-dark navbar-dark">
-		<a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
+    <nav class="navbar  navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
 
 		<ul class="navbar-nav">
 			<li class="nav-item active inactiveLink"><a class="nav-link" href="#">Inicio</a></li>
@@ -37,13 +37,24 @@
             <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
 			<li class="nav-item"><a class="nav-link" href="archivos">Archivos</a></li>
 		</ul>
-		<div class="ml-auto">
-		<a class="btn btn-dark" href="#"><i class="fas fa-plus"></i>
-			Nuevo Admin</a>
-		<a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
-			Salir</a>
-		</div>
-	</nav>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+                    Aministradores
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" ><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
+                    <a class="dropdown-item" ><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
+                    Salir</a></li>
+        </ul>
+    </nav>
+
+
+
 </body>
 
 </html>
