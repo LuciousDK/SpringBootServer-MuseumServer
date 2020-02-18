@@ -151,7 +151,7 @@ public class Media implements Serializable {
 		String result ="{" + "\"id\":" +this.id +
 				",\"displayName\":\""+this.displayName+
 				"\",\"fileName\":\""+this.fileName+
-				"\",\"fileExtension\":\""+this.extension+
+				"\",\"extension\":\""+this.extension+
 				"\",\"fileType\":\""+this.fileType+
 				"\"}";
 		return result;

@@ -51,7 +51,7 @@
 
         <div class="input-group">
             <div class="input-group-prepend">
-                <button class="btn btn-info" data-toggle="modal" data-target="#creation-modal"><span
+                <button class="btn btn-info" data-toggle="modal" onclick="resetForm()"data-target="#creation-modal"><span
                         class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
             </div>
 
@@ -73,6 +73,9 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}" />
+                                <input class="form-control" type="hidden" id="fileName" name="fileName" th:field="*{fileName}" />
+                                <input class="form-control" type="hidden" id="extension" name="extension" th:field="*{extension}" />
+                                <input class="form-control" type="hidden" id="fileType" name="fileType" th:field="*{fileType}" />
                             </div>
                             <div class="form-group">
                                 <label for="name">Nombre</label>
@@ -83,7 +86,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" />
+                                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" required />
+                                <div class="invalid-feedback">
+                                    Debe seleccionar un archivo.
+                                </div>
                             </div>
                         </div>
 
@@ -112,7 +118,8 @@
                 <tr th:if="${medias.empty}">
                     <td colspan="4"> No se ha encontrado ningún archivo. </td>
                 </tr>
-                <tr th:each="media : ${medias}">
+                <tr th:each="media : ${medias}" data-toggle="modal"
+                th:data-target="|#modal-${media.id}|" th:object="${media}">
                     <td><span th:text="${media.id}"></span></td>
                     <td><span th:text="${media.displayName}"></span></td>
                     <td>
@@ -130,7 +137,7 @@
                     </td>
                     <td>
                         <div style="display: inline;" class="icon-container"
-                            th:attr="onclick=|editArtwork('${media.toJSON()}')|" data-toggle="modal"
+                            th:attr="onclick=|editMedia('${media.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
                             <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
 
@@ -140,6 +147,35 @@
                 </tr>
             </tbody>
         </table>
+        <div th:each="media : ${medias}">
+
+            <div class="modal fade" th:id="|modal-${media.id}|">
+
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <img th:if="${media.fileType== 'image'}"
+                                th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found">
+                            <video th:if="${media.fileType== 'video'}" width="100%" height="auto" controls>
+                                <source th:src="|/video/${media.fileName}.${media.extension}|" type="video/mp4">
+                            </video>
+                            <audio th:if="${media.fileType== 'audio'}" controls>
+                                <source th:src="|/audio/${media.fileName}.${media.extension}|" type="audio/mp3">
+                            </audio>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
     </div>
 
 </body>
