@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Editar Exhibiciones</title>
+
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
+    <script type="text/javascript" th:src="@{/js/global.js}"></script>
+
+    <script type="text/javascript" th:src="@{/js/medias.js}"></script>
+
+    <link rel="stylesheet" type="text/css" href="css/global.css" th:href="@{/css/global.css}">
+
+    <link rel="stylesheet" type="text/css" href="css/medias.css" th:href="@{/css/medias.css}">
+
+</head>
+
+<body>
+
+    <nav class="navbar  navbar-expand-sm bg-dark navbar-dark">
+        <a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="obras">Obras</a></li>
+            <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
+            <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
+            <li class="nav-item active inactiveLink"><a class="nav-link" href="archivos">Archivos</a></li>
+        </ul>
+        <div class="ml-auto">
+            <a class="btn btn-dark" href="#"><i class="fas fa-plus"></i>
+                Nuevo Admin</a>
+            <a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
+                Salir</a>
+        </div>
+    </nav>
+
+
+    <div class="container mt-3">
+
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <button class="btn btn-info" data-toggle="modal" onclick="resetForm()"data-target="#creation-modal"><span
+                        class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+            </div>
+
+            <input class="form-control" id="search-bar" type="text" placeholder="Search..">
+        </div>
+        <div class="modal fade" id="creation-modal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+                    <form action="#" class="needs-validation" name="media-form" enctype="multipart/form-data"
+                        th:object="${newMedia}" onsubmit="submitForm(event)" novalidate>
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Editar Registro</h4>
+                            <button type="button" class="close ml-auto" data-dismiss="modal">&times;</button>
+                        </div>
+
+
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <input class="form-control" type="hidden" id="id" name="id" th:field="*{id}" />
+                                <input class="form-control" type="hidden" id="fileName" name="fileName" th:field="*{fileName}" />
+                                <input class="form-control" type="hidden" id="extension" name="extension" th:field="*{extension}" />
+                                <input class="form-control" type="hidden" id="fileType" name="fileType" th:field="*{fileType}" />
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Nombre</label>
+                                <input class="form-control" type="text" id="name" name="name" th:field="*{displayName}"
+                                    placeholder="Introducir Nombre" required />
+                                <div class="invalid-feedback">
+                                    Debe introducir un nombre.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" id="file" name="file" accept="image/*,video/*,audio/*" required />
+                                <div class="invalid-feedback">
+                                    Debe seleccionar un archivo.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button name="submit" class="btn btn-info" type="submit" value="0">Guardar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th> Id </th>
+                    <th> Nombre </th>
+                    <th> Ubicación </th>
+                    <th> Tipo </th>
+                </tr>
+            </thead>
+            <tbody id="medias-table">
+                <tr th:if="${medias.empty}">
+                    <td colspan="4"> No se ha encontrado ningún archivo. </td>
+                </tr>
+                <tr th:each="media : ${medias}" data-toggle="modal"
+                th:data-target="|#modal-${media.id}|" th:object="${media}">
+                    <td><span th:text="${media.id}"></span></td>
+                    <td><span th:text="${media.displayName}"></span></td>
+                    <td>
+                        <span th:if="${media.fileType == 'image'}"
+                            th:text="|/img/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'video'}"
+                            th:text="|/video/${media.fileName}.${media.extension}|"></span>
+                        <span th:if="${media.fileType == 'audio'}"
+                            th:text="|/audio/${media.fileName}.${media.extension}|"></span>
+                    </td>
+                    <td>
+                        <span th:if="${media.fileType == 'image'}"> Imagen </span>
+                        <span th:if="${media.fileType == 'video'}"> Video</span>
+                        <span th:if="${media.fileType == 'audio'}"> Audio </span>
+                    </td>
+                    <td>
+                        <div style="display: inline;" class="icon-container"
+                            th:attr="onclick=|editMedia('${media.toJSON()}')|" data-toggle="modal"
+                            data-target="#creation-modal">
+                            <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
+
+                        <button th:onclick="|deleteMedia(${media.id})|"style="border: none; background: none;" type="submit" value="Submit"
+                            class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
+
+                </tr>
+            </tbody>
+        </table>
+        <div th:each="media : ${medias}">
+
+            <div class="modal fade" th:id="|modal-${media.id}|">
+
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                    <div class="modal-content">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title" th:text="${media.displayName}">Modal Heading
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <img th:if="${media.fileType== 'image'}"
+                                th:src="|/img/${media.fileName}.${media.extension}|" alt="Image Not Found">
+                            <video th:if="${media.fileType== 'video'}" width="100%" height="auto" controls>
+                                <source th:src="|/video/${media.fileName}.${media.extension}|" type="video/mp4">
+                            </video>
+                            <audio th:if="${media.fileType== 'audio'}" controls>
+                                <source th:src="|/audio/${media.fileName}.${media.extension}|" type="audio/mp3">
+                            </audio>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

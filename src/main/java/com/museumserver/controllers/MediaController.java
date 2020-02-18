@@ -1,5 +1,9 @@
 package com.museumserver.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.museumserver.entity.models.DataViews;
@@ -37,8 +42,10 @@ public class MediaController {
 	}
 
 	@PostMapping("/media")
-	public void addMedia(Media media) {
-		mediaService.addMedia(media);
+	public void addMedia(Media media, @RequestParam("file") MultipartFile file) {
+		mediaService.addMedia(media, file);
+		
+
 	}
 
 	@PutMapping("/media")
@@ -50,6 +57,5 @@ public class MediaController {
 	public void removeMedia(@RequestParam("id") Long id) {
 		mediaService.deleteMedia(id);
 	}
-	
 
 }

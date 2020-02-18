@@ -1,0 +1,23 @@
+.edit-icon {
+  width: 20px;
+  height: 20px;
+}
+table {
+  margin-top: 20px;
+}
+tr:hover{
+  cursor:pointer;
+}
+
+.modal{
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

@@ -1,3 +1,5 @@
+
+
 $(document).ready(function() {
   $("#search-bar").on("keyup", function() {
     var value = $(this)
@@ -14,7 +16,19 @@ $(document).ready(function() {
   });
 });
 
+function newArtwork() {
+  resetForm();
+  var form = document.forms["artwork-form"];
+  form["id"].value = null;
+  form["name"].value = "";
+  form["author"].value = "";
+  form["country"].value = "";
+  form["description"].value = "";
+  form["exhibitionId"].value = "";
+}
+
 function editArtwork(artwork) {
+  resetForm()
   var artworkJSON = JSON.parse(artwork);
   var form = document.forms["artwork-form"];
   form["id"].value = artworkJSON.id;
@@ -30,6 +44,10 @@ function editArtwork(artwork) {
   else form["description"].value = artworkJSON.description;
 
   form["exhibitionId"].value = artworkJSON.exhibitionId;
+}
+
+function resetForm(){
+  document.forms["artwork-form"].classList.remove("was-validated");
 }
 
 function changeTab(evt, tabName) {
