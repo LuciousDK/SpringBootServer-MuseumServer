@@ -1,9 +1,15 @@
 package com.museumserver.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.MediaRepository;
@@ -27,14 +33,59 @@ public class MediaServiceImpl implements MediaService {
 
 	@Override
 	public void deleteMedia(long id) {
+		Media original = mediaRepository.findById(id).get();
+		String location = "src/main/resources/";
+		if(original.getFileType().equals("image")) {
+			location += "img/";
+		}
+		if(original.getFileType().equals("video")) {
+			location += "video/";
+		}
+		if(original.getFileType().equals("audio")) {
+			location += "audio/";
+		}
+		location += original.getFileName()+"."+original.getExtension();
+		new File(location).delete();
+		
 
 		mediaRepository.deleteById(id);
 
 	}
 
 	@Override
-	public Media addMedia(Media media) {
+	public Media addMedia(Media media, MultipartFile file) {
 
+		if (file.isEmpty()) {
+
+		}
+
+		try {
+
+			byte[] bytes = file.getBytes();
+
+			Path path = null;
+			
+			if (media.getFileType().equals("image")) {
+				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
+						.replace("target/classes/", "src/main/resources/") + "img/" + file.getOriginalFilename());
+			}
+			
+			if (media.getFileType().contentEquals("video")) {
+				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
+						.replace("target/classes/", "src/main/resources/") + "video/" + file.getOriginalFilename());
+			}
+			
+			if (media.getFileType().contentEquals("audio")) {
+				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
+						.replace("target/classes/", "src/main/resources/") + "audio/" + file.getOriginalFilename());
+			}
+			
+			Files.write(path, bytes);
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		return mediaRepository.save(media);
 
 	}

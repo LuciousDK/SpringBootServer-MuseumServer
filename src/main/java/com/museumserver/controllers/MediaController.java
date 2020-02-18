@@ -43,22 +43,9 @@ public class MediaController {
 	}
 
 	@PostMapping("/media")
-	public void addMedia(Media media, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-		mediaService.addMedia(media);
-		if (file.isEmpty()) {
-
-		}
-
-		try {
-
-			byte[] bytes = file.getBytes();
-			Path path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
-					.replace("target/classes/", "src/main/resources/") + "img/" + file.getOriginalFilename());
-			Files.write(path, bytes);
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void addMedia(Media media, @RequestParam("file") MultipartFile file) {
+		mediaService.addMedia(media, file);
+		
 
 	}
 
