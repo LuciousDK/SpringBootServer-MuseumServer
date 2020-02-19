@@ -126,3 +126,4 @@ function addMedia(artworkId, mediaId) {
   http.open("POST", url, true);
   http.send(formData);
 }
+

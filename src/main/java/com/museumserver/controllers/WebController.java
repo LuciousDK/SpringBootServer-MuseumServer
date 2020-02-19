@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.museumserver.entity.models.Artwork;
+import com.museumserver.entity.models.DataCount;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.AdministratorRepository;
@@ -119,6 +120,24 @@ public class WebController {
 		return mav;
 	}
 
+	@RequestMapping(value = "obras/informe", method = RequestMethod.GET)
+	public ModelAndView artworksReport() {
+
+		ModelAndView mav = new ModelAndView("reports/artworksReport");
+		mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
+
+		return mav;
+	}
+
+	@RequestMapping(value = "archivos/informe", method = RequestMethod.GET)
+	public ModelAndView mediasReport() {
+
+		ModelAndView mav = new ModelAndView("reports/mediasReport");
+		mav.addObject("medias", mediaRepository.findAll());
+		mav.addObject("count", mediaRepository.getCountOfType());
+
+		return mav;
+	}
 
 
 }

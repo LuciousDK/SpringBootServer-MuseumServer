@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        * {
+            -webkit-print-color-adjust: exact;
+        }
+
+        #header {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            display: block !important;
+            font-size: 20px;
+            background-color: rgb(0, 182, 191);
+        }
+    </style>
+
+
+    <script type="text/javascript" th:inline="javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(drawChart);
+
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            var json = "[";
+
+            /*[# th:each="artwork : ${artworks}"]*/
+            json += '{"name":"' + '[(${artwork.getName()})]' + '",' +
+                '"quantity":"' + '[(${artwork.media.size()})]' + '"}' + ","
+
+            /*[/]*/
+            json += "]"
+            json = json.replace(',]', ']')
+            json = JSON.parse(json)
+
+            data.addColumn('string', 'Obras');
+            data.addColumn('number', 'Cantidad de Archivos');
+            var array;
+            for (var i = 0; i < json.length; i++) {
+                data.addRows([
+                    [json[i].name, Number(json[i].quantity)]
+                ]);
+            }
+
+
+            var options = {
+                title: 'Cantidad de Archivos Asociados a Cada Obra',
+                height: '500',
+                width: '1000'
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+
+        }
+    </script>
+    <title>
+        Informe de Obras
+    </title>
+</head>
+
+<body>
+    <div class="row" id="header">
+        <h1>Informe de Obras</h1>
+    </div>
+    <table class="table table-bordered table-striped mt-5">
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Nombre </th>
+                <th> Autor </th>
+                <th> País </th>
+                <th> Descripción </th>
+                <th> Exhibición </th>
+            </tr>
+        </thead>
+        <tbody id="artworks-table">
+            <tr th:if="${artworks.empty}">
+                <td colspan="6"> No se ha encontrado ninguna obra. </td>
+            </tr>
+            <tr th:each="artwork : ${artworks}">
+                <td><span th:text="${artwork.id}"></span></td>
+                <td><span th:text="${artwork.name}"></span></td>
+                <td><span th:text="${artwork.author}"></span></td>
+                <td><span th:text="${artwork.country}"></span></td>
+                <td><span th:text="${artwork.description}"></span></td>
+                <td th:if="${artwork.exhibition!=null}"><span th:text="${artwork.exhibition?.name}"></span></td>
+                <td th:if="${artwork.exhibition==null}"><span>No Asignado</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="chart_div"></div>
+
+    <div class="footer"></div>
+</body>
+
+</html>
