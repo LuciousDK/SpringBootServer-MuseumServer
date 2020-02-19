@@ -138,6 +138,14 @@ public class WebController {
 
 		return mav;
 	}
+	
+	@RequestMapping(value = "exhibiciones/informe", method = RequestMethod.GET)
+	public ModelAndView exhibitionsReport() {
+		ModelAndView mav = new ModelAndView("reports/exhibitionsReport");
+		mav.addObject("exhibitions", exhibitionRepository.findAll());
+
+		return mav;
+	}
 
 
 }

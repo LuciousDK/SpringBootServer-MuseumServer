@@ -31,45 +31,50 @@
 
     <script type="text/javascript" th:inline="javascript">
 
-        google.charts.load('current', { 'packages': ['corechart'] });
-
+        google.charts.load("current", { packages: ["timeline"] });
         google.charts.setOnLoadCallback(drawChart);
-
 
         function drawChart() {
 
-            var data = new google.visualization.DataTable();
             var json = "[";
 
-            /*[# th:each="quantity : ${count}"]*/
-            json += '{"name":"' + '[(${quantity.name})]' + '",' +
-                '"quantity":"' + '[(${quantity.quantity})]' + '"}' + ","
+            /*[# th:each="exhibition : ${exhibitions}"]*/
+            json += '{"name":"' + '[(${exhibition.name})]' + '",' +
+                '"openingDate":"' + '[(${exhibition.openingDate})]' + '",' +
+                '"closingDate":"' + '[(${exhibition.closingDate})]' + '"}' + ","
 
             /*[/]*/
             json += "]"
+            
             json = json.replace(',]', ']')
             json = JSON.parse(json)
 
-            data.addColumn('string', 'Archivos');
-            data.addColumn('number', 'Cantidad');
-            var array;
+            var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+            var data = new google.visualization.DataTable();
+            data.addColumn({ type: 'string', id: 'Role' });
+            data.addColumn({ type: 'string', id: 'Name' });
+            data.addColumn({ type: 'date', id: 'Start' });
+            data.addColumn({ type: 'date', id: 'End' });
+
             for (var i = 0; i < json.length; i++) {
                 data.addRows([
-                    [json[i].name, Number(json[i].quantity)]
+                    [json[i].name,json[i].name, new Date(json[i].openingDate), new Date(json[i].closingDate)]
                 ]);
             }
-
-
             var options = {
-                title: 'Archivos En El Servidor',
+                colors: ['#cbb69d', '#603913', '#c69c6e'],
+                timeline: {
+                    rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                    barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                },
                 height: '500',
-                width: '500'
+                width: '1000'
             };
 
-            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
             chart.draw(data, options);
 
         }
+
     </script>
     <title>
         Informe de Archivos
@@ -85,36 +90,24 @@
             <tr>
                 <th> Id </th>
                 <th> Nombre </th>
-                <th> Ubicación </th>
-                <th> Tipo </th>
+                <th> Fecha de Aperture </th>
+                <th> Fecha de Cierre </th>
             </tr>
         </thead>
-        <tbody id="medias-table">
-            <tr th:if="${medias.empty}">
-                <td colspan="4"> No se ha encontrado ningun archivo. </td>
+        <tbody id="exhibitions-table">
+            <tr th:if="${exhibitions.empty}">
+                <td colspan="4"> No se ha encontrado ninguna exhibición. </td>
             </tr>
-            <tr th:each="media : ${medias}">
-                <td><span th:text="${media.id}"></span></td>
-                <td><span th:text="${media.displayName}"></span></td>
-                <td >
-                    <span th:if="${media.fileType == 'image'}"
-                        th:text="|/img/${media.fileName}.${media.extension}|"></span>
-                    <span th:if="${media.fileType == 'video'}"
-                        th:text="|/video/${media.fileName}.${media.extension}|"></span>
-                    <span th:if="${media.fileType == 'audio'}"
-                        th:text="|/audio/${media.fileName}.${media.extension}|"></span>
-                </td>
-                <td>
-                    <span th:if="${media.fileType == 'image'}"> Imagen </span>
-                    <span th:if="${media.fileType == 'video'}"> Video</span>
-                    <span th:if="${media.fileType == 'audio'}"> Audio </span>
-                </td>
+            <tr th:each="exhibition : ${exhibitions}">
+                <td><span th:text="${exhibition.id}"></span></td>
+                <td><span th:text="${exhibition.name}"></span></td>
+                <td><span th:text="${exhibition.openingDate}"></span></td>
+                <td><span th:text="${exhibition.closingDate}"></span></td>
             </tr>
         </tbody>
     </table>
     <div id="chart_div"></div>
 
-    <div class="footer"></div>
 </body>
 
 </html>
