@@ -108,6 +108,10 @@ public class WebController {
 	public ModelAndView exhibitions() {
 
 		ModelAndView mav = new ModelAndView("exhibitions");
+		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
+		mav.addObject("newExhibition", new Exhibition());
+		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
+
 
 		return mav;
 	}

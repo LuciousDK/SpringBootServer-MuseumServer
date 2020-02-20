@@ -13,6 +13,10 @@ public interface ExhibitionService {
 
 	public void deleteExhibition(long id);
 
+	public void addMedia(Long exhibitionId, Long mediaId);
+
+	public void removeMedia(Long exhibitionId, Long mediaId);
+
 	public Exhibition addExhibition(Exhibition exhibition);
 
 	public Exhibition updateExhibition(Exhibition exhibition);
