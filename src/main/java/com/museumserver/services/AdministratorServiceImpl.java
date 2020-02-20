@@ -58,8 +58,11 @@ public class AdministratorServiceImpl implements AdministratorService {
 			if (administrator.getLastName() != null)
 				original.setLastName(administrator.getLastName());
 
-			if (administrator.getPassword() != null)
-				original.setPassword(administrator.getPassword());
+			if (administrator.getPassword() != null) {
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String password = passwordEncoder.encode(administrator.getPassword());
+				original.setPassword(password);
+			}
 
 			return administratorRepository.save(original);
 		}

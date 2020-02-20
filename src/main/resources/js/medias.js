@@ -24,6 +24,8 @@ function submitForm(ev) {
 }
 
 function declareMedia() {
+  
+  var form = document.forms["media-form"];
   var fileName = form["file"].files[0].name.split(".")[0];
   var extension = form["file"].files[0].name.split(".")[1];
   var displayName = form["name"].value;

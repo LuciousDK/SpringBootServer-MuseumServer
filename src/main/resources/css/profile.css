@@ -1,0 +1,89 @@
+#username {
+  font-weight: bold;
+}
+.card{
+    background-color : rgba(23, 162, 184,0.5)
+}
+.container {
+  width: 100%;
+  height: 100%;
+}
+
+#profile-picture {
+  border-radius: 20px;
+  border: rgba(0, 0, 0, 0.5) 2px solid;
+  height: 150px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+#profile-picture img {
+    position: relative;
+}
+#button-column button {
+  margin-top: 20px;
+  width: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+
+form{
+	max-width:100%;
+	background:#fff;
+	border-radius:2px;
+	padding:20px;
+}
+.form-style h1{
+	display: block;
+	text-align: center;
+	padding: 0;
+	margin: 0px 0px 20px 0px;
+	color: #5C5C5C;
+	font-size:x-large;
+}
+.form-style ul{
+	list-style:none;
+	padding:0;
+	margin:0;	
+}
+.form-style li{
+	display: block;
+	padding: 9px;
+	border:1px solid #DDDDDD;
+	margin-bottom: 30px;
+    border-radius: 3px;
+}
+.form-style li > label{
+    font-weight: bold;
+	display: block;
+	float: left;
+	margin-top: -19px;
+	background: #FFFFFF;
+	padding: 0px 5px 0px 5px;
+	color: #B9B9B9;
+	font-size: 14px;
+	overflow: hidden;
+}
+.form-style input,
+.form-style textarea,
+.form-style select 
+{
+    color: black;
+    background-color: transparent;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	width: 100%;
+	display: block;
+	outline: none;
+	border: none;
+	height: 25px;
+	line-height: 25px;
+	font-size: 16px;
+	padding: 0;
+}
+
+.form-style input:disabled{
+
+    font-weight: bold;
+	color: #B9B9B9;
+}
