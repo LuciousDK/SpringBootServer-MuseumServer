@@ -72,6 +72,11 @@ function submitAdminForm(event) {
   http.send(formData);
 
 }
+function openReport(event, url) {
+  event.preventDefault();
+  var win = window.open(url, '_blank');
+  win.focus();
+}
 
 const adminForm =
   '<div class="modal fade" id="admin-modal">' +

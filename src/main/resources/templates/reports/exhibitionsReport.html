@@ -1,0 +1,113 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        * {
+            -webkit-print-color-adjust: exact;
+        }
+
+        #header {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            display: block !important;
+            font-size: 20px;
+            background-color: rgb(0, 182, 191);
+        }
+    </style>
+
+
+    <script type="text/javascript" th:inline="javascript">
+
+        google.charts.load("current", { packages: ["timeline"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var json = "[";
+
+            /*[# th:each="exhibition : ${exhibitions}"]*/
+            json += '{"name":"' + '[(${exhibition.name})]' + '",' +
+                '"openingDate":"' + '[(${exhibition.openingDate})]' + '",' +
+                '"closingDate":"' + '[(${exhibition.closingDate})]' + '"}' + ","
+
+            /*[/]*/
+            json += "]"
+            
+            json = json.replace(',]', ']')
+            json = JSON.parse(json)
+
+            var chart = new google.visualization.Timeline(document.getElementById('chart_div'));
+            var data = new google.visualization.DataTable();
+            data.addColumn({ type: 'string', id: 'Role' });
+            data.addColumn({ type: 'string', id: 'Name' });
+            data.addColumn({ type: 'date', id: 'Start' });
+            data.addColumn({ type: 'date', id: 'End' });
+
+            for (var i = 0; i < json.length; i++) {
+                data.addRows([
+                    [json[i].name,json[i].name, new Date(json[i].openingDate), new Date(json[i].closingDate)]
+                ]);
+            }
+            var options = {
+                colors: ['#cbb69d', '#603913', '#c69c6e'],
+                timeline: {
+                    rowLabelStyle: { fontName: 'Helvetica', fontSize: 24, color: '#603913' },
+                    barLabelStyle: { fontName: 'Garamond', fontSize: 14 }
+                },
+                height: '500',
+                width: '1000'
+            };
+
+            chart.draw(data, options);
+
+        }
+
+    </script>
+    <title>
+        Informe de Archivos
+    </title>
+</head>
+
+<body>
+    <div class="row" id="header">
+        <h1>Informe de Archivos</h1>
+    </div>
+    <table class="table table-bordered table-striped mt-5">
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Nombre </th>
+                <th> Fecha de Aperture </th>
+                <th> Fecha de Cierre </th>
+            </tr>
+        </thead>
+        <tbody id="exhibitions-table">
+            <tr th:if="${exhibitions.empty}">
+                <td colspan="4"> No se ha encontrado ninguna exhibición. </td>
+            </tr>
+            <tr th:each="exhibition : ${exhibitions}">
+                <td><span th:text="${exhibition.id}"></span></td>
+                <td><span th:text="${exhibition.name}"></span></td>
+                <td><span th:text="${exhibition.openingDate}"></span></td>
+                <td><span th:text="${exhibition.closingDate}"></span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="chart_div"></div>
+
+</body>
+
+</html>

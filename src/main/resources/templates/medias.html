@@ -35,7 +35,7 @@
             <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li>
             <li class="nav-item"><a class="nav-link" href="obras">Obras</a></li>
             <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
-            <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li> -->
             <li class="nav-item active inactiveLink"><a class="nav-link" href="archivos">Archivos</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -44,8 +44,8 @@
                     Aministradores
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" ><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
-                    <a class="dropdown-item"  onclick="appendModal()"><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+                    <a class="dropdown-item"><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
+                    <a class="dropdown-item" onclick="appendModal()"><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -129,10 +129,11 @@
                 <tr th:if="${medias.empty}">
                     <td colspan="4"> No se ha encontrado ningún archivo. </td>
                 </tr>
-                <tr th:each="media : ${medias}" 
-                    th:object="${media}">
-                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span th:text="${media.id}"></span></td>
-                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span th:text="${media.displayName}"></span></td>
+                <tr th:each="media : ${medias}" th:object="${media}">
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span
+                            th:text="${media.id}"></span></td>
+                    <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|"><span
+                            th:text="${media.displayName}"></span></td>
                     <td class="clickable" data-toggle="modal" th:data-target="|#modal-${media.id}|">
                         <span th:if="${media.fileType == 'image'}"
                             th:text="|/img/${media.fileName}.${media.extension}|"></span>
@@ -150,15 +151,19 @@
                         <button style="display: inline;border: none; background: none;" class="icon-container"
                             th:attr="onclick=|editMedia('${media.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
-                            <img class="edit-icon" th:src="@{/img/edit-icon.png}"></button>
+                            <img class="edit-icon" th:src="@{/img/edit-icon.png}">
+                        </button>
 
                         <button th:onclick="|deleteMedia(${media.id})|" style="border: none; background: none;"
                             type="submit" value="Submit" class="icon-container"><i class="fas fa-times"
-                                style="color: red;"></i></button>
+                                style="color: red;"></i>
+                        </button>
 
+                    </td>
                 </tr>
             </tbody>
         </table>
+        <a href="#" onclick="openReport(event,'archivos/informe')">Abrir Informe</a>
         <div th:each="media : ${medias}">
 
             <div class="modal media fade" th:id="|modal-${media.id}|">

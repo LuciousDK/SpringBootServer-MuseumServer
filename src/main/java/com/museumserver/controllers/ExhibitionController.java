@@ -41,6 +41,16 @@ public class ExhibitionController {
 	public void addExhibition(Exhibition exhibition) {
 		exhibitionService.addExhibition(exhibition);
 	}
+	
+	@PostMapping("/exhibition/addMedia")
+	public void addMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
+		exhibitionService.addMedia(exhibitionId, mediaId);
+	}
+
+	@PostMapping("/exhibition/removeMedia")
+	public void removeMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
+		exhibitionService.removeMedia(exhibitionId, mediaId);
+	}
 
 	@PutMapping("/exhibition")
 	public void updateExhibition(Exhibition exhibition) {

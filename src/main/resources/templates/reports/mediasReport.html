@@ -1,0 +1,120 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+        * {
+            -webkit-print-color-adjust: exact;
+        }
+
+        #header {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            display: block !important;
+            font-size: 20px;
+            background-color: rgb(0, 182, 191);
+        }
+    </style>
+
+
+    <script type="text/javascript" th:inline="javascript">
+
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        google.charts.setOnLoadCallback(drawChart);
+
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            var json = "[";
+
+            /*[# th:each="quantity : ${count}"]*/
+            json += '{"name":"' + '[(${quantity.name})]' + '",' +
+                '"quantity":"' + '[(${quantity.quantity})]' + '"}' + ","
+
+            /*[/]*/
+            json += "]"
+            json = json.replace(',]', ']')
+            json = JSON.parse(json)
+
+            data.addColumn('string', 'Archivos');
+            data.addColumn('number', 'Cantidad');
+            var array;
+            for (var i = 0; i < json.length; i++) {
+                data.addRows([
+                    [json[i].name, Number(json[i].quantity)]
+                ]);
+            }
+
+
+            var options = {
+                title: 'Archivos En El Servidor',
+                height: '500',
+                width: '500'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+
+        }
+    </script>
+    <title>
+        Informe de Archivos
+    </title>
+</head>
+
+<body>
+    <div class="row" id="header">
+        <h1>Informe de Archivos</h1>
+    </div>
+    <table class="table table-bordered table-striped mt-5">
+        <thead>
+            <tr>
+                <th> Id </th>
+                <th> Nombre </th>
+                <th> Ubicación </th>
+                <th> Tipo </th>
+            </tr>
+        </thead>
+        <tbody id="medias-table">
+            <tr th:if="${medias.empty}">
+                <td colspan="4"> No se ha encontrado ningun archivo. </td>
+            </tr>
+            <tr th:each="media : ${medias}">
+                <td><span th:text="${media.id}"></span></td>
+                <td><span th:text="${media.displayName}"></span></td>
+                <td >
+                    <span th:if="${media.fileType == 'image'}"
+                        th:text="|/img/${media.fileName}.${media.extension}|"></span>
+                    <span th:if="${media.fileType == 'video'}"
+                        th:text="|/video/${media.fileName}.${media.extension}|"></span>
+                    <span th:if="${media.fileType == 'audio'}"
+                        th:text="|/audio/${media.fileName}.${media.extension}|"></span>
+                </td>
+                <td>
+                    <span th:if="${media.fileType == 'image'}"> Imagen </span>
+                    <span th:if="${media.fileType == 'video'}"> Video</span>
+                    <span th:if="${media.fileType == 'audio'}"> Audio </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="chart_div"></div>
+
+    <div class="footer"></div>
+</body>
+
+</html>

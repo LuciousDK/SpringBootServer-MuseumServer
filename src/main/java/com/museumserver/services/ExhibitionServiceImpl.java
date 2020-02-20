@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.repositories.ExhibitionRepository;
+import com.museumserver.entity.repositories.MediaRepository;
 
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
@@ -17,6 +18,9 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
+
+	@Autowired
+	private MediaRepository mediaRepository;
 
 	@Override
 	public List<Exhibition> getExhibitions() {
@@ -43,18 +47,14 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	public Exhibition updateExhibition(Exhibition exhibition) {
 		if (exhibitionRepository.existsById(exhibition.getId())) {
 			Exhibition original = exhibitionRepository.findById(exhibition.getId()).get();
-
 			if (exhibition.getName() != null)
 				original.setName(exhibition.getName());
 
-			if (exhibition.getOpeningDate() != null)
-				original.setOpeningDate(exhibition.getOpeningDate());
+			original.setOpeningDate(exhibition.getOpeningDate());
 
-			if (exhibition.getClosingDate() != null)
-				original.setClosingDate(exhibition.getClosingDate());
+			original.setClosingDate(exhibition.getClosingDate());
 
-			if (exhibition.getLocation() != null)
-				original.setLocation(exhibition.getLocation());
+			original.setLocation(exhibition.getLocation());
 
 			return exhibitionRepository.save(original);
 		}
@@ -67,6 +67,28 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		if (exhibitionRepository.existsById(id))
 			return exhibitionRepository.findById(id).get();
 		return null;
+	}
+
+	@Override
+	public void addMedia(Long exhibitionId, Long mediaId) {
+
+		Exhibition original = exhibitionRepository.findById(exhibitionId).get();
+		if (mediaRepository.existsById(mediaId)) {
+			original.getMedia().add((mediaRepository.findById(mediaId).get()));
+		}
+		exhibitionRepository.save(original);
+
+	}
+
+	@Override
+	public void removeMedia(Long exhibitionId, Long mediaId) {
+
+		Exhibition original = exhibitionRepository.findById(exhibitionId).get();
+		if (mediaRepository.existsById(mediaId)) {
+			original.getMedia().remove(mediaRepository.findById(mediaId).get());
+		}
+		exhibitionRepository.save(original);
+
 	}
 
 }

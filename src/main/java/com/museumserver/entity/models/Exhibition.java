@@ -142,6 +142,15 @@ public class Exhibition implements Serializable {
 		result += "Location: "+this.location+"\n";
 		return result;
 	}
+	public String toJSON() {
+		String result = "{" + "\"id\":" + this.id +
+						",\"name\":\""+this.name+
+						"\",\"openingDate\":\""+this.openingDate+
+						"\",\"closingDate\":\""+this.closingDate+
+						"\",\"location\":\""+this.location+"\"}";
+		
 
+		return result;
+	}
 	
 }

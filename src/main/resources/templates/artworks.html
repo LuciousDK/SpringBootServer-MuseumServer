@@ -35,7 +35,7 @@
             <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li>
             <li class="nav-item active inactiveLink"><a class="nav-link" href="#">Obras</a></li>
             <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
-            <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li> -->
             <li class="nav-item"><a class="nav-link" href="archivos">Archivos</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -134,7 +134,7 @@
                 </div>
             </div>
 
-            <table class="table table-bordered table-striped table-hover">
+            <table class="table table-bordered table-striped table-hover mt-4">
                 <thead>
                     <tr>
                         <th> Id </th>
@@ -168,9 +168,11 @@
                                 <button style="border: none; background: none;" type="submit" value="Submit"
                                     class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
                             </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>
+            <a href="#" onclick="openReport(event,'obras/informe')">Abrir Informe</a>
         </div>
     </div>
 
