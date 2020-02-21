@@ -4,9 +4,8 @@ const apiUrl = "http://localhost:8080";
   window.addEventListener(
     "load",
     function() {
-
-      $(".dropdown-menu").mouseleave(function(){
-        $(".dropdown").dropdown('toggle');
+      $(".dropdown-menu").mouseleave(function() {
+        $(".dropdown").dropdown("toggle");
       });
 
       var forms = document.getElementsByClassName("needs-validation");
@@ -53,7 +52,7 @@ function appendModal() {
 }
 function submitAdminForm(event) {
   event.preventDefault();
-  var form = document.forms["admin-form"]
+  var form = document.forms["admin-form"];
   var http = new XMLHttpRequest();
   var url = apiUrl + "/administrator";
   http.open("POST", url, true);
@@ -69,12 +68,22 @@ function submitAdminForm(event) {
   formData.append("username", form["username"].value);
   formData.append("email", form["email"].value);
   formData.append("password", form["password"].value);
-  http.send(formData);
-
+  if (validateNewAdminForm()) http.send(formData);
 }
+
+function validateNewAdminForm() {
+  var form = document.forms["admin-form"];
+  if (!form["firstName"].validity.valid) return false;
+  if (!form["lastName"].validity.valid) return false;
+  if (!form["username"].validity.valid) return false;
+  if (!form["email"].validity.valid) return false;
+  if (!form["password"].validity.valid) return false;
+  return true;
+}
+
 function openReport(event, url) {
   event.preventDefault();
-  var win = window.open(url, '_blank');
+  var win = window.open(url, "_blank");
   win.focus();
 }
 
@@ -91,7 +100,7 @@ const adminForm =
   '                        <div class="modal-body">' +
   '                            <div class="form-group">' +
   '                                <label for="username">Nombre de Usuario</label>' +
-  '                                <input class="form-control" type="text" id="username" name="username"' +
+  '                                <input class="form-control" type="text" name="username"' +
   '                                    placeholder="Usuario" required />' +
   '                                <div class="invalid-feedback">' +
   "                                    El campo no puede estar vacio." +
@@ -99,7 +108,7 @@ const adminForm =
   "                            </div>" +
   '                            <div class="form-group">' +
   '                                <label for="firstName">Nombre</label>' +
-  '                                <input class="form-control" type="text" id="firstName" name="firstName"' +
+  '                                <input class="form-control" type="text"  name="firstName"' +
   '                                    placeholder="Nombre" required />' +
   '                                <div class="invalid-feedback">' +
   "                                    El campo no puede estar vacio." +
@@ -107,7 +116,7 @@ const adminForm =
   "                            </div>" +
   '                            <div class="form-group">' +
   '                                <label for="lastName">Apellido/s</label>' +
-  '                                <input class="form-control" type="text" id="lastName" name="lastName"' +
+  '                                <input class="form-control" type="text"  name="lastName"' +
   '                                    placeholder="Apellido" required />' +
   '                                <div class="invalid-feedback">' +
   "                                    El campo no puede estar vacio." +
@@ -115,7 +124,7 @@ const adminForm =
   "                            </div>" +
   '                            <div class="form-group">' +
   '                                <label for="email">Correo electrónico</label>' +
-  '                                <input class="form-control" type="email" id="email" name="email"' +
+  '                                <input class="form-control" type="email"  name="email"' +
   '                                    placeholder="Correo electrónico" required />' +
   '                                <div class="invalid-feedback">' +
   "                                    El correo introducido no es válido." +
@@ -123,7 +132,7 @@ const adminForm =
   "                            </div>" +
   '                            <div class="form-group">' +
   '                                <label for="password">Contraseña</label>' +
-  '                                <input class="form-control" type="password" id="password" name="password"' +
+  '                                <input class="form-control" type="password" name="password"' +
   '                                    placeholder="Contraseña" minlength="4" required />' +
   '                                <div class="invalid-feedback">' +
   "                                    Debe contener un mínimo de 4 caracteres." +
@@ -136,4 +145,4 @@ const adminForm =
   "                        </div>" +
   "                    </form>" +
   "                </div>" +
-  "            </div>"; 
+  "            </div>";

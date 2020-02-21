@@ -63,7 +63,6 @@ public class AdministratorServiceImpl implements AdministratorService {
 				String password = passwordEncoder.encode(administrator.getPassword());
 				original.setPassword(password);
 			}
-
 			return administratorRepository.save(original);
 		}
 		return null;

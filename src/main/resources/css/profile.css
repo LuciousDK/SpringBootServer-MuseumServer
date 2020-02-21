@@ -26,10 +26,10 @@
 }
 
 
-form{
+form .col-sm-9{
 	max-width:100%;
 	background:#fff;
-	border-radius:2px;
+	border-radius:3px;
 	padding:20px;
 }
 .form-style h1{
@@ -63,9 +63,7 @@ form{
 	font-size: 14px;
 	overflow: hidden;
 }
-.form-style input,
-.form-style textarea,
-.form-style select 
+.form-style input
 {
     color: black;
     background-color: transparent;
@@ -86,4 +84,7 @@ form{
 
     font-weight: bold;
 	color: #B9B9B9;
+}
+.form-style li.invalid{
+	border-color: red;
 }

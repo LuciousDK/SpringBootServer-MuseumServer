@@ -71,47 +71,50 @@
                 </div>
             </div>
             <div class="container mt-5">
-                <div class="row">
-                    <div class="col-sm-9">
-                        <form class="form-style needs-validation" name="administrator-form" novalidate>
+                <form class="form-style needs-validation" action="#" onsubmit="validateForm(event)" name="administrator-form" novalidate>
+                    <div class="row">
+                        <div class="col-sm-9">
 
                             <h1 style="text-decoration: underline;"> Datos de Perfil</h1>
                             <ul>
-                                <li>
+                                <li >
                                     <label for="id">Identificador</label>
-                                    <input type="text" id="id" name="id" th:field="${administrator.id}" disabled/>
+                                    <input  type="text" id="id" name="id" th:field="${administrator.id}" disabled readonly />
                                 </li>
                                 <li>
                                     <label for="firstName">Nombre</label>
-                                    <input type="text" id="firstName" name="firstName"
-                                        th:field="${administrator.firstName}" disabled />
+                                    <input onkeyup="validateInput(event)" type="text" id="firstName" name="firstName"
+                                        th:field="${administrator.firstName}" disabled  required/>
                                 </li>
                                 <li>
                                     <label for="lastName">Apellidos</label>
-                                    <input type="text" id="lastName" name="lastName"
-                                        th:field="${administrator.lastName}" disabled />
+                                    <input onkeyup="validateInput(event)" type="text" id="lastName" name="lastName"
+                                        th:field="${administrator.lastName}" disabled required />
                                 </li>
                                 <li>
                                     <label for="email">Correo Electrónico</label>
-                                    <input type="email" id="email" name="email" th:field="${administrator.email}"
-                                        disabled />
+                                    <input onkeyup="validateInput(event)" type="email" id="email" name="email" th:field="${administrator.email}"
+                                        disabled required />
                                 </li>
                             </ul>
-                        </form>
+                        </div>
+                        <div id="button-column" class="col-sm-3">
+
+                            <button id="password-button" th:attr="onclick=|changePassword('${administrator.toJSON()}')|"
+                                class="btn btn-light">Cambiar Contraseña</button>
+
+                            <button id="edit-button" class="btn btn-light"
+                                th:attr="onclick=|startEdit('${administrator.toJSON()}')|">Editar Perfil</button>
+
+                            <button id="submit-button" hidden="true" class="btn btn-light"
+                                type="submit">Confirmar</button>
+
+                            <button id="cancel-button" hidden="true" class="btn btn-light"
+                                onclick="resetValues()">Cancelar</button>
+                        </div>
                     </div>
-                    <div id="button-column" class="col-sm-3">
 
-                        <button id="password-button" th:attr="onclick=|changePassword('${administrator.toJSON()}')|"
-                            class="btn btn-light">Cambiar Contraseña</button>
-
-                        <button id="edit-button" class="btn btn-light" th:attr="onclick=|startEdit('${administrator.toJSON()}')|">Editar Perfil</button>
-
-                        <button id="submit-button" hidden="true" class="btn btn-light" onclick="submitAdmin()">Confirmar</button>
-
-                        <button id="cancel-button" hidden="true" class="btn btn-light" onclick="resetForm()">Cancelar</button>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </div>
     </div>
