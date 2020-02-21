@@ -121,6 +121,22 @@ public class Administrator implements Serializable {
 		return serialVersionUID;
 	}
 
+	public List<BeaconModification> getBeaconModifications() {
+		return beaconModifications;
+	}
+
+	public void setBeaconModifications(List<BeaconModification> beaconModifications) {
+		this.beaconModifications = beaconModifications;
+	}
+
+	public List<MediaModification> getMediaModifications() {
+		return mediaModifications;
+	}
+
+	public void setMediaModifications(List<MediaModification> mediaModifications) {
+		this.mediaModifications = mediaModifications;
+	}
+
 	public String toJSON() {
 		String result = "{" + "\"id\":" + this.id +
 						",\"firstName\":\""+this.firstName+

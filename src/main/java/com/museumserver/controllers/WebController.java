@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.museumserver.entity.models.Administrator;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.DataCount;
 import com.museumserver.entity.models.Exhibition;
@@ -62,24 +63,25 @@ public class WebController {
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
-			return "redirect:index";
+			return "redirect:obras";
 		}
 		return "login";
 	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public ModelAndView index() {
+	public String index() {
 
 		HashMap<String, Long> quantities = new HashMap<String, Long>();
-		quantities.put("obras", artworkRepository.count());
-		quantities.put("exhibiciones", exhibitionRepository.count());
-		quantities.put("administradores", administratorRepository.count());
+		quantities.put("artworks", artworkRepository.count());
+		quantities.put("exhibitions", exhibitionRepository.count());
+		quantities.put("administrators", administratorRepository.count());
 		quantities.put("beacons", beaconRepository.count());
 		quantities.put("media", mediaRepository.count());
 
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("cantidades", quantities);
-		return mav;
+		mav.addObject("quantities", quantities);
+//		return mav;
+		return "redirect:obras";
 	}
 
 	@RequestMapping(value = "obras", method = RequestMethod.GET)
@@ -112,16 +114,28 @@ public class WebController {
 		mav.addObject("newExhibition", new Exhibition());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
 
+		return mav;
+	}
+
+	@RequestMapping(value = "perfil", method = RequestMethod.GET)
+	public ModelAndView profile(Authentication authentication) {
+		
+		Administrator admin = administratorRepository.findByUsername(authentication.getName());
+		
+		ModelAndView mav = new ModelAndView("profile");
+		
+		mav.addObject("administrator", admin);
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "balizas", method = RequestMethod.GET)
-	public ModelAndView beacons() {
+	public String beacons() {
 
 		ModelAndView mav = new ModelAndView("beacons");
 
-		return mav;
+//		return mav;
+		return "redirect:obras";
 	}
 
 	@RequestMapping(value = "obras/informe", method = RequestMethod.GET)
@@ -142,7 +156,7 @@ public class WebController {
 
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "exhibiciones/informe", method = RequestMethod.GET)
 	public ModelAndView exhibitionsReport() {
 		ModelAndView mav = new ModelAndView("reports/exhibitionsReport");
@@ -150,6 +164,5 @@ public class WebController {
 
 		return mav;
 	}
-
 
 }

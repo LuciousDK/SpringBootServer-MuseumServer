@@ -32,7 +32,7 @@
         <a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
 
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li> -->
             <li class="nav-item active inactiveLink"><a class="nav-link" href="#">Obras</a></li>
             <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
             <!-- <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li> -->
@@ -44,8 +44,8 @@
                     Aministradores
                 </a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" ><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
-                    <a class="dropdown-item"  onclick="appendModal()"><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
+                    <a class="dropdown-item" href="perfil"><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
+                    <a class="dropdown-item" onclick="appendModal()"><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
                 </div>
             </li>
             <li class="nav-item">
@@ -65,8 +65,8 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-info" onclick="newArtwork()" data-toggle="modal" data-target="#creation-modal"><span
-                            class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
+                    <button class="btn btn-info" onclick="newArtwork()" data-toggle="modal"
+                        data-target="#creation-modal"><span class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
                 </div>
 
                 <input class="form-control" id="search-bar" type="text" placeholder="Search..">
@@ -75,8 +75,8 @@
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
-                        <form action="#" class="needs-validation" name="artwork-form" onsubmit="saveArtwork()"
-                            th:action="@{/artwork}" th:object="${newArtwork}" method="POST" novalidate>
+                        <form action="#" class="needs-validation" name="artwork-form" th:action="@{/artwork}"
+                            th:object="${newArtwork}" method="POST" novalidate>
 
                             <div class="modal-header">
                                 <h4 class="modal-title">Editor de Registro</h4>
