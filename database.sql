@@ -187,6 +187,9 @@ INSERT INTO public.media_modifications(date,administrator_id,media_id,descriptio
 INSERT INTO public.artwork_media(artwork_id, media_id) VALUES
 ('1','1'),
 ('1','2'),
+('1','3'),
+('1','4'),
+('1','5'),
 ('4','5'),
 ('5','4');
 
