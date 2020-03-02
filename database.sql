@@ -48,7 +48,7 @@ CREATE TABLE public.artworks
 CREATE TABLE public.beacons
 (
     id INTEGER DEFAULT NEXTVAL('beacon_id_seq'),
-	mac VARCHAR(255),
+	uuid VARCHAR(255),
     artwork_id INTEGER,
     PRIMARY KEY (id),
     FOREIGN KEY (artwork_id)
@@ -156,8 +156,8 @@ INSERT INTO public.artworks(name,author,country,exhibition_id) VALUES
 ('La Libertad Guiando al Pueblo','Eugène Delacroix','France',2),
 ('La Ejecución de Cadoudal','Georges Cadoudal','France',2);
 
-INSERT INTO public.beacons(artwork_id,mac) VALUES 
-(1,'UKAH832'),
+INSERT INTO public.beacons(artwork_id,uuid) VALUES 
+(1,'31HGSw4TqquGm0aDX6VIOg=='),
 (1,'JKDD947'),
 (1,'KDNRO97'),
 (2,'PAME293'),
