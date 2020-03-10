@@ -44,8 +44,8 @@ public class BeaconServiceImpl implements BeaconService {
 		if (beaconRepository.existsById(beacon.getId())) {
 			Beacon original = beaconRepository.findById(beacon.getId()).get();
 
-			if (beacon.getMac() != null)
-				original.setMac(beacon.getMac());
+			if (beacon.getId() != null)
+				original.setId(beacon.getId());
 
 
 			return beaconRepository.save(original);

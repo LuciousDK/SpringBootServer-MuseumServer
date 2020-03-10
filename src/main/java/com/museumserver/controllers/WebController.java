@@ -121,12 +121,13 @@ public class WebController {
 	}
 
 	@RequestMapping(value = "balizas", method = RequestMethod.GET)
-	public String beacons() {
+	public ModelAndView beacons() {
 
 		ModelAndView mav = new ModelAndView("beacons");
+		
+		mav.addObject("beacons",beaconRepository.findAll());
 
-//		return mav;
-		return "redirect:obras";
+		return mav;
 	}
 
 	@RequestMapping(value = "obras/informe", method = RequestMethod.GET)

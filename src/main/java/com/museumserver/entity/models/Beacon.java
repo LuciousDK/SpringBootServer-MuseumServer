@@ -29,7 +29,7 @@ public class Beacon implements Serializable {
 
 	@Column
 	@JsonView(DataViews.DefaultData.class)
-	private String mac;
+	private String uuid;
 	
 	@JsonIgnoreProperties({ "beacons" })
 	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
@@ -46,10 +46,10 @@ public class Beacon implements Serializable {
 		super();
 	}
 	
-	public Beacon(Long id, String mac, List<BeaconModification> modifications, Artwork artwork) {
+	public Beacon(Long id, String uuid, List<BeaconModification> modifications, Artwork artwork) {
 		super();
 		this.id = id;
-		this.mac = mac;
+		this.uuid = uuid;
 		this.modifications = modifications;
 		this.artwork = artwork;
 	}
@@ -70,12 +70,12 @@ public class Beacon implements Serializable {
 		this.id = id;
 	}
 
-	public String getMac() {
-		return mac;
+	public String getUuid() {
+		return uuid;
 	}
 
-	public void setMac(String mac) {
-		this.mac = mac;
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
 	}
 
 	public List<BeaconModification> getModifications() {
@@ -92,7 +92,7 @@ public class Beacon implements Serializable {
 	
 	public String toJSON() {
 		String result = "{" + "\"id\":" + this.id +
-						",\"mac\":\""+this.mac+
+						",\"uuid\":\""+this.uuid+
 						"\",\"artworkId\":";
 		
 		if(this.artwork!=null) {
