@@ -13,12 +13,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
-@Entity(name="exhibitions")
+@Entity(name = "exhibitions")
 public class Exhibition implements Serializable {
 
 	private static final long serialVersionUID = 6727941092252539727L;
@@ -32,18 +33,23 @@ public class Exhibition implements Serializable {
 	@JsonView(DataViews.DefaultData.class)
 	private String name;
 
-	@Column(name="opening_date")
+	@Column(name = "opening_date")
 	@JsonView(DataViews.DefaultData.class)
 	private Date openingDate;
 
-	@Column(name="closing_date")
+	@Column(name = "closing_date")
 	@JsonView(DataViews.DefaultData.class)
 	private Date closingDate;
 
 	@Column
 	@JsonView(DataViews.DefaultData.class)
 	private String location;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "exhibition_id", insertable = true, updatable = true)
+	@JsonView(DataViews.DefaultData.class)
+	private State state;
+
 	@JsonIgnoreProperties({ "exhibitions" })
 	@OneToMany(mappedBy = "exhibition", fetch = FetchType.LAZY)
 	@JsonView(DataViews.ArtworkListData.class)
@@ -51,42 +57,31 @@ public class Exhibition implements Serializable {
 
 	@ManyToMany
 	@JsonIgnoreProperties({ "exhibitions" })
-	@JoinTable(name = "exhibition_media", 
-			  joinColumns = @JoinColumn(name = "exhibition_id"), 
-			  inverseJoinColumns = @JoinColumn(name = "media_id"))
+	@JoinTable(name = "exhibition_media", joinColumns = @JoinColumn(name = "exhibition_id"), inverseJoinColumns = @JoinColumn(name = "media_id"))
 	@JsonView(DataViews.MediaListData.class)
 	private List<Media> media;
 
-	public Exhibition(Long id, String name, Date openingDate, Date closingDate, String location, List<Artwork> artworks,
-			List<Media> media) {
+	@JsonIgnoreProperties({ "exhibition" })
+	@OneToMany(mappedBy = "exhibition", fetch = FetchType.LAZY)
+	@JsonView(DataViews.ExhibitionModificationsData.class)
+	private List<ExhibitionModification> exhibitionModifications;
+
+	public Exhibition() {
+		super();
+	}
+
+	public Exhibition(Long id, String name, Date openingDate, Date closingDate, String location, State state,
+			List<Artwork> artworks, List<Media> media, List<ExhibitionModification> exhibitionModifications) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.openingDate = openingDate;
 		this.closingDate = closingDate;
 		this.location = location;
+		this.state = state;
 		this.artworks = artworks;
 		this.media = media;
-	}
-
-	public List<Artwork> getArtworks() {
-		return artworks;
-	}
-
-	public void setArtworks(List<Artwork> artworks) {
-		this.artworks = artworks;
-	}
-
-	public List<Media> getMedia() {
-		return media;
-	}
-
-	public void setMedia(List<Media> media) {
-		this.media = media;
-	}
-
-	public Exhibition() {
-		super();
+		this.exhibitionModifications = exhibitionModifications;
 	}
 
 	public Long getId() {
@@ -109,8 +104,8 @@ public class Exhibition implements Serializable {
 		return openingDate;
 	}
 
-	public void setOpeningDate(Date startDate) {
-		this.openingDate = startDate;
+	public void setOpeningDate(Date openingDate) {
+		this.openingDate = openingDate;
 	}
 
 	public Date getClosingDate() {
@@ -129,10 +124,42 @@ public class Exhibition implements Serializable {
 		this.location = location;
 	}
 
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public List<Artwork> getArtworks() {
+		return artworks;
+	}
+
+	public void setArtworks(List<Artwork> artworks) {
+		this.artworks = artworks;
+	}
+
+	public List<Media> getMedia() {
+		return media;
+	}
+
+	public void setMedia(List<Media> media) {
+		this.media = media;
+	}
+
+	public List<ExhibitionModification> getExhibitionModifications() {
+		return exhibitionModifications;
+	}
+
+	public void setExhibitionModifications(List<ExhibitionModification> exhibitionModifications) {
+		this.exhibitionModifications = exhibitionModifications;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	public String toString() {
 		String result ="";
 		result += "ID: "+this.id+"\n";
@@ -142,15 +169,17 @@ public class Exhibition implements Serializable {
 		result += "Location: "+this.location+"\n";
 		return result;
 	}
+	
 	public String toJSON() {
 		String result = "{" + "\"id\":" + this.id +
 						",\"name\":\""+this.name+
 						"\",\"openingDate\":\""+this.openingDate+
 						"\",\"closingDate\":\""+this.closingDate+
-						"\",\"location\":\""+this.location+"\"}";
+						"\",\"location\":\""+this.location+
+						"\",\"state\":\""+this.state.getName()+
+						"\"}";
 		
-
 		return result;
 	}
-	
+
 }

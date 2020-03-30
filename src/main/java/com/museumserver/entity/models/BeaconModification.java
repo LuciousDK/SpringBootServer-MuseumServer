@@ -32,9 +32,9 @@ public class BeaconModification implements Serializable {
 	
 	@JsonIgnoreProperties({ "beaconModifications" })
 	@ManyToOne
-	@JoinColumn(name = "administrator_id", insertable = false, updatable = false)
-	@JsonView(DataViews.AdministratorData.class)
-	private Administrator administrator;
+	@JoinColumn(name = "app_user_id", insertable = false, updatable = false)
+	@JsonView(DataViews.AppUserData.class)
+	private AppUser appUser;
 	
 	public BeaconModificationId getId() {
 		return id;
@@ -60,24 +60,24 @@ public class BeaconModification implements Serializable {
 		this.beacon = beacon;
 	}
 
-	public Administrator getAdministrator() {
-		return administrator;
+	public AppUser getAppUser() {
+		return appUser;
 	}
 
-	public void setAdministrator(Administrator administrator) {
-		this.administrator = administrator;
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	public BeaconModification(BeaconModificationId id, String description, Beacon beacon, Administrator administrator) {
+	public BeaconModification(BeaconModificationId id, String description, Beacon beacon, AppUser appUser) {
 		super();
 		this.id = id;
 		this.description = description;
 		this.beacon = beacon;
-		this.administrator = administrator;
+		this.appUser = appUser;
 	}
 
 	public BeaconModification() {

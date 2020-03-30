@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.museumserver.entity.models.Administrator;
+import com.museumserver.entity.models.AppUser;
 import com.museumserver.entity.repositories.AdministratorRepository;
 
 @Service
@@ -20,9 +20,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	private AdministratorRepository administratorRepository;
 
 	@Override
-	public List<Administrator> getAdministrators() {
+	public List<AppUser> getAdministrators() {
 
-		return (List<Administrator>) administratorRepository.findAllByOrderByIdAsc();
+		return (List<AppUser>) administratorRepository.findAllByOrderByIdAsc();
 
 	}
 
@@ -34,7 +34,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	}
 
 	@Override
-	public Administrator addAdministrator(Administrator administrator) {
+	public AppUser addAdministrator(AppUser administrator) {
 		String password = administrator.getPassword();
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		password = passwordEncoder.encode(password);
@@ -45,9 +45,9 @@ public class AdministratorServiceImpl implements AdministratorService {
 	}
 
 	@Override
-	public Administrator updateAdministrator(Administrator administrator) {
+	public AppUser updateAdministrator(AppUser administrator) {
 		if (administratorRepository.existsById(administrator.getId())) {
-			Administrator original = administratorRepository.findById(administrator.getId()).get();
+			AppUser original = administratorRepository.findById(administrator.getId()).get();
 
 			if (administrator.getEmail() != null)
 				original.setEmail(administrator.getEmail());
@@ -70,7 +70,7 @@ public class AdministratorServiceImpl implements AdministratorService {
 	}
 
 	@Override
-	public Administrator getAdministrator(Long id) {
+	public AppUser getAdministrator(Long id) {
 		if (administratorRepository.existsById(id))
 			return administratorRepository.findById(id).get();
 		return null;

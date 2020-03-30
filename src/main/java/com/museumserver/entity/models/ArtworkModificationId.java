@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Embeddable
-public class BeaconModificationId implements Serializable{
-	
-	private static final long serialVersionUID = -4211518198608038683L;
+public class ArtworkModificationId implements Serializable{
+
+	private static final long serialVersionUID = -4882200071319231190L;
 
 	@GeneratedValue
 	@Column(name = "date")
@@ -27,19 +27,19 @@ public class BeaconModificationId implements Serializable{
 	private Long appUserId;
 
 	@NotNull
-	@Column(name = "beacon_id")
+	@Column(name = "artwork_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long beaconId;
+	private Long artworkId;
 	
-	public BeaconModificationId() {
+	public ArtworkModificationId() {
 		super();
 	}
-	
-	public BeaconModificationId(Long appUserId, Long beaconId) {
+
+	public ArtworkModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long artworkId) {
 		super();
-		this.date = new Timestamp(System.currentTimeMillis());
+		this.date = date;
 		this.appUserId = appUserId;
-		this.beaconId = beaconId;
+		this.artworkId = artworkId;
 	}
 
 	public Timestamp getDate() {
@@ -58,12 +58,12 @@ public class BeaconModificationId implements Serializable{
 		this.appUserId = appUserId;
 	}
 
-	public Long getBeaconId() {
-		return beaconId;
+	public Long getArtworkId() {
+		return artworkId;
 	}
 
-	public void setBeaconId(Long beaconId) {
-		this.beaconId = beaconId;
+	public void setArtworkId(Long artworkId) {
+		this.artworkId = artworkId;
 	}
 
 	public static long getSerialversionuid() {
@@ -74,16 +74,16 @@ public class BeaconModificationId implements Serializable{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof BeaconModificationId))
+		if (!(o instanceof ArtworkModificationId))
 			return false;
-		BeaconModificationId that = (BeaconModificationId) o;
+		ArtworkModificationId that = (ArtworkModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
 				&& Objects.equals(getAppUserId(), that.getAppUserId())
-				&& Objects.equals(getBeaconId(), that.getBeaconId());
+				&& Objects.equals(getArtworkId(), that.getArtworkId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getBeaconId());
+		return Objects.hash(getDate(), getAppUserId(),getArtworkId());
 	}
 }

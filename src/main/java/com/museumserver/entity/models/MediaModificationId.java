@@ -22,9 +22,9 @@ public class MediaModificationId implements Serializable{
 	private Timestamp date;
 
 	@NotNull
-	@Column(name = "administrator_id")
+	@Column(name = "app_user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long administratorId;
+	private Long appUserId;
 
 	@NotNull
 	@Column(name = "media_id")
@@ -35,10 +35,10 @@ public class MediaModificationId implements Serializable{
 		super();
 	}
 	
-	public MediaModificationId(Long administratorId, Long mediaId) {
+	public MediaModificationId(Long appUserId, Long mediaId) {
 		super();
 		this.date = new Timestamp(System.currentTimeMillis());
-		this.administratorId = administratorId;
+		this.appUserId = appUserId;
 		this.mediaId = mediaId;
 	}
 
@@ -50,12 +50,12 @@ public class MediaModificationId implements Serializable{
 		this.date = date;
 	}
 
-	public Long getAdministratorId() {
-		return administratorId;
+	public Long getAppUserId() {
+		return appUserId;
 	}
 
-	public void setAdministratorId(Long administratorId) {
-		this.administratorId = administratorId;
+	public void setAppUserId(Long appUserId) {
+		this.appUserId = appUserId;
 	}
 
 	public Long getMediaId() {
@@ -78,12 +78,12 @@ public class MediaModificationId implements Serializable{
 			return false;
 		MediaModificationId that = (MediaModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
-				&& Objects.equals(getAdministratorId(), that.getAdministratorId())
+				&& Objects.equals(getAppUserId(), that.getAppUserId())
 				&& Objects.equals(getMediaId(), that.getMediaId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAdministratorId(),getMediaId());
+		return Objects.hash(getDate(), getAppUserId(),getMediaId());
 	}
 }

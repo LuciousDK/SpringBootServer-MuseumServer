@@ -12,16 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.museumserver.entity.models.Administrator;
+import com.museumserver.entity.models.AppUser;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.AdministratorRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
-import com.museumserver.entity.repositories.BeaconModificationRepository;
+//import com.museumserver.entity.repositories.BeaconModificationRepository;
+//import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.BeaconRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
-import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.MediaRepository;
 
 @Controller
@@ -42,11 +42,11 @@ public class WebController {
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
 
-	@Autowired
-	private BeaconModificationRepository beaconModificationRepository;
-
-	@Autowired
-	private MediaModificationRepository mediaModificationRepository;
+//	@Autowired
+//	private BeaconModificationRepository beaconModificationRepository;
+//
+//	@Autowired
+//	private MediaModificationRepository mediaModificationRepository;
 
 	@GetMapping({ "/", "login" })
 	public String login() {
@@ -73,6 +73,11 @@ public class WebController {
 		mav.addObject("quantities", quantities);
 //		return mav;
 		return "redirect:obras";
+	}
+
+	@RequestMapping(value = "scan", method = RequestMethod.GET)
+	public void scan() {
+
 	}
 
 	@RequestMapping(value = "obras", method = RequestMethod.GET)
@@ -110,11 +115,11 @@ public class WebController {
 
 	@RequestMapping(value = "perfil", method = RequestMethod.GET)
 	public ModelAndView profile(Authentication authentication) {
-		
-		Administrator admin = administratorRepository.findByUsername(authentication.getName());
-		
+
+		AppUser admin = administratorRepository.findByUsername(authentication.getName());
+
 		ModelAndView mav = new ModelAndView("profile");
-		
+
 		mav.addObject("administrator", admin);
 
 		return mav;
@@ -124,8 +129,8 @@ public class WebController {
 	public ModelAndView beacons() {
 
 		ModelAndView mav = new ModelAndView("beacons");
-		
-		mav.addObject("beacons",beaconRepository.findAll());
+
+		mav.addObject("beacons", beaconRepository.findAll());
 
 		return mav;
 	}

@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Embeddable
-public class BeaconModificationId implements Serializable{
-	
-	private static final long serialVersionUID = -4211518198608038683L;
+public class AppUserModificationId implements Serializable{
+
+	private static final long serialVersionUID = -4698681115300118531L;
 
 	@GeneratedValue
 	@Column(name = "date")
@@ -27,21 +27,21 @@ public class BeaconModificationId implements Serializable{
 	private Long appUserId;
 
 	@NotNull
-	@Column(name = "beacon_id")
+	@Column(name = "modified_user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long beaconId;
+	private Long modifiedUserId;
 	
-	public BeaconModificationId() {
+	public AppUserModificationId() {
 		super();
 	}
 	
-	public BeaconModificationId(Long appUserId, Long beaconId) {
+	public AppUserModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long modifiedUserId) {
 		super();
-		this.date = new Timestamp(System.currentTimeMillis());
+		this.date = date;
 		this.appUserId = appUserId;
-		this.beaconId = beaconId;
+		this.modifiedUserId = modifiedUserId;
 	}
-
+	
 	public Timestamp getDate() {
 		return date;
 	}
@@ -58,12 +58,12 @@ public class BeaconModificationId implements Serializable{
 		this.appUserId = appUserId;
 	}
 
-	public Long getBeaconId() {
-		return beaconId;
+	public Long getModifiedUserId() {
+		return modifiedUserId;
 	}
 
-	public void setBeaconId(Long beaconId) {
-		this.beaconId = beaconId;
+	public void setModifiedUserId(Long modifiedUserId) {
+		this.modifiedUserId = modifiedUserId;
 	}
 
 	public static long getSerialversionuid() {
@@ -74,16 +74,16 @@ public class BeaconModificationId implements Serializable{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof BeaconModificationId))
+		if (!(o instanceof AppUserModificationId))
 			return false;
-		BeaconModificationId that = (BeaconModificationId) o;
+		AppUserModificationId that = (AppUserModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
 				&& Objects.equals(getAppUserId(), that.getAppUserId())
-				&& Objects.equals(getBeaconId(), that.getBeaconId());
+				&& Objects.equals(getModifiedUserId(), that.getModifiedUserId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getBeaconId());
+		return Objects.hash(getDate(), getAppUserId(),getModifiedUserId());
 	}
 }

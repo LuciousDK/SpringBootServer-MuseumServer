@@ -12,9 +12,9 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Embeddable
-public class BeaconModificationId implements Serializable{
-	
-	private static final long serialVersionUID = -4211518198608038683L;
+public class ExhibitionModificationId implements Serializable{
+
+	private static final long serialVersionUID = 1438321980992055760L;
 
 	@GeneratedValue
 	@Column(name = "date")
@@ -27,19 +27,19 @@ public class BeaconModificationId implements Serializable{
 	private Long appUserId;
 
 	@NotNull
-	@Column(name = "beacon_id")
+	@Column(name = "exhibition_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long beaconId;
+	private Long exhibitionId;
 	
-	public BeaconModificationId() {
+	public ExhibitionModificationId() {
 		super();
 	}
-	
-	public BeaconModificationId(Long appUserId, Long beaconId) {
+
+	public ExhibitionModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long exhibitionId) {
 		super();
-		this.date = new Timestamp(System.currentTimeMillis());
+		this.date = date;
 		this.appUserId = appUserId;
-		this.beaconId = beaconId;
+		this.exhibitionId = exhibitionId;
 	}
 
 	public Timestamp getDate() {
@@ -58,12 +58,12 @@ public class BeaconModificationId implements Serializable{
 		this.appUserId = appUserId;
 	}
 
-	public Long getBeaconId() {
-		return beaconId;
+	public Long getExhibitionId() {
+		return exhibitionId;
 	}
 
-	public void setBeaconId(Long beaconId) {
-		this.beaconId = beaconId;
+	public void setExhibitionId(Long exhibitionId) {
+		this.exhibitionId = exhibitionId;
 	}
 
 	public static long getSerialversionuid() {
@@ -74,16 +74,16 @@ public class BeaconModificationId implements Serializable{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof BeaconModificationId))
+		if (!(o instanceof ExhibitionModificationId))
 			return false;
-		BeaconModificationId that = (BeaconModificationId) o;
+		ExhibitionModificationId that = (ExhibitionModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
 				&& Objects.equals(getAppUserId(), that.getAppUserId())
-				&& Objects.equals(getBeaconId(), that.getBeaconId());
+				&& Objects.equals(getExhibitionId(), that.getExhibitionId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getBeaconId());
+		return Objects.hash(getDate(), getAppUserId(),getExhibitionId());
 	}
 }

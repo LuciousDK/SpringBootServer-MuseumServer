@@ -2,17 +2,17 @@ package com.museumserver.services;
 
 import java.util.List;
 
-import com.museumserver.entity.models.Administrator;
+import com.museumserver.entity.models.AppUser;
 
 public interface AdministratorService {
 
-	public Administrator getAdministrator(Long id);
+	public AppUser getAdministrator(Long id);
 	
-	public List<Administrator> getAdministrators();
+	public List<AppUser> getAdministrators();
 
 	public void deleteAdministrator(long id);
 
-	public Administrator addAdministrator(Administrator administrator);
+	public AppUser addAdministrator(AppUser administrator);
 
-	public Administrator updateAdministrator(Administrator administrator);
+	public AppUser updateAdministrator(AppUser administrator);
 }

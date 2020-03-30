@@ -16,9 +16,8 @@ import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
-@Entity(name="beacons")
+@Entity(name = "beacons")
 public class Beacon implements Serializable {
-
 
 	private static final long serialVersionUID = -4675038336264753747L;
 
@@ -30,36 +29,34 @@ public class Beacon implements Serializable {
 	@Column
 	@JsonView(DataViews.DefaultData.class)
 	private String uuid;
-	
-	@JsonIgnoreProperties({ "beacons" })
-	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
-	@JsonView(DataViews.BeaconModificationsData.class)
-	private List<BeaconModification> modifications;
 
 	@JsonIgnoreProperties({ "beacons" })
 	@ManyToOne
 	@JoinColumn(name = "artwork_id", insertable = true, updatable = true)
 	@JsonView(DataViews.ArtworkData.class)
 	private Artwork artwork;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "beacon_id", insertable = true, updatable = true)
+	@JsonView(DataViews.DefaultData.class)
+	private State state;
+
+	@JsonIgnoreProperties({ "beacons" })
+	@OneToMany(mappedBy = "beacon", fetch = FetchType.LAZY)
+	@JsonView(DataViews.BeaconModificationsData.class)
+	private List<BeaconModification> modifications;
+
 	public Beacon() {
 		super();
 	}
-	
-	public Beacon(Long id, String uuid, List<BeaconModification> modifications, Artwork artwork) {
+
+	public Beacon(Long id, String uuid, Artwork artwork, State state, List<BeaconModification> modifications) {
 		super();
 		this.id = id;
 		this.uuid = uuid;
+		this.artwork = artwork;
+		this.state = state;
 		this.modifications = modifications;
-		this.artwork = artwork;
-	}
-
-	public Artwork getArtwork() {
-		return artwork;
-	}
-
-	public void setArtwork(Artwork artwork) {
-		this.artwork = artwork;
 	}
 
 	public Long getId() {
@@ -78,6 +75,22 @@ public class Beacon implements Serializable {
 		this.uuid = uuid;
 	}
 
+	public Artwork getArtwork() {
+		return artwork;
+	}
+
+	public void setArtwork(Artwork artwork) {
+		this.artwork = artwork;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
 	public List<BeaconModification> getModifications() {
 		return modifications;
 	}
@@ -89,7 +102,7 @@ public class Beacon implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
 	public String toJSON() {
 		String result = "{" + "\"id\":" + this.id +
 						",\"uuid\":\""+this.uuid+
@@ -103,5 +116,5 @@ public class Beacon implements Serializable {
 
 		return result;
 	}
-	
+
 }
