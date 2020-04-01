@@ -46,7 +46,7 @@ public class Exhibition implements Serializable {
 	private String location;
 
 	@ManyToOne
-	@JoinColumn(name = "exhibition_id", insertable = true, updatable = true)
+	@JoinColumn(name = "state_id", insertable = true, updatable = true)
 	@JsonView(DataViews.DefaultData.class)
 	private State state;
 

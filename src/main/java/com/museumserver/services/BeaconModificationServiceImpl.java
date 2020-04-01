@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.BeaconModification;
 import com.museumserver.entity.models.BeaconModificationId;
-import com.museumserver.entity.repositories.AdministratorRepository;
+import com.museumserver.entity.repositories.AppUserRepository;
 import com.museumserver.entity.repositories.BeaconModificationRepository;
 import com.museumserver.entity.repositories.BeaconRepository;
 
@@ -16,7 +16,7 @@ import com.museumserver.entity.repositories.BeaconRepository;
 public class BeaconModificationServiceImpl implements BeaconModificationService{
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private AppUserRepository administratorRepository;
 
 	@Autowired
 	private BeaconRepository beaconRepository;
@@ -36,7 +36,7 @@ public class BeaconModificationServiceImpl implements BeaconModificationService{
 		List<BeaconModification> result = new ArrayList<>();
 
 		for (BeaconModification modification : beaconModificationRepository.findAll()) {
-			if (modification.getId().getAdministratorId() == administratorId)
+			if (modification.getId().getAppUserId() == administratorId)
 				result.add(modification);
 		}
 

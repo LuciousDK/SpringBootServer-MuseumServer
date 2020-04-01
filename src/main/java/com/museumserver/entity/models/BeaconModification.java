@@ -35,7 +35,19 @@ public class BeaconModification implements Serializable {
 	@JoinColumn(name = "app_user_id", insertable = false, updatable = false)
 	@JsonView(DataViews.AppUserData.class)
 	private AppUser appUser;
-	
+
+	public BeaconModification() {
+		super();
+	}
+
+	public BeaconModification(BeaconModificationId id, String description, Beacon beacon, AppUser appUser) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.beacon = beacon;
+		this.appUser = appUser;
+	}
+
 	public BeaconModificationId getId() {
 		return id;
 	}
@@ -71,17 +83,6 @@ public class BeaconModification implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public BeaconModification(BeaconModificationId id, String description, Beacon beacon, AppUser appUser) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.beacon = beacon;
-		this.appUser = appUser;
-	}
-
-	public BeaconModification() {
-		super();
-	}
+	
 
 }

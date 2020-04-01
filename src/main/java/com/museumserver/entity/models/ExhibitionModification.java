@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
-@Entity(name = "app_user_modifications")
+@Entity(name = "exhibition_modifications")
 public class ExhibitionModification implements Serializable {
 
 	private static final long serialVersionUID = 4600823415245810257L;
@@ -38,6 +38,51 @@ public class ExhibitionModification implements Serializable {
 
 	public ExhibitionModification() {
 		super();
+	}
+
+	public ExhibitionModification(ExhibitionModificationId id, String description, AppUser appUser,
+			Exhibition exhibition) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.appUser = appUser;
+		this.exhibition = exhibition;
+	}
+
+	public ExhibitionModificationId getId() {
+		return id;
+	}
+
+	public void setId(ExhibitionModificationId id) {
+		this.id = id;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public AppUser getAppUser() {
+		return appUser;
+	}
+
+	public void setAppUser(AppUser appUser) {
+		this.appUser = appUser;
+	}
+
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 }

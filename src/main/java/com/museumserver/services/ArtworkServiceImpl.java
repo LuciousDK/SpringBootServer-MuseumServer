@@ -6,16 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Artwork;
+import com.museumserver.entity.models.State;
 import com.museumserver.entity.repositories.ArtworkRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
 import com.museumserver.entity.repositories.MediaRepository;
+import com.museumserver.entity.repositories.StateRepository;
 
 @Service
 public class ArtworkServiceImpl implements ArtworkService {
-
-	public void setRepository(Object repository) {
-		this.artworkRepository = (ArtworkRepository) repository;
-	}
 
 	@Autowired
 	private ArtworkRepository artworkRepository;
@@ -25,6 +23,9 @@ public class ArtworkServiceImpl implements ArtworkService {
 
 	@Autowired
 	private MediaRepository mediaRepository;
+
+	@Autowired
+	private StateRepository stateRepository;
 
 	@Override
 	public List<Artwork> getArtworks() {
@@ -42,9 +43,9 @@ public class ArtworkServiceImpl implements ArtworkService {
 
 	@Override
 	public void addArtwork(Artwork artwork, Long exhibitionId) {
-		
-		if(exhibitionId!=null) {
-			if(exhibitionRepository.existsById(exhibitionId)) {
+
+		if (exhibitionId != null) {
+			if (exhibitionRepository.existsById(exhibitionId)) {
 				artwork.setExhibition(exhibitionRepository.findById(exhibitionId).get());
 			}
 		}
@@ -70,12 +71,12 @@ public class ArtworkServiceImpl implements ArtworkService {
 			if (artwork.getDescription() != null)
 				original.setDescription(artwork.getDescription());
 
-			if(exhibitionId!=null) {
-				if(exhibitionRepository.existsById(exhibitionId)) {
+			if (exhibitionId != null) {
+				if (exhibitionRepository.existsById(exhibitionId)) {
 					artwork.setExhibition(exhibitionRepository.findById(exhibitionId).get());
 				}
 			}
-			
+
 			return artworkRepository.save(original);
 		}
 		return null;
@@ -93,23 +94,42 @@ public class ArtworkServiceImpl implements ArtworkService {
 	public void addMedia(Long artworkId, Long mediaId) {
 
 		Artwork original = artworkRepository.findById(artworkId).get();
-			if(mediaRepository.existsById(mediaId)) {
-				original.getMedia().add((mediaRepository.findById(mediaId).get()));
-			}
-			artworkRepository.save(original);
-		
-		
+		if (mediaRepository.existsById(mediaId)) {
+			original.getMedia().add((mediaRepository.findById(mediaId).get()));
+		}
+		artworkRepository.save(original);
+
 	}
+
 	@Override
 	public void removeMedia(Long artworkId, Long mediaId) {
 
 		Artwork original = artworkRepository.findById(artworkId).get();
-			if(mediaRepository.existsById(mediaId)) {
-				original.getMedia().remove(mediaRepository.findById(mediaId).get());
-			}
-			artworkRepository.save(original);
+		if (mediaRepository.existsById(mediaId)) {
+			original.getMedia().remove(mediaRepository.findById(mediaId).get());
+		}
+		artworkRepository.save(original);
+
+	}
+
+	@Override
+	public void activateArtwork(long id) {
 		
+		Artwork original = artworkRepository.findById(id).get();
+		State state = stateRepository.findByName("ACTIVE");
+		original.setState(state);
+		artworkRepository.save(original);
+
+	}
+
+	@Override
+	public void inactivateArtwork(long id) {
 		
+		Artwork original = artworkRepository.findById(id).get();
+		State state = stateRepository.findByName("INACTIVE");
+		original.setState(state);
+		artworkRepository.save(original);
+
 	}
 
 }

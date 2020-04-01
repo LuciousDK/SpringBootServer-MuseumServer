@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.MediaModification;
 import com.museumserver.entity.models.MediaModificationId;
-import com.museumserver.entity.repositories.AdministratorRepository;
+import com.museumserver.entity.repositories.AppUserRepository;
 import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.MediaRepository;
 
@@ -16,7 +16,7 @@ import com.museumserver.entity.repositories.MediaRepository;
 public class MediaModificationServiceImpl implements MediaModificationService{
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private AppUserRepository administratorRepository;
 
 	@Autowired
 	private MediaRepository mediaRepository;
@@ -36,7 +36,7 @@ public class MediaModificationServiceImpl implements MediaModificationService{
 		List<MediaModification> result = new ArrayList<>();
 
 		for (MediaModification modification : mediaModificationRepository.findAll()) {
-			if (modification.getId().getAdministratorId() == administratorId)
+			if (modification.getId().getAppUserId() == administratorId)
 				result.add(modification);
 		}
 

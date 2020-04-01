@@ -16,7 +16,7 @@ import com.museumserver.entity.models.AppUser;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
-import com.museumserver.entity.repositories.AdministratorRepository;
+import com.museumserver.entity.repositories.AppUserRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
 //import com.museumserver.entity.repositories.BeaconModificationRepository;
 //import com.museumserver.entity.repositories.MediaModificationRepository;
@@ -28,7 +28,7 @@ import com.museumserver.entity.repositories.MediaRepository;
 public class WebController {
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private AppUserRepository administratorRepository;
 
 	@Autowired
 	private ArtworkRepository artworkRepository;

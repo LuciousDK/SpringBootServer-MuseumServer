@@ -37,7 +37,7 @@ public class Beacon implements Serializable {
 	private Artwork artwork;
 
 	@ManyToOne
-	@JoinColumn(name = "beacon_id", insertable = true, updatable = true)
+	@JoinColumn(name = "state_id", insertable = true, updatable = true)
 	@JsonView(DataViews.DefaultData.class)
 	private State state;
 

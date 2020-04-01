@@ -15,40 +15,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.museumserver.entity.models.AppUser;
 import com.museumserver.entity.models.DataViews;
-import com.museumserver.services.AdministratorService;
+import com.museumserver.services.AppUserService;
 
 @RestController
 @CrossOrigin(origins = "*")
-public class AdministratorController {
+public class AppUserController {
 
 	@Autowired
-	private AdministratorService administratorService;
+	private AppUserService appUserService;
 
-	@GetMapping("/administrators")
+	@GetMapping("/appUsers")
 	@JsonView(DataViews.AppUsersRequest.class)
-	public List<AppUser> getAdministrators() {
-		return administratorService.getAdministrators();
+	public List<AppUser> getAppUsers() {
+		return appUserService.getAppUsers();
 	}
 
-	@GetMapping("/administrator/{id}")
+	@GetMapping("/appUser/{id}")
 	@JsonView(DataViews.AppUsersRequest.class)
-	public AppUser getAdministrator(@PathVariable("id") Long id) {
-		return administratorService.getAdministrator(id);
+	public AppUser getAppUser(@PathVariable("id") Long id) {
+		return appUserService.getAppUser(id);
 	}
 
-	@PostMapping("/administrator")
-	public void addAdministrator(AppUser administrator) {
-		administratorService.addAdministrator(administrator);
+	@PostMapping("/appUser")
+	public void addAppUser(AppUser appUser) {
+		appUserService.addAppUser(appUser);
 	}
 
-	@PutMapping("/administrator")
-	public void updateAdministrator(AppUser administrator) {
-		administratorService.updateAdministrator(administrator);
+	@PutMapping("/appUser")
+	public void updateAppUser(AppUser appUser) {
+		appUserService.updateAppUser(appUser);
 	}
 
-	@DeleteMapping("/administrator")
-	public void removeAdministrator(@RequestParam("id") Long id) {
-		administratorService.deleteAdministrator(id);
+	@DeleteMapping("/appUser")
+	public void removeAppUser(@RequestParam("id") Long id) {
+		appUserService.deleteAppUser(id);
 	}
 	
 

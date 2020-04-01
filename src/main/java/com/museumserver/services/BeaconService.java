@@ -15,4 +15,8 @@ public interface BeaconService {
 	public Beacon addBeacon(Beacon beacon);
 
 	public Beacon updateBeacon(Beacon beacon);
+
+	public void activateBeacon(long id);
+
+	public void inactivateBeacon(long id);
 }

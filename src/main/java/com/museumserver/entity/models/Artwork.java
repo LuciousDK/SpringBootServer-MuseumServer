@@ -51,7 +51,7 @@ public class Artwork implements Serializable {
 	private Exhibition exhibition;
 
 	@ManyToOne
-	@JoinColumn(name = "artwork_id", insertable = true, updatable = true)
+	@JoinColumn(name = "state_id", insertable = true, updatable = true)
 	@JsonView(DataViews.DefaultData.class)
 	private State state;
 

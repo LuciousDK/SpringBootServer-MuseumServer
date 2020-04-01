@@ -13,20 +13,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.AppUser;
-import com.museumserver.entity.repositories.AdministratorRepository;
+import com.museumserver.entity.repositories.AppUserRepository;
 
 @Service
 public class UserService implements UserDetailsService{
 	
 	@Autowired
-	private AdministratorRepository repository; 
+	private AppUserRepository repository; 
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		AppUser admin = repository.findByUsername(username);
+		AppUser user = repository.findByUsername(username);
 		List<GrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ADMIN"));
-		UserDetails userDetails = new User(admin.getUsername(),admin.getPassword(),roles);
+		roles.add(new SimpleGrantedAuthority(user.getRole().getName()));
+		UserDetails userDetails = new User(user.getUsername(),user.getPassword(),roles);
 		return userDetails;
 	}
 

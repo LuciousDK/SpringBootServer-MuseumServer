@@ -12,10 +12,6 @@ import com.museumserver.entity.repositories.MediaRepository;
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
 
-	public void setRepository(Object repository) {
-		this.exhibitionRepository = (ExhibitionRepository) repository;
-	}
-
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
 

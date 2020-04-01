@@ -36,7 +36,18 @@ public class MediaModification implements Serializable {
 	@JoinColumn(name = "app_user_id", insertable = false, updatable = false)
 	@JsonView(DataViews.AppUserData.class)
 	private AppUser appUser;
-	
+
+	public MediaModification() {
+		super();
+	}
+
+	public MediaModification(MediaModificationId id, String description, Media media, AppUser appUser) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.media = media;
+		this.appUser = appUser;
+	}
 	
 	public MediaModificationId getId() {
 		return id;
@@ -72,18 +83,6 @@ public class MediaModification implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public MediaModification(MediaModificationId id, String description, Media media, AppUser appUser) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.media = media;
-		this.appUser = appUser;
-	}
-
-	public MediaModification() {
-		super();
 	}
 
 }

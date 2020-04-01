@@ -48,12 +48,12 @@ public class AppUser implements Serializable {
 	private String password;
 
 	@ManyToOne
-	@JoinColumn(name = "app_user_id", insertable = true, updatable = true)
+	@JoinColumn(name = "role_id", insertable = true, updatable = true)
 	@JsonView(DataViews.DefaultData.class)
 	private Role role;
 
 	@ManyToOne
-	@JoinColumn(name = "app_user_id", insertable = true, updatable = true)
+	@JoinColumn(name = "state_id", insertable = true, updatable = true)
 	@JsonView(DataViews.DefaultData.class)
 	private State state;
 
@@ -84,6 +84,134 @@ public class AppUser implements Serializable {
 
 	public AppUser() {
 		super();
+	}
+
+	public AppUser(Long id, String email, String username, String firstName, String lastName, String password,
+			Role role, State state, List<AppUserModification> appUserModifications,
+			List<ExhibitionModification> exhibitionModifications, List<ArtworkModification> artworkModifications,
+			List<BeaconModification> beaconModifications, List<MediaModification> mediaModifications) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.username = username;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.password = password;
+		this.role = role;
+		this.state = state;
+		this.appUserModifications = appUserModifications;
+		this.exhibitionModifications = exhibitionModifications;
+		this.artworkModifications = artworkModifications;
+		this.beaconModifications = beaconModifications;
+		this.mediaModifications = mediaModifications;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public List<AppUserModification> getAppUserModifications() {
+		return appUserModifications;
+	}
+
+	public void setAppUserModifications(List<AppUserModification> appUserModifications) {
+		this.appUserModifications = appUserModifications;
+	}
+
+	public List<ExhibitionModification> getExhibitionModifications() {
+		return exhibitionModifications;
+	}
+
+	public void setExhibitionModifications(List<ExhibitionModification> exhibitionModifications) {
+		this.exhibitionModifications = exhibitionModifications;
+	}
+
+	public List<ArtworkModification> getArtworkModifications() {
+		return artworkModifications;
+	}
+
+	public void setArtworkModifications(List<ArtworkModification> artworkModifications) {
+		this.artworkModifications = artworkModifications;
+	}
+
+	public List<BeaconModification> getBeaconModifications() {
+		return beaconModifications;
+	}
+
+	public void setBeaconModifications(List<BeaconModification> beaconModifications) {
+		this.beaconModifications = beaconModifications;
+	}
+
+	public List<MediaModification> getMediaModifications() {
+		return mediaModifications;
+	}
+
+	public void setMediaModifications(List<MediaModification> mediaModifications) {
+		this.mediaModifications = mediaModifications;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public String toJSON() {
