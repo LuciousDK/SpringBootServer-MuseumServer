@@ -22,16 +22,10 @@ public class BeaconModificationController {
 	@Autowired
 	BeaconModificationService beaconModificationService;
 
-	@GetMapping("/beacon/modifications")
-	@JsonView(DataViews.ModificationsRequest.class)
-	public List<BeaconModification> getAllModifications() {
-		return beaconModificationService.getAllModifications();
-	}
-
 	@GetMapping("/beacon/modifications/administrator/{administratorId}")
 	@JsonView(DataViews.ModificationsRequest.class)
 	public List<BeaconModification> getAdministratorModifications(@PathVariable("administratorId") Long administratorId) {
-		return beaconModificationService.getAdministratorModifications(administratorId);
+		return beaconModificationService.getModificationsByUser(administratorId);
 	}
 
 	@GetMapping("/beacon/modifications/{beaconId}")

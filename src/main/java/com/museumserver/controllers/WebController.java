@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.museumserver.entity.models.AppUser;
+import com.museumserver.entity.models.User;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
-import com.museumserver.entity.repositories.AppUserRepository;
+import com.museumserver.entity.repositories.UserRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
 //import com.museumserver.entity.repositories.BeaconModificationRepository;
 //import com.museumserver.entity.repositories.MediaModificationRepository;
@@ -28,7 +28,7 @@ import com.museumserver.entity.repositories.MediaRepository;
 public class WebController {
 
 	@Autowired
-	private AppUserRepository administratorRepository;
+	private UserRepository administratorRepository;
 
 	@Autowired
 	private ArtworkRepository artworkRepository;
@@ -116,7 +116,7 @@ public class WebController {
 	@RequestMapping(value = "perfil", method = RequestMethod.GET)
 	public ModelAndView profile(Authentication authentication) {
 
-		AppUser admin = administratorRepository.findByUsername(authentication.getName());
+		User admin = administratorRepository.findByUsername(authentication.getName());
 
 		ModelAndView mav = new ModelAndView("profile");
 

@@ -26,11 +26,11 @@ public class ArtworkModification implements Serializable {
 
 	@JsonIgnoreProperties({ "artworkModifications" })
 	@ManyToOne
-	@JoinColumn(name = "app_user_id", insertable = false, updatable = false)
-	@JsonView(DataViews.ArtworkData.class)
-	private AppUser appUser;
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JsonView(DataViews.UserData.class)
+	private User user;
 
-	@JsonIgnoreProperties({ "appUserModifications" })
+	@JsonIgnoreProperties({ "userModifications" })
 	@ManyToOne
 	@JoinColumn(name = "artwork_id", insertable = false, updatable = false)
 	@JsonView(DataViews.ArtworkData.class)
@@ -40,11 +40,11 @@ public class ArtworkModification implements Serializable {
 		super();
 	}
 
-	public ArtworkModification(ArtworkModificationId id, String description, AppUser appUser, Artwork artwork) {
+	public ArtworkModification(ArtworkModificationId id, String description, User user, Artwork artwork) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.appUser = appUser;
+		this.user = user;
 		this.artwork = artwork;
 	}
 
@@ -64,12 +64,12 @@ public class ArtworkModification implements Serializable {
 		this.description = description;
 	}
 
-	public AppUser getAppUser() {
-		return appUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAppUser(AppUser appUser) {
-		this.appUser = appUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Artwork getArtwork() {

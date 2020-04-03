@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Embeddable
-public class AppUserModificationId implements Serializable{
+public class UserModificationId implements Serializable{
 
 	private static final long serialVersionUID = -4698681115300118531L;
 
@@ -22,23 +22,23 @@ public class AppUserModificationId implements Serializable{
 	private Timestamp date;
 
 	@NotNull
-	@Column(name = "app_user_id")
+	@Column(name = "user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long appUserId;
+	private Long userId;
 
 	@NotNull
 	@Column(name = "modified_user_id")
 	@JsonView(DataViews.DefaultData.class)
 	private Long modifiedUserId;
 	
-	public AppUserModificationId() {
+	public UserModificationId() {
 		super();
 	}
 	
-	public AppUserModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long modifiedUserId) {
+	public UserModificationId(Long userId, Long modifiedUserId) {
 		super();
-		this.date = date;
-		this.appUserId = appUserId;
+		this.date = new Timestamp(System.currentTimeMillis());
+		this.userId = userId;
 		this.modifiedUserId = modifiedUserId;
 	}
 	
@@ -50,12 +50,12 @@ public class AppUserModificationId implements Serializable{
 		this.date = date;
 	}
 
-	public Long getAppUserId() {
-		return appUserId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setAppUserId(Long appUserId) {
-		this.appUserId = appUserId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getModifiedUserId() {
@@ -74,16 +74,16 @@ public class AppUserModificationId implements Serializable{
 	public boolean equals(Object o) {
 		if (this == o)
 			return true;
-		if (!(o instanceof AppUserModificationId))
+		if (!(o instanceof UserModificationId))
 			return false;
-		AppUserModificationId that = (AppUserModificationId) o;
+		UserModificationId that = (UserModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
-				&& Objects.equals(getAppUserId(), that.getAppUserId())
+				&& Objects.equals(getUserId(), that.getUserId())
 				&& Objects.equals(getModifiedUserId(), that.getModifiedUserId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getModifiedUserId());
+		return Objects.hash(getDate(), getUserId(),getModifiedUserId());
 	}
 }

@@ -22,9 +22,9 @@ public class BeaconModificationId implements Serializable{
 	private Timestamp date;
 
 	@NotNull
-	@Column(name = "app_user_id")
+	@Column(name = "user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long appUserId;
+	private Long userId;
 
 	@NotNull
 	@Column(name = "beacon_id")
@@ -35,10 +35,10 @@ public class BeaconModificationId implements Serializable{
 		super();
 	}
 	
-	public BeaconModificationId(Long appUserId, Long beaconId) {
+	public BeaconModificationId(Long userId, Long beaconId) {
 		super();
 		this.date = new Timestamp(System.currentTimeMillis());
-		this.appUserId = appUserId;
+		this.userId = userId;
 		this.beaconId = beaconId;
 	}
 
@@ -50,12 +50,12 @@ public class BeaconModificationId implements Serializable{
 		this.date = date;
 	}
 
-	public Long getAppUserId() {
-		return appUserId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setAppUserId(Long appUserId) {
-		this.appUserId = appUserId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getBeaconId() {
@@ -78,12 +78,12 @@ public class BeaconModificationId implements Serializable{
 			return false;
 		BeaconModificationId that = (BeaconModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
-				&& Objects.equals(getAppUserId(), that.getAppUserId())
+				&& Objects.equals(getUserId(), that.getUserId())
 				&& Objects.equals(getBeaconId(), that.getBeaconId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getBeaconId());
+		return Objects.hash(getDate(), getUserId(),getBeaconId());
 	}
 }

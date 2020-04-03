@@ -8,10 +8,10 @@ public interface MediaModificationService {
 
 	public List<MediaModification> getAllModifications();
 
-	public List<MediaModification> getAdministratorModifications(Long administratorId);
+	public List<MediaModification> getAdministratorModifications(Long userId);
 
 	public List<MediaModification> getMediaModifications(Long mediaId);
 
-	public void addMediaModification(Long administratorId, Long mediaId, MediaModification modification);
+	public void addMediaModification(Long userId, Long mediaId, MediaModification modification);
 
 }

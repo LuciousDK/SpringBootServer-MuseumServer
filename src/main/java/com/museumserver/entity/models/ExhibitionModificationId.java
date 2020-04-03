@@ -22,9 +22,9 @@ public class ExhibitionModificationId implements Serializable{
 	private Timestamp date;
 
 	@NotNull
-	@Column(name = "app_user_id")
+	@Column(name = "user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long appUserId;
+	private Long userId;
 
 	@NotNull
 	@Column(name = "exhibition_id")
@@ -35,10 +35,10 @@ public class ExhibitionModificationId implements Serializable{
 		super();
 	}
 
-	public ExhibitionModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long exhibitionId) {
+	public ExhibitionModificationId( Long userId, Long exhibitionId) {
 		super();
-		this.date = date;
-		this.appUserId = appUserId;
+		this.date = new Timestamp(System.currentTimeMillis());
+		this.userId = userId;
 		this.exhibitionId = exhibitionId;
 	}
 
@@ -50,12 +50,12 @@ public class ExhibitionModificationId implements Serializable{
 		this.date = date;
 	}
 
-	public Long getAppUserId() {
-		return appUserId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setAppUserId(Long appUserId) {
-		this.appUserId = appUserId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getExhibitionId() {
@@ -78,12 +78,12 @@ public class ExhibitionModificationId implements Serializable{
 			return false;
 		ExhibitionModificationId that = (ExhibitionModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
-				&& Objects.equals(getAppUserId(), that.getAppUserId())
+				&& Objects.equals(getUserId(), that.getUserId())
 				&& Objects.equals(getExhibitionId(), that.getExhibitionId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getExhibitionId());
+		return Objects.hash(getDate(), getUserId(),getExhibitionId());
 	}
 }

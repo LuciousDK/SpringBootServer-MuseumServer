@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity(name = "app_users")
-public class AppUser implements Serializable {
+public class User implements Serializable {
 
 	private static final long serialVersionUID = -8965293009855831647L;
 
@@ -57,37 +57,37 @@ public class AppUser implements Serializable {
 	@JsonView(DataViews.DefaultData.class)
 	private State state;
 
-	@JsonIgnoreProperties({ "appUser" })
-	@OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
-	@JsonView(DataViews.AppUserModificationsData.class)
-	private List<AppUserModification> appUserModifications;
+	@JsonIgnoreProperties({ "user" })
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	@JsonView(DataViews.UserModificationsData.class)
+	private List<UserModification> userModifications;
 
-	@JsonIgnoreProperties({ "appUser" })
-	@OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "user" })
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonView(DataViews.ExhibitionModificationsData.class)
 	private List<ExhibitionModification> exhibitionModifications;
 
-	@JsonIgnoreProperties({ "appUser" })
-	@OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "user" })
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonView(DataViews.ArtworkModificationsData.class)
 	private List<ArtworkModification> artworkModifications;
 
-	@JsonIgnoreProperties({ "appUser" })
-	@OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "user" })
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonView(DataViews.BeaconModificationsData.class)
 	private List<BeaconModification> beaconModifications;
 
-	@JsonIgnoreProperties({ "appUser" })
-	@OneToMany(mappedBy = "appUser", fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "user" })
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonView(DataViews.MediaModificationsData.class)
 	private List<MediaModification> mediaModifications;
 
-	public AppUser() {
+	public User() {
 		super();
 	}
 
-	public AppUser(Long id, String email, String username, String firstName, String lastName, String password,
-			Role role, State state, List<AppUserModification> appUserModifications,
+	public User(Long id, String email, String username, String firstName, String lastName, String password,
+			Role role, State state, List<UserModification> userModifications,
 			List<ExhibitionModification> exhibitionModifications, List<ArtworkModification> artworkModifications,
 			List<BeaconModification> beaconModifications, List<MediaModification> mediaModifications) {
 		super();
@@ -99,7 +99,7 @@ public class AppUser implements Serializable {
 		this.password = password;
 		this.role = role;
 		this.state = state;
-		this.appUserModifications = appUserModifications;
+		this.userModifications = userModifications;
 		this.exhibitionModifications = exhibitionModifications;
 		this.artworkModifications = artworkModifications;
 		this.beaconModifications = beaconModifications;
@@ -170,12 +170,12 @@ public class AppUser implements Serializable {
 		this.state = state;
 	}
 
-	public List<AppUserModification> getAppUserModifications() {
-		return appUserModifications;
+	public List<UserModification> getUserModifications() {
+		return userModifications;
 	}
 
-	public void setAppUserModifications(List<AppUserModification> appUserModifications) {
-		this.appUserModifications = appUserModifications;
+	public void setUserModifications(List<UserModification> userModifications) {
+		this.userModifications = userModifications;
 	}
 
 	public List<ExhibitionModification> getExhibitionModifications() {

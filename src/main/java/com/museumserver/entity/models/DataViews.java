@@ -4,7 +4,7 @@ public class DataViews {
 	
     public interface DefaultData{};
     
-    public interface AppUserData{};
+    public interface UserData{};
     
     public interface ExhibitionData{};
     
@@ -14,7 +14,7 @@ public class DataViews {
     
     public interface MediaData{};
     
-    public interface AppUserModificationsData{};
+    public interface UserModificationsData{};
     
     public interface ExhibitionModificationsData{};
     
@@ -32,15 +32,15 @@ public class DataViews {
     
     public interface MediaListData{};
     
-    public interface AppUsersRequest extends DefaultData, MediaModificationsData, BeaconModificationsData{};
+    public interface UsersRequest extends DefaultData, MediaModificationsData, BeaconModificationsData, ArtworkModificationsData, ExhibitionModificationsData, UserModificationsData{};
     
     public interface ExhibitionRequest extends DefaultData, ArtworkListData, MediaListData{};
     
     public interface ArtworkRequest extends DefaultData, BeaconListData, MediaListData{};
     
-    public interface BeaconsRequest extends DefaultData, BeaconModificationsData, AppUserData, ArtworkData{};
+    public interface BeaconsRequest extends DefaultData, UserData, ArtworkData{};
     
-    public interface MediaRequest extends DefaultData, MediaModificationsData, AppUserData, ExhibitionListData, ArtworkListData{};
+    public interface MediaRequest extends DefaultData, UserData, ExhibitionListData, ArtworkListData{};
     
-    public interface ModificationsRequest extends DefaultData, MediaData, BeaconData, AppUserData, ExhibitionData, ArtworkData{};
+    public interface ModificationsRequest extends DefaultData, MediaData, BeaconData, UserData, ExhibitionData, ArtworkData{};
 }

@@ -28,9 +28,16 @@ public class ArtworkServiceImpl implements ArtworkService {
 	private StateRepository stateRepository;
 
 	@Override
-	public List<Artwork> getArtworks() {
+	public List<Artwork> getAllArtworks() {
 
 		return (List<Artwork>) artworkRepository.findAllByOrderByIdAsc();
+
+	}
+
+	@Override
+	public List<Artwork> getActiveArtworks() {
+
+		return (List<Artwork>) artworkRepository.getActiveArtworks();
 
 	}
 

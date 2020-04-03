@@ -28,7 +28,7 @@ public class State implements Serializable{
 	private String name;
 	
 	@OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
-	private List<AppUser> appUsers;
+	private List<User> appUsers;
 	
 	@OneToMany(mappedBy = "state", fetch = FetchType.LAZY)
 	private List<Artwork> artworks;
@@ -43,7 +43,7 @@ public class State implements Serializable{
 		super();
 	}
 
-	public State(Long id, String name, List<AppUser> appUsers, List<Artwork> artworks, List<Exhibition> exhibitions,
+	public State(Long id, String name, List<User> appUsers, List<Artwork> artworks, List<Exhibition> exhibitions,
 			List<Beacon> beacons) {
 		super();
 		this.id = id;
@@ -70,11 +70,11 @@ public class State implements Serializable{
 		this.name = name;
 	}
 
-	public List<AppUser> getAppUsers() {
+	public List<User> getAppUsers() {
 		return appUsers;
 	}
 
-	public void setAppUsers(List<AppUser> appUsers) {
+	public void setAppUsers(List<User> appUsers) {
 		this.appUsers = appUsers;
 	}
 

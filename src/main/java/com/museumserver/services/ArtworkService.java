@@ -8,7 +8,9 @@ public interface ArtworkService {
 
 	public Artwork getArtwork(Long id);
 	
-	public List<Artwork> getArtworks();
+	public List<Artwork> getAllArtworks();
+	
+	public List<Artwork> getActiveArtworks();
 
 	public void deleteArtwork(long id);
 

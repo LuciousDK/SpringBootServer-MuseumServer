@@ -9,7 +9,13 @@ public interface ExhibitionService {
 
 	public Exhibition getExhibition(Long id);
 	
-	public List<Exhibition> getExhibitions();
+	public List<Exhibition> getAllExhibitions();
+	
+	public List<Exhibition> getActiveExhibitions();
+
+	public void activateExhibition(long id);
+
+	public void inactivateExhibition(long id);
 
 	public void deleteExhibition(long id);
 

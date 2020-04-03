@@ -26,9 +26,9 @@ public class ExhibitionModification implements Serializable {
 
 	@JsonIgnoreProperties({ "exhibitionModifications" })
 	@ManyToOne
-	@JoinColumn(name = "app_user_id", insertable = false, updatable = false)
-	@JsonView(DataViews.AppUserData.class)
-	private AppUser appUser;
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JsonView(DataViews.UserData.class)
+	private User user;
 
 	@JsonIgnoreProperties({ "exhibitionModifications" })
 	@ManyToOne
@@ -40,12 +40,12 @@ public class ExhibitionModification implements Serializable {
 		super();
 	}
 
-	public ExhibitionModification(ExhibitionModificationId id, String description, AppUser appUser,
+	public ExhibitionModification(ExhibitionModificationId id, String description, User user,
 			Exhibition exhibition) {
 		super();
 		this.id = id;
 		this.description = description;
-		this.appUser = appUser;
+		this.user = user;
 		this.exhibition = exhibition;
 	}
 
@@ -65,12 +65,12 @@ public class ExhibitionModification implements Serializable {
 		this.description = description;
 	}
 
-	public AppUser getAppUser() {
-		return appUser;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAppUser(AppUser appUser) {
-		this.appUser = appUser;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public Exhibition getExhibition() {

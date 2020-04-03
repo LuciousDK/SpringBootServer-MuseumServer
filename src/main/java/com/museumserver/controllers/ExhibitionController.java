@@ -28,7 +28,7 @@ public class ExhibitionController {
 	@GetMapping("/exhibitions")
 	@JsonView(DataViews.ExhibitionRequest.class)
 	public List<Exhibition> getExhibitions() throws IOException {
-		return exhibitionService.getExhibitions();
+		return exhibitionService.getActiveExhibitions();
 	}
 
 	@GetMapping("/exhibition/{id}")

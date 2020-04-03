@@ -22,9 +22,9 @@ public class ArtworkModificationId implements Serializable{
 	private Timestamp date;
 
 	@NotNull
-	@Column(name = "app_user_id")
+	@Column(name = "user_id")
 	@JsonView(DataViews.DefaultData.class)
-	private Long appUserId;
+	private Long userId;
 
 	@NotNull
 	@Column(name = "artwork_id")
@@ -35,10 +35,10 @@ public class ArtworkModificationId implements Serializable{
 		super();
 	}
 
-	public ArtworkModificationId(Timestamp date, @NotNull Long appUserId, @NotNull Long artworkId) {
+	public ArtworkModificationId(Long userId, Long artworkId) {
 		super();
-		this.date = date;
-		this.appUserId = appUserId;
+		this.date = new Timestamp(System.currentTimeMillis());
+		this.userId = userId;
 		this.artworkId = artworkId;
 	}
 
@@ -50,12 +50,12 @@ public class ArtworkModificationId implements Serializable{
 		this.date = date;
 	}
 
-	public Long getAppUserId() {
-		return appUserId;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setAppUserId(Long appUserId) {
-		this.appUserId = appUserId;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public Long getArtworkId() {
@@ -78,12 +78,12 @@ public class ArtworkModificationId implements Serializable{
 			return false;
 		ArtworkModificationId that = (ArtworkModificationId) o;
 		return Objects.equals(getDate(), that.getDate())
-				&& Objects.equals(getAppUserId(), that.getAppUserId())
+				&& Objects.equals(getUserId(), that.getUserId())
 				&& Objects.equals(getArtworkId(), that.getArtworkId());
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(getDate(), getAppUserId(),getArtworkId());
+		return Objects.hash(getDate(), getUserId(),getArtworkId());
 	}
 }

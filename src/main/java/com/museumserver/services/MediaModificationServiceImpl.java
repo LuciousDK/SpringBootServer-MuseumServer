@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.MediaModification;
 import com.museumserver.entity.models.MediaModificationId;
-import com.museumserver.entity.repositories.AppUserRepository;
+import com.museumserver.entity.repositories.UserRepository;
 import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.MediaRepository;
 
@@ -16,7 +16,7 @@ import com.museumserver.entity.repositories.MediaRepository;
 public class MediaModificationServiceImpl implements MediaModificationService{
 
 	@Autowired
-	private AppUserRepository administratorRepository;
+	private UserRepository userRepository;
 
 	@Autowired
 	private MediaRepository mediaRepository;
@@ -32,11 +32,11 @@ public class MediaModificationServiceImpl implements MediaModificationService{
 	}
 
 	@Override
-	public List<MediaModification> getAdministratorModifications(Long administratorId) {
+	public List<MediaModification> getAdministratorModifications(Long userId) {
 		List<MediaModification> result = new ArrayList<>();
 
 		for (MediaModification modification : mediaModificationRepository.findAll()) {
-			if (modification.getId().getAppUserId() == administratorId)
+			if (modification.getId().getUserId() == userId)
 				result.add(modification);
 		}
 
@@ -56,10 +56,10 @@ public class MediaModificationServiceImpl implements MediaModificationService{
 	}
 
 	@Override
-	public void addMediaModification(Long administratorId, Long mediaId, MediaModification modification) {
-		if (administratorRepository.existsById(administratorId) && mediaRepository.existsById(mediaId)) {
+	public void addMediaModification(Long userId, Long mediaId, MediaModification modification) {
+		if (userRepository.existsById(userId) && mediaRepository.existsById(mediaId)) {
 
-			modification.setId(new MediaModificationId(administratorId, mediaId));
+			modification.setId(new MediaModificationId(userId, mediaId));
 
 			mediaModificationRepository.save(modification);
 

@@ -8,7 +8,9 @@ public interface BeaconService {
 
 	public Beacon getBeacon(Long id);
 	
-	public List<Beacon> getBeacons();
+	public List<Beacon> getAllBeacons();
+	
+	public List<Beacon> getActiveBeacons();
 
 	public void deleteBeacon(long id);
 

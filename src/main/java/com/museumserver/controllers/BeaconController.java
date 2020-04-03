@@ -27,7 +27,7 @@ public class BeaconController {
 	@GetMapping("/beacons")
 	@JsonView(DataViews.BeaconsRequest.class)
 	public List<Beacon> getBeacons() {
-		return beaconService.getBeacons();
+		return beaconService.getActiveBeacons();
 	}
 
 	@GetMapping("/beacon/{id}")

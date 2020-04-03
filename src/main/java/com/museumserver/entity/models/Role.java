@@ -28,13 +28,13 @@ public class Role implements Serializable{
 	private String name;
 	
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-	private List<AppUser> appUsers;
+	private List<User> appUsers;
 
 	public Role() {
 		super();
 	}
 
-	public Role(Long id, String name, List<AppUser> appUsers) {
+	public Role(Long id, String name, List<User> appUsers) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,11 +57,11 @@ public class Role implements Serializable{
 		this.name = name;
 	}
 
-	public List<AppUser> getAppUsers() {
+	public List<User> getAppUsers() {
 		return appUsers;
 	}
 
-	public void setAppUsers(List<AppUser> appUsers) {
+	public void setAppUsers(List<User> appUsers) {
 		this.appUsers = appUsers;
 	}
 

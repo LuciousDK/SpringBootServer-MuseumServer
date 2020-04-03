@@ -24,7 +24,14 @@ public class BeaconServiceImpl implements BeaconService {
 	private StateRepository stateRepository;
 
 	@Override
-	public List<Beacon> getBeacons() {
+	public List<Beacon> getAllBeacons() {
+
+		return (List<Beacon>) beaconRepository.findAllByOrderByIdAsc();
+
+	}
+
+	@Override
+	public List<Beacon> getActiveBeacons() {
 
 		return (List<Beacon>) beaconRepository.findAllByOrderByIdAsc();
 
@@ -69,8 +76,8 @@ public class BeaconServiceImpl implements BeaconService {
 	public void activateBeacon(long id) {
 
 		Beacon original = beaconRepository.findById(id).get();
-		State active = stateRepository.findByName("ACTIVE");
-		original.setState(active);
+		State state = stateRepository.findByName("ACTIVE");
+		original.setState(state);
 		beaconRepository.save(original);
 	}
 
@@ -78,8 +85,8 @@ public class BeaconServiceImpl implements BeaconService {
 	public void inactivateBeacon(long id) {
 
 		Beacon original = beaconRepository.findById(id).get();
-		State active = stateRepository.findByName("INACTIVE");
-		original.setState(active);
+		State state = stateRepository.findByName("INACTIVE");
+		original.setState(state);
 		beaconRepository.save(original);
 	}
 

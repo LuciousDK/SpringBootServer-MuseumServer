@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Exhibition;
+import com.museumserver.entity.models.State;
 import com.museumserver.entity.repositories.ExhibitionRepository;
 import com.museumserver.entity.repositories.MediaRepository;
+import com.museumserver.entity.repositories.StateRepository;
 
 @Service
 public class ExhibitionServiceImpl implements ExhibitionService {
@@ -18,10 +20,20 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 	@Autowired
 	private MediaRepository mediaRepository;
 
+	@Autowired
+	private StateRepository stateRepository;
+
 	@Override
-	public List<Exhibition> getExhibitions() {
+	public List<Exhibition> getAllExhibitions() {
 
 		return (List<Exhibition>) exhibitionRepository.findAllByOrderByIdAsc();
+
+	}
+
+	@Override
+	public List<Exhibition> getActiveExhibitions() {
+
+		return (List<Exhibition>) exhibitionRepository.getActiveExhibitions();
 
 	}
 
@@ -41,8 +53,11 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 
 	@Override
 	public Exhibition updateExhibition(Exhibition exhibition) {
+		
 		if (exhibitionRepository.existsById(exhibition.getId())) {
+			
 			Exhibition original = exhibitionRepository.findById(exhibition.getId()).get();
+			
 			if (exhibition.getName() != null)
 				original.setName(exhibition.getName());
 
@@ -85,6 +100,26 @@ public class ExhibitionServiceImpl implements ExhibitionService {
 		}
 		exhibitionRepository.save(original);
 
+	}
+
+	@Override
+	public void activateExhibition(long id) {
+
+		Exhibition original = exhibitionRepository.findById(id).get();
+		State state = stateRepository.findByName("ACTIVE");
+		original.setState(state);
+		exhibitionRepository.save(original);
+		
+	}
+
+	@Override
+	public void inactivateExhibition(long id) {
+
+		Exhibition original = exhibitionRepository.findById(id).get();
+		State state = stateRepository.findByName("INACTIVE");
+		original.setState(state);
+		exhibitionRepository.save(original);
+		
 	}
 
 }
