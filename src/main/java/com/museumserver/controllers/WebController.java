@@ -87,7 +87,6 @@ public class WebController {
 		mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
 		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
-
 		mav.addObject("newArtwork", new Artwork());
 		return mav;
 	}
@@ -125,7 +124,7 @@ public class WebController {
 		return mav;
 	}
 
-	@RequestMapping(value = "balizas", method = RequestMethod.GET)
+	@RequestMapping(value = "beacons", method = RequestMethod.GET)
 	public ModelAndView beacons() {
 
 		ModelAndView mav = new ModelAndView("beacons");

@@ -1,6 +1,7 @@
 package com.museumserver.entity.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -74,19 +75,15 @@ public class Artwork implements Serializable {
 		super();
 	}
 
-	public Artwork(Long id, String name, String author, String country, String description, Exhibition exhibition,
-			State state, List<Beacon> beacons, List<Media> media, List<ArtworkModification> artworkModifications) {
+	public Artwork(String name, String author, String country, String description) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.author = author;
 		this.country = country;
 		this.description = description;
-		this.exhibition = exhibition;
-		this.state = state;
-		this.beacons = beacons;
-		this.media = media;
-		this.artworkModifications = artworkModifications;
+		this.beacons = new ArrayList<Beacon>();
+		this.media = new ArrayList<Media>();
+		this.artworkModifications = new ArrayList<ArtworkModification>();
 	}
 
 	public Long getId() {

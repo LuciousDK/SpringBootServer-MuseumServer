@@ -54,7 +54,7 @@ function submitForm(event) {
 function updateExhibition() {
   var form = document.forms["exhibition-form"];
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/exhibition";
+  var url = apiUrl + "/api/exhibition";
   http.open("PUT", url, true);
 
   http.onreadystatechange = function() {
@@ -76,7 +76,7 @@ function updateExhibition() {
 function submitExhibition() {
   var form = document.forms["exhibition-form"];
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/exhibition";
+  var url = apiUrl + "/api/exhibition";
   http.open("POST", url, true);
 
   http.onreadystatechange = function() {
@@ -152,7 +152,7 @@ function drop(ev) {
 
 function removeMedia(exhibitionId, mediaId) {
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/exhibition/removeMedia";
+  var url = apiUrl + "/api/exhibition/removeMedia";
   var formData = new FormData();
 
   formData.append("exhibitionId", exhibitionId);
@@ -163,7 +163,7 @@ function removeMedia(exhibitionId, mediaId) {
 
 function addMedia(exhibitionId, mediaId) {
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/exhibition/addMedia";
+  var url = apiUrl + "/api/exhibition/addMedia";
   var formData = new FormData();
 
   formData.append("exhibitionId", exhibitionId);

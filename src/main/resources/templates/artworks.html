@@ -35,7 +35,7 @@
             <!-- <li class="nav-item"><a class="nav-link" href="index">Inicio</a></li> -->
             <li class="nav-item active inactiveLink"><a class="nav-link" href="#">Obras</a></li>
             <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
-            <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li>
+            <li class="nav-item"><a class="nav-link" href="beacons">Beacons</a></li>
             <li class="nav-item"><a class="nav-link" href="archivos">Archivos</a></li>
         </ul>
         <ul class="navbar-nav ml-auto">
@@ -61,22 +61,22 @@
 
 
     <div id="artworkList" class="tabcontent">
-        <div class="container mt-3">
+        <div class="container mt-3" style="min-width: 100%;">
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-info" onclick="newArtwork()" data-toggle="modal"
+                    <button class="btn btn-info" onclick="resetForm()" data-toggle="modal"
                         data-target="#creation-modal"><span class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
                 </div>
 
-                <input class="form-control" id="search-bar" type="text" placeholder="Search..">
+                <input class="form-control" id="search-bar" type="text" placeholder="Buscar...">
             </div>
             <div class="modal fade" id="creation-modal">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
 
-                        <form action="#" class="needs-validation" name="artwork-form" th:action="@{/artwork}"
-                            th:object="${newArtwork}" method="POST" novalidate>
+                        <form action="#" class="needs-validation" name="artwork-form" onsubmit="submitArtwork()"
+                            th:object="${newArtwork}" novalidate>
 
                             <div class="modal-header">
                                 <h4 class="modal-title">Editor de Registro</h4>
@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <label for="name">Nombre</label>
                                     <input class="form-control" type="text" id="name" name="name" th:field="*{name}"
-                                        placeholder="Introducir Nombre" required />
+                                        placeholder="Nombre de la Obra" required />
                                     <div class="invalid-feedback">
                                         Debe introducir un nombre.
                                     </div>
@@ -108,8 +108,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="description">Descripción</label>
-                                    <input class="form-control" type="text" id="description" name="description"
-                                        th:field="*{description}" placeholder="Descripción" />
+                                    <textarea class="form-control" type="text" rows="4" id="description"
+                                        name="description" th:field="*{description}"
+                                        placeholder="Descripción"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -124,6 +125,7 @@
 
                             <div class="modal-footer">
                                 <button name="submit" class="btn btn-info" type="submit" value="0">Guardar</button>
+                                <button class="btn btn-danger" th:onclick="'removeArtwork()'">Borrar</button>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             </div>
 
@@ -150,24 +152,34 @@
                         <td colspan="6"> No se ha encontrado ninguna obra. </td>
                     </tr>
                     <tr th:each="artwork : ${artworks}">
-                        <td><span th:text="${artwork.id}"></span></td>
-                        <td><span th:text="${artwork.name}"></span></td>
-                        <td><span th:text="${artwork.author}"></span></td>
-                        <td><span th:text="${artwork.country}"></span></td>
-                        <td><span th:text="${artwork.description}"></span></td>
-                        <td th:if="${artwork.exhibition!=null}"><span th:text="${artwork.exhibition?.name}"></span></td>
-                        <td th:if="${artwork.exhibition==null}"><span>No Asignado</span></td>
-                        <td>
-                            <div style="display: inline;" class="icon-container"
-                                th:attr="onclick=|editArtwork('${artwork.toJSON()}')|" data-toggle="modal"
-                                data-target="#creation-modal">
-                                <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
-                            <form style="display: inline;" th:action="@{artwork/delete}" method="post"
-                                th:object="${artwork}">
-                                <input type="hidden" name="id" th:value="*{id}" />
-                                <button style="border: none; background: none;" type="submit" value="Submit"
-                                    class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
-                            </form>
+                        <td class="artwork-id" th:text="${artwork.id}">
+                        </td>
+                        <td class="artwork-name" th:text="${artwork.name}">
+                        </td>
+                        <td class="artwork-author" th:text="${artwork.author}">
+                        </td>
+                        <td class="artwork-country" th:text="${artwork.country}">
+                        </td>
+                        <td class="artwork-description">
+                            <div style="max-height:100px;overflow:auto;" th:text="${artwork.description}"></div>
+                        </td>
+                        <td class="artwork-exhibition" th:if="${artwork.exhibition!=null}" th:text="${artwork.exhibition?.name}">
+ 
+                        </td>
+                        <td class="artwork-exhibition" th:if="${artwork.exhibition==null}">
+                            No Asignado
+                        </td>
+                        <td class="buttons-container">
+                            <div class="icon-container" th:attr="onclick=|editArtwork('${artwork.toJSON()}')|"
+                                data-toggle="modal" data-target="#creation-modal">
+                                <img class="edit-icon" th:src="@{/img/edit-icon.png}">
+                            </div>
+                            <div class="icon-container" th:onclick="'toggleArtwork(\'' + ${artwork.id} + '\')'">
+                                <img th:if="${artwork.getState().getName() =='ACTIVE'}" class="edit-icon"
+                                    th:src="@{/img/green-light.png}">
+                                <img th:if="${artwork.getState().getName() =='INACTIVE'}" class="edit-icon"
+                                    th:src="@{/img/red-light.png}">
+                            </div>
                         </td>
                     </tr>
                 </tbody>

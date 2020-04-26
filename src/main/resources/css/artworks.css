@@ -131,3 +131,46 @@ img {
   -webkit-user-select: none;
   -ms-user-select: none;
 }
+
+table tr > * {
+  text-align: center;
+}
+.artwork-id,
+.artwork-name,
+.artwork-author,
+.artwork-country,
+.artwork-exhibition {
+  vertical-align:middle!important
+}
+.artwork-id {
+  width: 5%;
+}
+.artwork-name {
+  width: 18%;
+}
+.artwork-author {
+  width: 15%;
+}
+.artwork-country {
+  width: 10%;
+}
+.artwork-description {
+  width: 40%;
+  text-align: justify;
+}
+.artwork-exhibition {
+  width: 12%;
+}
+table .buttons-container {
+  width: 40px;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+table .buttons-container > *:not(:first-child) {
+  margin-top: 10px;
+}
+
+table .buttons-container > *:last-child {
+  margin-bottom: 10px;
+}

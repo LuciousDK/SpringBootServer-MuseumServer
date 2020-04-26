@@ -24,29 +24,29 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/users")
+	@GetMapping("/api/users")
 	@JsonView(DataViews.UsersRequest.class)
 	public List<User> getUsers() {
 		return userService.getActiveUsers();
 	}
 
-	@GetMapping("/user/{id}")
+	@GetMapping("/api/user/{id}")
 	@JsonView(DataViews.UsersRequest.class)
 	public User getUser(@PathVariable("id") Long id) {
 		return userService.getUser(id);
 	}
 
-	@PostMapping("/user")
+	@PostMapping("/api/user")
 	public void addUser(User user) {
 		userService.addUser(user);
 	}
 
-	@PutMapping("/user")
+	@PutMapping("/api/user")
 	public void updateUser(User user) {
 		userService.updateUser(user);
 	}
 
-	@DeleteMapping("/user")
+	@DeleteMapping("/api/user")
 	public void removeUser(@RequestParam("id") Long id) {
 		userService.deleteUser(id);
 	}

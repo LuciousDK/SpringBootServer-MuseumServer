@@ -86,7 +86,7 @@ CREATE TABLE public.artworks
     name VARCHAR(255) NOT NULL,
     author VARCHAR(255),
     country VARCHAR(255),
-    description VARCHAR(255),
+    description VARCHAR(10485760),
     exhibition_id INTEGER,
 	state_id INTEGER NOT NULL DEFAULT(1),
     PRIMARY KEY (id),
@@ -160,7 +160,7 @@ CREATE TABLE public.exhibition_media
 CREATE TABLE public.exhibition_modifications
 (
     date TIMESTAMP NOT NULL DEFAULT NOW(),
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(10485760) NOT NULL,
     user_id INTEGER NOT NULL,
     exhibition_id INTEGER NOT NULL,
     PRIMARY KEY (date, user_id, exhibition_id),
@@ -177,7 +177,7 @@ CREATE TABLE public.exhibition_modifications
 CREATE TABLE public.artwork_modifications
 (
     date TIMESTAMP NOT NULL DEFAULT NOW(),
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(10485760) NOT NULL,
     user_id INTEGER NOT NULL,
     artwork_id INTEGER NOT NULL,
     PRIMARY KEY (date, user_id, artwork_id),
@@ -194,7 +194,7 @@ CREATE TABLE public.artwork_modifications
 CREATE TABLE public.user_modifications
 (
     date TIMESTAMP NOT NULL DEFAULT NOW(),
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(10485760) NOT NULL,
     user_id INTEGER NOT NULL,
     modified_user_id INTEGER NOT NULL,
     PRIMARY KEY (date, user_id, modified_user_id),
@@ -211,7 +211,7 @@ CREATE TABLE public.user_modifications
 CREATE TABLE public.beacon_modifications
 (
     date TIMESTAMP NOT NULL DEFAULT NOW(),
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(10485760) NOT NULL,
     user_id INTEGER NOT NULL,
     beacon_id INTEGER NOT NULL,
     PRIMARY KEY (date, user_id, beacon_id),
@@ -228,7 +228,7 @@ CREATE TABLE public.beacon_modifications
 CREATE TABLE public.media_modifications
 (
     date TIMESTAMP DEFAULT NOW(),
-    description VARCHAR(255) NOT NULL,
+    description VARCHAR(10485760) NOT NULL,
     user_id INTEGER NOT NULL,
     media_id INTEGER NOT NULL,
     PRIMARY KEY (date, user_id, media_id),
@@ -252,7 +252,8 @@ INSERT INTO public.states(name) VALUES
 
 INSERT INTO public.app_users(first_name, last_name, email, password, username, role_id) VALUES
 ('Luat','Dinh','luatdb@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','luatdb', 1),
-('Richard','Vinueza','richardvr@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','richardvr', 1);
+('Richard','Vinueza','richardvr@gmail.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','richardvr', 1),
+('Admin',null,'admin@admin.com','$2y$12$SgJuB8tnWArJhnmmFqhWqOFF4/h31Hpt43vzCfu1IJLJ3HulAixQi','admin', 1);
 
 UPDATE public.app_users SET state_id = 2 WHERE id = 2;
 UPDATE public.app_users SET role_id = (2) WHERE id = 2;
@@ -262,14 +263,14 @@ INSERT INTO public.exhibitions(name,opening_date,closing_date,location) VALUES
 ('French Revolution','2019/10/20','2020/01/31','Area 2'),
 ('Greek Mythology','2020/02/01','2020/05/31','Area 2');
 
-INSERT INTO public.artworks(name,author,country,exhibition_id) VALUES 
-('La Gioconda','Leonardo Da Vinci','Italy',1),
-('La Creación de Adán','Miguel Ángel','Italy',1),
-('La última cena','Leonardo Da Vinci','Italy',1);
+INSERT INTO public.artworks(name,author,country,description,exhibition_id) VALUES 
+('La Gioconda','Leonardo Da Vinci','Italy','El Retrato de Lisa Gherardini, esposa de Francesco del Giocondo, más conocido como La Gioconda o La Mona Lisa, es una obra pictórica del polímata renacentista italiano Leonardo da Vinci. Fue adquirida por el rey Francisco I de Francia a comienzos del siglo XVI y desde entonces es propiedad del Estado Francés. Se halla expuesta en el Museo del Louvre de París, siendo, sin duda, la «joya» de sus colecciones. Su nombre, La Gioconda (la alegre, en castellano), deriva de la tesis más aceptada acerca de la identidad de la modelo: la esposa de Francesco Bartolomeo de Giocondo, que realmente se llamaba Lisa Gherardini, de donde viene su otro nombre: Mona (señora, en el italiano antiguo) Lisa. El Museo del Louvre acepta el título completo indicado al principio como el título original de la obra, aunque no reconoce la identidad de la modelo y tan solo la acepta como una hipótesis. Es un óleo sobre tabla de álamo de 77 × 53 cm, pintado entre 1503 y 1519, y retocado varias veces por el autor. Se considera el ejemplo más logrado de sfumato, técnica muy característica de Leonardo, si bien actualmente su colorido original es menos perceptible por el oscurecimiento de los barnices. El cuadro está protegido por múltiples sistemas de seguridad y ambientado a temperatura estable para su preservación óptima. Es revisado constantemente para verificar y prevenir su deterioro. Por medio de estudios históricos se ha determinado que la modelo podría ser una vecina de Leonardo, que podrían conocerse sus descendientes y que la modelo podría haber estado embarazada, por la forma de esconder que tienen sus manos. Pese a todas las suposiciones, las respuestas en firme a los varios interrogantes en torno a la obra de arte resultan francamente insuficientes, lo cual genera más curiosidad entre los admiradores del cuadro. La fama de esta pintura no se basa únicamente en la técnica empleada o en su belleza, sino también en los misterios que la rodean. Además, el robo que sufrió en 1911, las reproducciones realizadas, las múltiples obras de arte que se han inspirado en el cuadro y las parodias existentes contribuyen a convertir a La Gioconda en el cuadro más famoso del mundo, visitado por millones de personas anualmente.',1),
+('La Creación de Adán','Miguel Ángel','Italy','',1),
+('La Última cena','Leonardo Da Vinci','Italy','',1);
 
-INSERT INTO public.artworks(name,author,country,exhibition_id) VALUES 
-('La Libertad Guiando al Pueblo','Eugène Delacroix','France',2),
-('La Ejecución de Cadoudal','Georges Cadoudal','France',2);
+INSERT INTO public.artworks(name,author,country,description,exhibition_id) VALUES 
+('La Libertad Guiando al Pueblo','Eugène Delacroix','France','',2),
+('La Ejecución de Cadoudal','Georges Cadoudal','France','',2);
 
 INSERT INTO public.beacons(artwork_id,uuid) VALUES 
 (1,'DE:67:0D:F4:83:EO'),
@@ -310,3 +311,5 @@ INSERT INTO public.media_modifications(date,user_id,media_id,description) VALUES
 ('2019-11-19 20:00:00', 1, 1, 'Uploaded ''la_gioconda.jpg'' as ''foto1'''),
 ('2019-11-19 21:00:00', 1, 1, 'Changed Display Name from ''foto1'' to ''Mona Lisa'''),
 ('2019-11-19 20:00:00', 1, 2, 'Uploaded ''la_gioconda_following-eyes.mp4'' as ''Following Eyes''');
+
+SELECT * FROM public.artworks;

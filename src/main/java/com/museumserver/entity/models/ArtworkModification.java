@@ -40,9 +40,9 @@ public class ArtworkModification implements Serializable {
 		super();
 	}
 
-	public ArtworkModification(ArtworkModificationId id, String description, User user, Artwork artwork) {
+	public ArtworkModification(User user, Artwork artwork, String description) {
 		super();
-		this.id = id;
+		this.id = new ArtworkModificationId(user.getId(), artwork.getId());
 		this.description = description;
 		this.user = user;
 		this.artwork = artwork;

@@ -14,9 +14,7 @@ public interface ArtworkService {
 
 	public void deleteArtwork(long id);
 
-	public void activateArtwork(long id);
-
-	public void inactivateArtwork(long id);
+	public void toggleArtwork(long id);
 
 	public void addArtwork(Artwork artwork, Long exhibitionId);
 

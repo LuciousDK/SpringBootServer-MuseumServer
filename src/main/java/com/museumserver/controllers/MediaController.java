@@ -25,31 +25,31 @@ public class MediaController {
 	@Autowired
 	private MediaService mediaService;
 
-	@GetMapping("/medias")
+	@GetMapping("/api/medias")
 	@JsonView(DataViews.MediaRequest.class)
 	public List<Media> getMedias() {
 		return mediaService.getMedias();
 	}
 
-	@GetMapping("/media/{id}")
+	@GetMapping("/api/media/{id}")
 	@JsonView(DataViews.MediaRequest.class)
 	public Media getMedia(@PathVariable("id") Long id) {
 		return mediaService.getMedia(id);
 	}
 
-	@PostMapping("/media")
+	@PostMapping("/api/media")
 	public void addMedia(Media media, @RequestParam("file") MultipartFile file) {
 		mediaService.addMedia(media, file);
 		
 
 	}
 
-	@PutMapping("/media")
+	@PutMapping("/api/media")
 	public void updateMedia(Media media) {
 		mediaService.updateMedia(media);
 	}
 
-	@DeleteMapping("/media")
+	@DeleteMapping("/api/media")
 	public void removeMedia(@RequestParam("id") Long id) {
 		mediaService.deleteMedia(id);
 	}

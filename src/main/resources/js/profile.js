@@ -3,7 +3,7 @@ var form;
 
 function init() {
   alignImage();
-  form = document.forms["administrator-form"];
+  form = document.forms["user-form"];
 }
 
 var adminData = null;
@@ -63,7 +63,7 @@ function resetValues() {
 
 function submitAdmin() {
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/administrator";
+  var url = apiUrl + "/api/user";
   http.open("PUT", url, true);
 
   http.onreadystatechange = function() {

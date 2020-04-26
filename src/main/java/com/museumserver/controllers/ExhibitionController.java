@@ -25,39 +25,39 @@ public class ExhibitionController {
 	@Autowired
 	private ExhibitionService exhibitionService;
 
-	@GetMapping("/exhibitions")
+	@GetMapping("/api/exhibitions")
 	@JsonView(DataViews.ExhibitionRequest.class)
 	public List<Exhibition> getExhibitions() throws IOException {
 		return exhibitionService.getActiveExhibitions();
 	}
 
-	@GetMapping("/exhibition/{id}")
+	@GetMapping("/api/exhibition/{id}")
 	@JsonView(DataViews.ExhibitionRequest.class)
 	public Exhibition getExhibition(@PathVariable("id") Long id) {
 		return exhibitionService.getExhibition(id);
 	}
 
-	@PostMapping("/exhibition")
+	@PostMapping("/api/exhibition")
 	public void addExhibition(Exhibition exhibition) {
 		exhibitionService.addExhibition(exhibition);
 	}
 	
-	@PostMapping("/exhibition/addMedia")
+	@PostMapping("/api/exhibition/addMedia")
 	public void addMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
 		exhibitionService.addMedia(exhibitionId, mediaId);
 	}
 
-	@PostMapping("/exhibition/removeMedia")
+	@PostMapping("/api/exhibition/removeMedia")
 	public void removeMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
 		exhibitionService.removeMedia(exhibitionId, mediaId);
 	}
 
-	@PutMapping("/exhibition")
+	@PutMapping("/api/exhibition")
 	public void updateExhibition(Exhibition exhibition) {
 		exhibitionService.updateExhibition(exhibition);
 	}
 
-	@DeleteMapping("/exhibition")
+	@DeleteMapping("/api/exhibition")
 	public void removeExhibition(@RequestParam("id") Long id) {
 		exhibitionService.deleteExhibition(id);
 	}
