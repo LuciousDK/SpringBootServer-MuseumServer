@@ -59,15 +59,15 @@
     </div>
 
     <div id="exhibitionList" class="tabcontent">
-        <div class="container mt-3">
+        <div class="container mt-3" style="min-width: 100%;">
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <button class="btn btn-info" onclick="newExhibition()" data-toggle="modal"
+                    <button class="btn btn-info" onclick="startCreation()" data-toggle="modal"
                         data-target="#creation-modal"><span class="glyphicon glyphicon-plus"></span>&nbsp;Nuevo</button>
                 </div>
 
-                <input class="form-control" id="search-bar" type="text" placeholder="Search..">
+                <input class="form-control" id="search-bar" type="text" placeholder="Buscar...">
             </div>
             <!-- Modal Form -->
             <div class="modal fade" id="creation-modal">
@@ -75,7 +75,7 @@
                     <div class="modal-content">
 
                         <form action="#" class="needs-validation" name="exhibition-form" th:object="${newExhibition}"
-                            onsubmit="submitForm(event)" novalidate>
+                            onsubmit="submitExhibition()" novalidate>
 
                             <div class="modal-header">
                                 <h4 class="modal-title">Editor de Registro</h4>
@@ -139,22 +139,22 @@
                         <td colspan="5"> No se ha encontrado ninguna exhibición. </td>
                     </tr>
                     <tr th:each="exhibition : ${exhibitions}">
-                        <td><span th:text="${exhibition.id}"></span></td>
-                        <td><span th:text="${exhibition.name}"></span></td>
-                        <td><span th:text="${exhibition.openingDate}"></span></td>
-                        <td><span th:text="${exhibition.closingDate}"></span></td>
-                        <td><span th:text="${exhibition.location}"></span></td>
-                        <td>
-                            <div style="display: inline;" class="icon-container"
-                                th:attr="onclick=|editExhibition('${exhibition.toJSON()}')|" data-toggle="modal"
-                                data-target="#creation-modal">
-                                <img class="edit-icon" th:src="@{/img/edit-icon.png}"></div>
-                            <form style="display: inline;" th:action="@{exhibition/delete}" method="post"
-                                th:object="${exhibition}">
-                                <input type="hidden" name="id" th:value="*{id}" />
-                                <button style="border: none; background: none;" type="submit" value="Submit"
-                                    class="icon-container"><i class="fas fa-times" style="color: red;"></i></button>
-                            </form>
+                        <td class="exhibition-id" th:text="${exhibition.id}"></td>
+                        <td class="exhibition-name" th:text="${exhibition.name}"></td>
+                        <td class="exhibition-opening-date" th:text="${exhibition.openingDate}"></td>
+                        <td class="exhibition-closing-date" th:text="${exhibition.closingDate}"></td>
+                        <td class="exhibition-location" th:text="${exhibition.location}"></td>
+                        <td class="buttons-container">
+                            <div class="icon-container" th:attr="onclick=|editExhibition('${exhibition.toJSON()}')|"
+                                data-toggle="modal" data-target="#creation-modal">
+                                <img class="edit-icon" th:src="@{/img/edit-icon.png}">
+                            </div>
+                            <div class="icon-container" th:onclick="'toggleExhibition(\'' + ${exhibition.id} + '\')'">
+                                <img th:if="${exhibition.getState().getName() =='ACTIVE'}" class="edit-icon"
+                                    th:src="@{/img/green-light.png}">
+                                <img th:if="${exhibition.getState().getName() =='INACTIVE'}" class="edit-icon"
+                                    th:src="@{/img/red-light.png}">
+                            </div>
                         </td>
                     </tr>
                 </tbody>

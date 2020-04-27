@@ -1,20 +1,13 @@
-$(document).ready(function() {
-  $("#search-bar").on("keyup", function() {
-    var value = $(this)
-      .val()
-      .toLowerCase();
-    $("#exhibitions-table tr").filter(function() {
-      $(this).toggle(
-        $(this)
-          .text()
-          .toLowerCase()
-          .indexOf(value) > -1
-      );
+$(document).ready(function () {
+  $("#search-bar").on("keyup", function () {
+    var value = $(this).val().toLowerCase();
+    $("#exhibitions-table tr").filter(function () {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
 });
 
-function newExhibition() {
+function startCreation() {
   resetForm();
   var form = document.forms["exhibition-form"];
   form["id"].value = null;
@@ -41,55 +34,29 @@ function editExhibition(exhibition) {
   else form["location"].value = exhibitionJSON.location;
 }
 
-function submitForm(event) {
-  event.preventDefault();
-
-  if (document.forms["exhibition-form"]["id"].value == "") {
-    submitExhibition();
-  } else {
-    updateExhibition();
-  }
-}
-
-function updateExhibition() {
-  var form = document.forms["exhibition-form"];
-  var http = new XMLHttpRequest();
-  var url = apiUrl + "/api/exhibition";
-  http.open("PUT", url, true);
-
-  http.onreadystatechange = function() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-      location.reload();
-    }
-  };
-  var formData = new FormData();
-  formData.append("id", form["id"].value);
-  formData.append("name", form["name"].value);
-  if (form["openingDate"].value != "")
-    formData.append("openingDate", form["openingDate"].value);
-  if (form["closingDate"].value != "")
-    formData.append("closingDate", form["closingDate"].value);
-  formData.append("location", form["location"].value);
-  http.send(formData);
-}
-
+/**
+ * Sends a request to server to create a new exhibition if id == null
+ * Else updates existing exhibition with that id
+ */
 function submitExhibition() {
-  var form = document.forms["exhibition-form"];
+  event.preventDefault();
+  var form = $('form[name="exhibition-form"]');
+  var data = getFormDataJSON(form);
   var http = new XMLHttpRequest();
   var url = apiUrl + "/api/exhibition";
+  var formData = new FormData();
+  $.each(data, function (key, value) {
+    if (value != "") formData.append(key, value);
+  });
   http.open("POST", url, true);
+  http.send(formData);
 
-  http.onreadystatechange = function() {
-    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+  //If request succesful reload page to display changes
+  http.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
       location.reload();
     }
   };
-  var formData = new FormData();
-  formData.append("name", form["name"].value);
-  formData.append("openingDate", form["openingDate"].value);
-  formData.append("closingDate", form["closingDate"].value);
-  formData.append("location", form["location"].value);
-  http.send(formData);
 }
 function resetForm() {
   document.forms["exhibition-form"].classList.remove("was-validated");
@@ -170,4 +137,20 @@ function addMedia(exhibitionId, mediaId) {
   formData.append("mediaId", mediaId);
   http.open("POST", url, true);
   http.send(formData);
+}
+
+function toggleExhibition(id){
+  var http = new XMLHttpRequest();
+  var url = apiUrl + "/api/exhibition/toggle";
+  var formData = new FormData();
+  formData.append("id", id);
+  http.open("POST", url, true);
+  http.send(formData);
+
+  //If request succesful reload page to display changes
+  http.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      location.reload();
+    }
+  };
 }

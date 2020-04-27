@@ -40,10 +40,9 @@ public class ExhibitionModification implements Serializable {
 		super();
 	}
 
-	public ExhibitionModification(ExhibitionModificationId id, String description, User user,
-			Exhibition exhibition) {
+	public ExhibitionModification(User user, Exhibition exhibition, String description) {
 		super();
-		this.id = id;
+		this.id = new ExhibitionModificationId(user.getId(),exhibition.getId());
 		this.description = description;
 		this.user = user;
 		this.exhibition = exhibition;

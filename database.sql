@@ -68,7 +68,7 @@ CREATE TABLE public.exhibitions
 (
     id INTEGER DEFAULT NEXTVAL('exhibition_id_seq'),
     name VARCHAR(255) NOT NULL,
-    opening_date DATE NOT NULL,
+    opening_date DATE,
     closing_date DATE,
     location VARCHAR(255),
 	state_id INTEGER NOT NULL DEFAULT(1),

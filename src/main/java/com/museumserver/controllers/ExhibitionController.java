@@ -39,22 +39,25 @@ public class ExhibitionController {
 
 	@PostMapping("/api/exhibition")
 	public void addExhibition(Exhibition exhibition) {
-		exhibitionService.addExhibition(exhibition);
+		if (exhibition.getId() == null)
+			exhibitionService.addExhibition(exhibition);
+		else
+			exhibitionService.updateExhibition(exhibition);
 	}
-	
+
+	@PostMapping("/api/exhibition/toggle")
+	public void toggleExhibition(@RequestParam("id") Long exhibitionId) {
+		exhibitionService.toggleExhibition(exhibitionId);
+	}
+
 	@PostMapping("/api/exhibition/addMedia")
-	public void addMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
+	public void addMedia(@RequestParam("exhibitionId") Long exhibitionId, @RequestParam("mediaId") Long mediaId) {
 		exhibitionService.addMedia(exhibitionId, mediaId);
 	}
 
 	@PostMapping("/api/exhibition/removeMedia")
-	public void removeMedia(@RequestParam("exhibitionId") Long exhibitionId , @RequestParam("mediaId") Long mediaId){
+	public void removeMedia(@RequestParam("exhibitionId") Long exhibitionId, @RequestParam("mediaId") Long mediaId) {
 		exhibitionService.removeMedia(exhibitionId, mediaId);
-	}
-
-	@PutMapping("/api/exhibition")
-	public void updateExhibition(Exhibition exhibition) {
-		exhibitionService.updateExhibition(exhibition);
 	}
 
 	@DeleteMapping("/api/exhibition")

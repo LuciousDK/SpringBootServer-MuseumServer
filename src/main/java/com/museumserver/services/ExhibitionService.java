@@ -13,9 +13,7 @@ public interface ExhibitionService {
 	
 	public List<Exhibition> getActiveExhibitions();
 
-	public void activateExhibition(long id);
-
-	public void inactivateExhibition(long id);
+	public void toggleExhibition(long id);
 
 	public void deleteExhibition(long id);
 
@@ -23,7 +21,7 @@ public interface ExhibitionService {
 
 	public void removeMedia(Long exhibitionId, Long mediaId);
 
-	public Exhibition addExhibition(Exhibition exhibition);
+	public void addExhibition(Exhibition exhibition);
 
-	public Exhibition updateExhibition(Exhibition exhibition);
+	public void updateExhibition(Exhibition exhibition);
 }
