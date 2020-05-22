@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.museumserver.entity.models.Administrator;
+import com.museumserver.entity.models.User;
 import com.museumserver.entity.models.Artwork;
 import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
-import com.museumserver.entity.repositories.AdministratorRepository;
+import com.museumserver.entity.repositories.UserRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
-import com.museumserver.entity.repositories.BeaconModificationRepository;
+//import com.museumserver.entity.repositories.BeaconModificationRepository;
+//import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.BeaconRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
-import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.MediaRepository;
 
 @Controller
 public class WebController {
 
 	@Autowired
-	private AdministratorRepository administratorRepository;
+	private UserRepository administratorRepository;
 
 	@Autowired
 	private ArtworkRepository artworkRepository;
@@ -42,11 +42,11 @@ public class WebController {
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
 
-	@Autowired
-	private BeaconModificationRepository beaconModificationRepository;
-
-	@Autowired
-	private MediaModificationRepository mediaModificationRepository;
+//	@Autowired
+//	private BeaconModificationRepository beaconModificationRepository;
+//
+//	@Autowired
+//	private MediaModificationRepository mediaModificationRepository;
 
 	@GetMapping({ "/", "login" })
 	public String login() {
@@ -54,35 +54,37 @@ public class WebController {
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
-			return "redirect:obras";
+			return "redirect:index";
 		}
 		return "login";
 	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index() {
-
-		HashMap<String, Long> quantities = new HashMap<String, Long>();
-		quantities.put("artworks", artworkRepository.count());
-		quantities.put("exhibitions", exhibitionRepository.count());
-		quantities.put("administrators", administratorRepository.count());
-		quantities.put("beacons", beaconRepository.count());
-		quantities.put("media", mediaRepository.count());
+	public ModelAndView index() {
 
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("quantities", quantities);
-//		return mav;
-		return "redirect:obras";
+		return mav;
+	}
+
+	@RequestMapping(value = "artworks", method = RequestMethod.GET)
+	public ModelAndView prueba() {
+
+		ModelAndView mav = new ModelAndView("artworks");
+		return mav;
+	}
+
+	@RequestMapping(value = "scan", method = RequestMethod.GET)
+	public void scan() {
+
 	}
 
 	@RequestMapping(value = "obras", method = RequestMethod.GET)
 	public ModelAndView artworks() {
 
-		ModelAndView mav = new ModelAndView("artworks");
+		ModelAndView mav = new ModelAndView("artworks-old");
 		mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
 		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
-
 		mav.addObject("newArtwork", new Artwork());
 		return mav;
 	}
@@ -110,23 +112,24 @@ public class WebController {
 
 	@RequestMapping(value = "perfil", method = RequestMethod.GET)
 	public ModelAndView profile(Authentication authentication) {
-		
-		Administrator admin = administratorRepository.findByUsername(authentication.getName());
-		
+
+		User admin = administratorRepository.findByUsername(authentication.getName());
+
 		ModelAndView mav = new ModelAndView("profile");
-		
+
 		mav.addObject("administrator", admin);
 
 		return mav;
 	}
 
-	@RequestMapping(value = "balizas", method = RequestMethod.GET)
-	public String beacons() {
+	@RequestMapping(value = "beacons", method = RequestMethod.GET)
+	public ModelAndView beacons() {
 
 		ModelAndView mav = new ModelAndView("beacons");
 
-//		return mav;
-		return "redirect:obras";
+		mav.addObject("beacons", beaconRepository.findAll());
+
+		return mav;
 	}
 
 	@RequestMapping(value = "obras/informe", method = RequestMethod.GET)

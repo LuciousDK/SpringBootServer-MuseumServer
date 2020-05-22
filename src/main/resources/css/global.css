@@ -13,3 +13,7 @@ body {
 .dropdown-menu a:hover {
   cursor: pointer;
 }
+.edit-icon {
+  width: 20px;
+  height: 20px;
+}

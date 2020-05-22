@@ -53,7 +53,7 @@ function declareMedia() {
 
 function uploadMedia(formData) {
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/media";
+  var url = apiUrl + "/api/media";
   http.open("POST", url, true);
 
   http.onreadystatechange = function() {
@@ -67,7 +67,7 @@ function uploadMedia(formData) {
 
 function deleteMedia(id) {
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/media";
+  var url = apiUrl + "/api/media";
   http.open("DELETE", url, true);
 
   http.onreadystatechange = function() {
@@ -97,7 +97,7 @@ function editMedia(media) {
 function confirmEdit() {
   var form = document.forms["media-form"];
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/media";
+  var url = apiUrl + "/api/media";
   http.open("PUT", url, true);
 
   http.onreadystatechange = function() {

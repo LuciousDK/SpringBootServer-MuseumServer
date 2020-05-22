@@ -22,25 +22,25 @@ public class MediaModificationController {
 	@Autowired
 	MediaModificationService mediaModificationService;
 
-	@GetMapping("/media/modifications")
+	@GetMapping("/api/media/modifications")
 	@JsonView(DataViews.ModificationsRequest.class)
 	public List<MediaModification> getAllModifications() {
 		return mediaModificationService.getAllModifications();
 	}
 
-	@GetMapping("/media/modifications/administrator/{administratorId}")
+	@GetMapping("/api/media/modifications/administrator/{administratorId}")
 	@JsonView(DataViews.ModificationsRequest.class)
 	public List<MediaModification> getAdministratorModifications(@PathVariable("administratorId") Long administratorId) {
 		return mediaModificationService.getAdministratorModifications(administratorId);
 	}
 
-	@GetMapping("/media/modifications/{mediaId}")
+	@GetMapping("/api/media/modifications/{mediaId}")
 	@JsonView(DataViews.ModificationsRequest.class)
 	public List<MediaModification> getMediaModifications(@PathVariable("mediaId") Long mediaId) {
 		return mediaModificationService.getAdministratorModifications(mediaId);
 	}
 
-	@PostMapping("/media/newModification")
+	@PostMapping("/api/media/newModification")
 	public void addMediaModification(@RequestParam("administratorId") Long administratorId, @RequestParam("mediaId") Long mediaId,
 			MediaModification modification) {
 

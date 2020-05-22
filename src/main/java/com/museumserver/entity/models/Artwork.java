@@ -1,6 +1,7 @@
 package com.museumserver.entity.models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,6 +46,16 @@ public class Artwork implements Serializable {
 	private String description;
 
 	@JsonIgnoreProperties({ "artworks" })
+	@ManyToOne
+	@JoinColumn(name = "exhibition_id", insertable = true, updatable = true)
+	@JsonView(DataViews.ExhibitionData.class)
+	private Exhibition exhibition;
+
+	@ManyToOne
+	@JoinColumn(name = "state_id", insertable = true, updatable = true)
+	@JsonView(DataViews.DefaultData.class)
+	private State state;
+
 	@OneToMany(mappedBy = "artwork", fetch = FetchType.LAZY)
 	@JsonView(DataViews.BeaconListData.class)
 	private List<Beacon> beacons;
@@ -55,59 +66,24 @@ public class Artwork implements Serializable {
 	@JsonView(DataViews.MediaListData.class)
 	private List<Media> media;
 
-	@JsonIgnoreProperties({ "artworks" })
-	@ManyToOne
-	@JoinColumn(name = "exhibition_id", insertable = true, updatable = true)
-	@JsonView(DataViews.ExhibitionData.class)
-	private Exhibition exhibition;
-
-	public Artwork(Long id, String name, String author, String country, String description, List<Beacon> beacons,
-			List<Media> media, Exhibition exhibition) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.author = author;
-		this.country = country;
-		this.description = description;
-		this.beacons = beacons;
-		this.media = media;
-		this.exhibition = exhibition;
-	}
-
-	public List<Beacon> getBeacons() {
-		return beacons;
-	}
-
-	public void setBeacons(List<Beacon> beacons) {
-		this.beacons = beacons;
-	}
-
-	public List<Media> getMedia() {
-		return media;
-	}
-
-	public void setMedia(List<Media> media) {
-		this.media = media;
-	}
-
-	public Exhibition getExhibition() {
-		return exhibition;
-	}
-
-	public void setExhibition(Exhibition exhibition) {
-		this.exhibition = exhibition;
-	}
+	@JsonIgnoreProperties({ "artwork" })
+	@OneToMany(mappedBy = "artwork", fetch = FetchType.LAZY)
+	@JsonView(DataViews.ArtworkModificationsData.class)
+	private List<ArtworkModification> artworkModifications;
 
 	public Artwork() {
 		super();
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
+	public Artwork(String name, String author, String country, String description) {
+		super();
 		this.name = name;
+		this.author = author;
+		this.country = country;
+		this.description = description;
+		this.beacons = new ArrayList<Beacon>();
+		this.media = new ArrayList<Media>();
+		this.artworkModifications = new ArrayList<ArtworkModification>();
 	}
 
 	public Long getId() {
@@ -116,6 +92,14 @@ public class Artwork implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAuthor() {
@@ -142,6 +126,46 @@ public class Artwork implements Serializable {
 		this.description = description;
 	}
 
+	public Exhibition getExhibition() {
+		return exhibition;
+	}
+
+	public void setExhibition(Exhibition exhibition) {
+		this.exhibition = exhibition;
+	}
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public List<Beacon> getBeacons() {
+		return beacons;
+	}
+
+	public void setBeacons(List<Beacon> beacons) {
+		this.beacons = beacons;
+	}
+
+	public List<Media> getMedia() {
+		return media;
+	}
+
+	public void setMedia(List<Media> media) {
+		this.media = media;
+	}
+
+	public List<ArtworkModification> getArtworkModifications() {
+		return artworkModifications;
+	}
+
+	public void setArtworkModifications(List<ArtworkModification> artworkModifications) {
+		this.artworkModifications = artworkModifications;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -152,6 +176,7 @@ public class Artwork implements Serializable {
 						"\",\"country\":\""+this.country+
 						"\",\"author\":\""+this.author+
 						"\",\"description\":\""+this.description+
+						"\",\"state\":\""+this.state.getName()+
 						"\",\"exhibitionId\":";
 		
 		if(this.exhibition!=null) {

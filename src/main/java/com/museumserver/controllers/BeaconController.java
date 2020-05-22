@@ -24,29 +24,29 @@ public class BeaconController {
 	@Autowired
 	private BeaconService beaconService;
 
-	@GetMapping("/beacons")
+	@GetMapping("/api/beacons")
 	@JsonView(DataViews.BeaconsRequest.class)
 	public List<Beacon> getBeacons() {
-		return beaconService.getBeacons();
+		return beaconService.getActiveBeacons();
 	}
 
-	@GetMapping("/beacon/{id}")
+	@GetMapping("/api/beacon/{id}")
 	@JsonView(DataViews.BeaconsRequest.class)
 	public Beacon getBeacon(@PathVariable("id") Long id) {
 		return beaconService.getBeacon(id);
 	}
 
-	@PostMapping("/beacon")
+	@PostMapping("/api/beacon")
 	public void addBeacon(Beacon beacon) {
 		beaconService.addBeacon(beacon);
 	}
 
-	@PutMapping("/beacon")
+	@PutMapping("/api/beacon")
 	public void updateBeacon(Beacon beacon) {
 		beaconService.updateBeacon(beacon);
 	}
 
-	@DeleteMapping("/beacon")
+	@DeleteMapping("/api/beacon")
 	public void removeBeacon(@RequestParam("id") Long id) {
 		beaconService.deleteBeacon(id);
 	}

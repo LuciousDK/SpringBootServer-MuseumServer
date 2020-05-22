@@ -33,10 +33,21 @@ public class MediaModification implements Serializable {
 	
 	@JsonIgnoreProperties({ "mediaModifications" })
 	@ManyToOne
-	@JoinColumn(name = "administrator_id", insertable = false, updatable = false)
-	@JsonView(DataViews.AdministratorData.class)
-	private Administrator administrator;
-	
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JsonView(DataViews.UserData.class)
+	private User user;
+
+	public MediaModification() {
+		super();
+	}
+
+	public MediaModification(MediaModificationId id, String description, Media media, User user) {
+		super();
+		this.id = id;
+		this.description = description;
+		this.media = media;
+		this.user = user;
+	}
 	
 	public MediaModificationId getId() {
 		return id;
@@ -62,28 +73,16 @@ public class MediaModification implements Serializable {
 		this.media = media;
 	}
 
-	public Administrator getAdministrator() {
-		return administrator;
+	public User getUser() {
+		return user;
 	}
 
-	public void setAdministrator(Administrator administrator) {
-		this.administrator = administrator;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-
-	public MediaModification(MediaModificationId id, String description, Media media, Administrator administrator) {
-		super();
-		this.id = id;
-		this.description = description;
-		this.media = media;
-		this.administrator = administrator;
-	}
-
-	public MediaModification() {
-		super();
 	}
 
 }

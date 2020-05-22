@@ -1,0 +1,388 @@
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+body {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-color: #718597;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+}
+#header {
+  font-weight: bolder;
+  color: #fffad8;
+  padding: 0 10px;
+  background-color: #0779e4;
+  height: 50px;
+  font-size: 20px;
+  line-height: 50px;
+}
+#header img {
+  max-height: 50px;
+}
+#logo {
+  margin: 0 10px 0 0;
+}
+.dropdown {
+  height: 50px;
+  line-height: 50px;
+  position: absolute;
+  right: 0;
+}
+.dropdown > img {
+  height: 14px;
+  margin: 18px 10px;
+}
+#content {
+  max-height: calc(100% - 50px);
+  height: 100%;
+}
+
+#content > * {
+  height: 100%;
+}
+#sidetab {
+  color: #fffad8;
+  background-color: #0066c5;
+  transition: width 0.2s;
+  width: 60px;
+}
+#sidetab:hover {
+  width: 255px;
+}
+.tab-item {
+  display: flex;
+  flex-direction: row;
+}
+.tab-item * {
+  pointer-events: none;
+}
+
+.tab-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.tab-item.selected {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.tab-item > img {
+  margin: 5px 10px;
+  width: 40px;
+  height: 40px;
+}
+#sidetab > .tab-item > .tab-name {
+  line-height: 50px;
+  font-size: 30px;
+  font-weight: 700;
+  overflow: hidden;
+}
+
+#sidetab:hover > .tab-item > .tab-name {
+  width: 100%;
+  margin-right: 10px;
+}
+#sidetab > .tab-item > .tab-name {
+  width: 0px;
+}
+
+/**
+* Displace Content on sidetab hover
+*/
+/* #content-body {
+  padding: 20px;
+  width: 100%;
+  overflow: auto;
+} */
+
+/**
+* START
+* Sidetab overlap on hover
+*/
+#content-body{
+  padding: 20px;
+  width: calc(100vw - 60px);
+  height: calc(100vh - 50px);
+  overflow: auto;
+  position: absolute;
+  left: 60px;
+  z-index: 1;
+}
+#sidetab{
+  position: absolute;
+  z-index: 2;
+  height: calc(100vh - 50px);
+}
+/*
+* END
+*/
+.card {
+  margin-bottom: 20px;
+  border-radius: 5px;
+  overflow: hidden;
+  height: auto;
+  width: 100%;
+}
+.card-header {
+  cursor: pointer;
+  padding: 0 20px;
+  height: 50px;
+  background-color: rgb(16, 148, 255);
+  position: relative;
+}
+.card-header * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.card-body {
+  overflow-x: auto;
+  transition: max-height 0.25s;
+  background-color: rgb(197, 251, 255);
+}
+.card.toggled > .card-body {
+  padding: 10px;
+  max-height: 750px;
+}
+.card > .card-body {
+  max-height: 0px;
+}
+
+.card-header > * {
+  margin-right: 20px;
+  line-height: 50px;
+  font-size: 20px;
+  font-weight: bolder;
+}
+
+.card-body > *:nth-child(1) {
+  width: 30%;
+}
+.card-body > *:nth-child(2) {
+  padding: 20px;
+  width: 40%;
+}
+.card-body > *:nth-child(3) {
+  padding: 20px;
+  min-width: 30%;
+  width: auto;
+}
+.card-image {
+  min-height: 500px;
+  position: relative;
+}
+.card-image > img {
+  border: inset 20px rgb(155, 119, 72);
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+  
+}
+.card-description > .description {
+  width: 100%;
+  height: 100%;
+}
+textarea:disabled {
+  background-color: rgba(0, 247, 255, 0.199);
+}
+textarea {
+  border-radius: 5px;
+  padding: 10px;
+  resize: none;
+  width: 100%;
+  height: 100%;
+  margin-right: 10px;
+  border: 1px solid rgb(0, 210, 218);
+}
+.text-buttons > div {
+  margin-bottom: 10px;
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+}
+.text-buttons > div > img {
+  width: 100%;
+}
+.card-data {
+  line-height: 50px;
+  font-size: 20px;
+}
+.card-data > .labels {
+  margin-right: 10px;
+  font-weight: bolder;
+}
+.dataset {
+  width: 100%;
+}
+.data {
+  width: 100%;
+  position: relative;
+}
+.data > div {
+  height: 50px;
+}
+.data-value {
+  overflow: hidden;
+}
+.data > input {
+  height: 30px;
+  margin: 10px 0;
+  font-size: 20px;
+}
+.edit-data {
+  background-color: rgb(197, 251, 255);
+  position: absolute;
+  right: 30px;
+}
+.edit-data > img {
+  cursor: pointer;
+  display: none;
+  height: 50px;
+  padding: 10px 10px 10px 0;
+}
+.data:hover > .edit-data > img {
+  display: block;
+}
+.confirm-button,
+.cancel-button {
+  width: 30px;
+  padding: 10px 0 10px 0;
+  margin-left: 5px;
+}
+.cancel-button {
+  padding-right: 10px;
+}
+
+.confirm-button > img,
+.cancel-button > img {
+  cursor: pointer;
+  width: 30px;
+}
+
+.card.editing .edit-button {
+  display: none;
+}
+.tab-page {
+  width: 100%;
+  height: auto;
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 90;
+}
+.modal.active,.modal.closing {
+  display: flex;
+}
+.modal.inactive {
+  display: none;
+}
+.modal.active > .modal-content {
+  animation: open-modal 0.3s;
+}
+.modal.closing > .modal-content {
+  animation: close-modal 0.3s;
+}
+.modal-content {
+  display: block;
+  max-width: 90%;
+  max-height: 90%;
+  position: relative;
+  z-index: 91;
+}
+.modal-header {
+  padding:0 20px;
+  height: 30px;
+  background-color: rgb(16, 148, 255);
+  line-height: 30px;
+  font-size: large;
+  position: relative;
+}
+.modal-header .title{
+  font-weight: bolder;
+}
+.modal .close-button{
+  width: 30px;
+  font-size: x-large;
+  text-align: center;
+  position: absolute;
+  right: 0;
+  
+}
+.close-button:hover{
+  
+  background-color: rgb(255, 57, 57);
+}
+.modal-body {
+  background-color: rgb(197, 251, 255);
+  padding: 20px;
+  overflow: auto;
+  max-height: 85vh;
+}
+.modal-footer{
+  padding: 20px;
+}
+
+@keyframes open-modal {
+  0% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes close-modal {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0.75);
+  }
+}
+.state-icon {
+  position: absolute;
+  right: 0;
+  box-sizing: border-box;
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+}

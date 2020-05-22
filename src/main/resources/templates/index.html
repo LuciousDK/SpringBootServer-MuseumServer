@@ -6,78 +6,70 @@
 
     <meta charset="UTF-8" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script th:src="@{/js/requests.js}" th:inline="javascript"></script>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+    <script th:src="@{/js/artworks.js}" th:inline="javascript"></script>
 
-    <script type="text/javascript" th:inline="javascript">
-        window.onload = init
-        var quantities = "[";
-        function init() {
-
-            /*[# th:each="quantity : ${quantities}"]*/
-            quantities += '{"name":"' + '[(${quantity.key})]' + '",' +
-                '"quantity":"' + '[(${quantity.value})]' + '"}' + ","
-
-
-            /*[/]*/
-            quantities += "]"
-            quantities = quantities.replace(',]', ']')
-            quantities = JSON.parse(quantities)
-        }
-
-
-
-    </script>
-
-    <script type="text/javascript" th:src="@{/js/global.js}"></script>
-
-    <link rel="stylesheet" type="text/css" href="css/global.css" th:href="@{/css/global.css}">
-
-    <script type="text/javascript" th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/index.js}" th:inline="javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}">
 
 </head>
 
-<body>
-    <nav class="navbar  navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand inactiveLink" href="#">MuseumApp</a>
+<body class="column">
 
-        <ul class="navbar-nav">
-            <li class="nav-item active inactiveLink"><a class="nav-link" href="#">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="obras">Obras</a></li>
-            <li class="nav-item"><a class="nav-link" href="exhibiciones">Exhibiciones</a></li>
-            <!-- <li class="nav-item"><a class="nav-link" href="balizas">Balizas</a></li> -->
-            <li class="nav-item"><a class="nav-link" href="archivos">Archivos</a></li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
-                    Aministradores
-                </a>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="perfil" ><i class="fas fa-user-alt"></i>&nbsp;Perfil</a>
-                    <a class="dropdown-item" onclick="appendModal()"><i class="fas fa-plus"></i>&nbsp;Nuevo</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="btn btn-dark" href="/logout"><i class="fas fa-sign-out-alt"></i></span>
-                    Salir</a></li>
-        </ul>
-    </nav>
-    
+    <div id="header" class="row">
+        <img id="logo" src="assets/inerza-logo-sq.png">
+        <div id="title">MuseumApp</div>
+        <div class="dropdown right row" onclick="openModal()">
+            Perfil <img src="assets/dropdown-icon.png"></div>
+    </div>
+    <div class="row" id="content">
 
+        <div id="sidetab" class="not-toggled">
+            <div class="tab-item" onclick="selectTab('artworks')">
+                <img src="assets/easel.png" alt="Image Not Found">
+                <div class="tab-name">Obras</div>
+            </div>
+            <div class="tab-item" onclick="selectTab('exhibitions')">
+                <img src="assets/gallery.png" alt="Image Not Found">
+                <div class="tab-name">Exhibiciones</div>
+            </div>
+            <div class="tab-item" onclick="selectTab('beacons')">
+                <img src="assets/beacon.png" alt="Image Not Found">
+                <div class="tab-name">Beacons</div>
+            </div>
+            <div class="tab-item" onclick="selectTab('media')">
+                <img src="assets/files.png" alt="Image Not Found">
+                <div class="tab-name">Archivos</div>
+            </div>
+            <div class="tab-item" onclick="selectTab('users')">
+                <img src="assets/user.png" alt="Image Not Found">
+                <div class="tab-name">Usuarios</div>
+            </div>
+        </div>
+        <div id="content-body">
 
+        </div>
+    </div>
 
+    <div id="main-modal" class="modal" onclick="closeModal()">
+        <div class="modal-content">
+            <div class="modal-header row">
+                <div class="title">dasdadsas</div>
+                <div class="close-button">&times;</div>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
 </body>
 
 </html>

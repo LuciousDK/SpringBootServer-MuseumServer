@@ -1,33 +1,30 @@
 package com.museumserver.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
+import com.museumserver.entity.models.User;
 
-import com.museumserver.entity.models.Administrator;
-import com.museumserver.entity.repositories.AdministratorRepository;
+public interface UserService {
 
-@Service
-public class UserService implements UserDetailsService{
+	public User getUser(Long id);
 	
-	@Autowired
-	private AdministratorRepository repository; 
+	public List<User> getActiveUsers();
 	
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		Administrator admin = repository.findByUsername(username);
-		List<GrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ADMIN"));
-		UserDetails userDetails = new User(admin.getUsername(),admin.getPassword(),roles);
-		return userDetails;
-	}
+	public List<User> getAllUsers();
+	
+	public List<User> getAdminUsers();
+	
+	public List<User> getNonAdminUsers();
 
+	public void deleteUser(long id);
+
+	public User addUser(User user);
+
+	public User updateUser(User user);
+
+	public void activateUser(String username);
+
+	public void inactivateUser(String username);
+	
+	public void setRole(String username, String roleName);
 }

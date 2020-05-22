@@ -54,7 +54,7 @@ function submitAdminForm(event) {
   event.preventDefault();
   var form = document.forms["admin-form"];
   var http = new XMLHttpRequest();
-  var url = apiUrl + "/administrator";
+  var url = apiUrl + "/api/user";
   http.open("POST", url, true);
 
   http.onreadystatechange = function() {
@@ -85,6 +85,15 @@ function openReport(event, url) {
   event.preventDefault();
   var win = window.open(url, "_blank");
   win.focus();
+}
+function getFormDataJSON(form){
+  var data = form.serializeArray();
+  var result = {};
+
+  $.map(data, function(input, index){
+    result[input['name']] = input['value'];
+  });
+  return result;
 }
 
 const adminForm =

@@ -12,14 +12,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.museumserver.services.UserService;
+import com.museumserver.services.UserCredentialService;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	private UserService userDetailsService;
+	private UserCredentialService userDetailsService;
 	
 	@Autowired
 	private BCryptPasswordEncoder bcrypt;
@@ -39,12 +39,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable()
 			.authorizeRequests()
+			.antMatchers(HttpMethod.GET, "/css/login.css/**","/assets/**","/js/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/artworks/**","/artwork/**","/beacons/**", "/beacon/**","/exhibitions/**","/exhibition/**",
-					"/media/**","/mediass/**","/css/login.css/**","/img/**","/audio/**","/video/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/**").authenticated()
-			.antMatchers(HttpMethod.PUT,"/**").authenticated()
-			.antMatchers(HttpMethod.POST,"/**").authenticated()
-			.antMatchers(HttpMethod.DELETE,"/**").authenticated()
+					"/media/**","/medias/**","/img/**","/audio/**","/video/**").authenticated()
+			.antMatchers(HttpMethod.GET, "/**").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.PUT,"/**").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.POST,"/**").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.DELETE,"/**").hasAuthority("ADMIN")
 			.and()
 			.formLogin()
             .loginPage("/login")
@@ -60,7 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 	    @Override
 	    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/img/**").addResourceLocations("classpath:img/");
+	        registry.addResourceHandler("/assets/**").addResourceLocations("classpath:img/assets/");
+	        registry.addResourceHandler("/img/**").addResourceLocations("classpath:img/images/");
 	        registry.addResourceHandler("/video/**").addResourceLocations("classpath:video/");
 	        registry.addResourceHandler("/audio/**").addResourceLocations("classpath:audio/");
 	        registry.addResourceHandler("/css/**").addResourceLocations("classpath:css/");

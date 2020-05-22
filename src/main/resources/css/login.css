@@ -1,67 +1,74 @@
-
-body{
-    background-size: cover;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-image: linear-gradient(#718597, white, #718597);
 }
 
-.main-section{
-    margin:0 auto;
-    margin-top:25%;
-    padding: 0;
+.login-panel {
+  border-radius: 10px;
+  margin: 15% auto;
+  width: 500px;
+  background-color: #2584dd;
+  opacity: 0.85;
+  padding: 20px 20px;
+  box-shadow: 0px 0px 3px #020202;
 }
 
-.modal-content{
-    background-color: lightblue;
-    opacity: .85;
-    padding: 20px 20px;
-    box-shadow: 0px 0px 3px #848484;
+form {
+  margin-bottom: 10px;
+  text-align: center;
 }
 
-form{
-	margin-bottom:10px;
+.icon-img img {
+  width: 200px;
+  margin-bottom: 10px;
 }
 
-.icon-img img{
-	width: 200px;
-	margin-bottom : 10px;
-	
+.form-group input {
+  height: 42px;
+  font-size: 18px;
+  border: 0;
+  padding-left: 54px;
+  border-radius: 5px;
 }
 
-.form-group input{
-    height: 42px;
-    font-size: 18px;
-    border:0;
-    padding-left: 54px;
-    border-radius: 5px;
+.form-group::before {
+  font-family: "Font Awesome\ 5 Free";
+  position: absolute;
+  left: 28px;
+  font-size: 22px;
+  padding-top: 4px;
 }
 
-.form-group::before{
-    font-family: "Font Awesome\ 5 Free";
-    position: absolute;
-    left: 28px;
-    font-size: 22px;
-    padding-top:4px;
+.form-group#user-group::before {
+  content: "\f007";
 }
 
-.form-group#user-group::before{
-    content: "\f007";
+.form-group#contrasena-group::before {
+  content: "\f023";
 }
 
-.form-group#contrasena-group::before{
-    content: "\f023";
+.alert {
+  margin: 0px;
 }
 
-.alert{
-	margin: 0px;
+button {
+  border: none;
+  border-radius: 5px;
+  height: 40px;
+  font-size: medium;
+  background-color: rgb(147, 255, 228);
+  width: 60%;
 }
 
-button{
-    width: 60%;
+.forgot {
+  padding: 5px 0;
 }
 
-.forgot{
-    padding: 5px 0;
-}
-
-.forgot a{
-    color: white;
+.forgot a {
+  color: white;
 }

@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.museumserver.entity.models.Beacon;
+import com.museumserver.entity.models.State;
 import com.museumserver.entity.repositories.BeaconRepository;
+import com.museumserver.entity.repositories.StateRepository;
 
 @Service
 public class BeaconServiceImpl implements BeaconService {
@@ -18,8 +20,18 @@ public class BeaconServiceImpl implements BeaconService {
 	@Autowired
 	private BeaconRepository beaconRepository;
 
+	@Autowired
+	private StateRepository stateRepository;
+
 	@Override
-	public List<Beacon> getBeacons() {
+	public List<Beacon> getAllBeacons() {
+
+		return (List<Beacon>) beaconRepository.findAllByOrderByIdAsc();
+
+	}
+
+	@Override
+	public List<Beacon> getActiveBeacons() {
 
 		return (List<Beacon>) beaconRepository.findAllByOrderByIdAsc();
 
@@ -44,9 +56,8 @@ public class BeaconServiceImpl implements BeaconService {
 		if (beaconRepository.existsById(beacon.getId())) {
 			Beacon original = beaconRepository.findById(beacon.getId()).get();
 
-			if (beacon.getMac() != null)
-				original.setMac(beacon.getMac());
-
+			if (beacon.getId() != null)
+				original.setId(beacon.getId());
 
 			return beaconRepository.save(original);
 		}
@@ -59,6 +70,24 @@ public class BeaconServiceImpl implements BeaconService {
 		if (beaconRepository.existsById(id))
 			return beaconRepository.findById(id).get();
 		return null;
+	}
+
+	@Override
+	public void activateBeacon(long id) {
+
+		Beacon original = beaconRepository.findById(id).get();
+		State state = stateRepository.findByName("ACTIVE");
+		original.setState(state);
+		beaconRepository.save(original);
+	}
+
+	@Override
+	public void inactivateBeacon(long id) {
+
+		Beacon original = beaconRepository.findById(id).get();
+		State state = stateRepository.findByName("INACTIVE");
+		original.setState(state);
+		beaconRepository.save(original);
 	}
 
 }

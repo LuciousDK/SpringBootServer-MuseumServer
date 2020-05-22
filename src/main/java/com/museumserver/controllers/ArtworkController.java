@@ -1,9 +1,6 @@
 package com.museumserver.controllers;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,45 +22,47 @@ public class ArtworkController {
 	@Autowired
 	private ArtworkService artworkService;
 
-	@GetMapping("/artworks")
+	@GetMapping("/api/artworks")
 	@JsonView(DataViews.ArtworkRequest.class)
 	public List<Artwork> getArtworks() {
-		return artworkService.getArtworks();
+		return artworkService.getAllArtworks();
 	}
 
-	@GetMapping("/artwork/{id}")
+	@GetMapping("/api/artwork/{id}")
 	@JsonView(DataViews.ArtworkRequest.class)
 	public Artwork getArtwork(@PathVariable("id") Long id) {
 		return artworkService.getArtwork(id);
 	}
 
-	@PostMapping("/artwork")
-	public void addArtwork(Artwork artwork, @RequestParam(required = false, value = "exhibitionId") Long exhibitionId, HttpServletResponse response) throws IOException {
+	@PostMapping("/api/artwork")
+	public void saveArtwork(Artwork artwork, @RequestParam(required = false, value = "exhibitionId") Long exhibitionId){
 		if(artwork.getId()==null) {
 			artworkService.addArtwork(artwork, exhibitionId);
 		}else {
 			artworkService.updateArtwork(artwork, exhibitionId);
 		}
-		
-		response.sendRedirect("/obras");
 	}
 
-	@PostMapping("/artwork/addMedia")
+	@PostMapping("/api/artwork/addMedia")
 	public void addMedia(@RequestParam("artworkId") Long artworkId , @RequestParam("mediaId") Long mediaId){
 
 		artworkService.addMedia(artworkId, mediaId);
 	}
 
-	@PostMapping("/artwork/removeMedia")
+	@PostMapping("/api/artwork/removeMedia")
 	public void removeMedia(@RequestParam("artworkId") Long artworkId , @RequestParam("mediaId") Long mediaId){
 
 		artworkService.removeMedia(artworkId, mediaId);
 	}
 
-	@PostMapping("/artwork/delete")
-	public void removeArtwork(@RequestParam("id") Long id, HttpServletResponse response) throws IOException {
+	@PostMapping("/api/artwork/delete")
+	public void removeArtwork(@RequestParam("id") Long id){
 		artworkService.deleteArtwork(id);
-		response.sendRedirect("/obras");
+	}
+
+	@PostMapping("/api/artwork/toggle")
+	public void toggleArtwork(@RequestParam("id") Long id){
+		artworkService.toggleArtwork(id);
 	}
 
 }
