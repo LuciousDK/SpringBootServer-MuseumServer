@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable()
 			.authorizeRequests()
-			.antMatchers(HttpMethod.GET, "/css/login.css/**","/img/icon.png/**").permitAll()
+			.antMatchers(HttpMethod.GET, "/css/login.css/**","/assets/**","/js/**").permitAll()
 			.antMatchers(HttpMethod.GET, "/artworks/**","/artwork/**","/beacons/**", "/beacon/**","/exhibitions/**","/exhibition/**",
 					"/media/**","/medias/**","/img/**","/audio/**","/video/**").authenticated()
 			.antMatchers(HttpMethod.GET, "/**").hasAuthority("ADMIN")
@@ -61,7 +61,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	public class AdditionalResourceWebConfiguration implements WebMvcConfigurer {
 	    @Override
 	    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-	        registry.addResourceHandler("/img/**").addResourceLocations("classpath:img/");
+	        registry.addResourceHandler("/assets/**").addResourceLocations("classpath:img/assets/");
+	        registry.addResourceHandler("/img/**").addResourceLocations("classpath:img/images/");
 	        registry.addResourceHandler("/video/**").addResourceLocations("classpath:video/");
 	        registry.addResourceHandler("/audio/**").addResourceLocations("classpath:audio/");
 	        registry.addResourceHandler("/css/**").addResourceLocations("classpath:css/");

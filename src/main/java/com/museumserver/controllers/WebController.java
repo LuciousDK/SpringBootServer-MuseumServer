@@ -54,25 +54,23 @@ public class WebController {
 
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
-			return "redirect:obras";
+			return "redirect:index";
 		}
 		return "login";
 	}
 
 	@RequestMapping(value = "index", method = RequestMethod.GET)
-	public String index() {
-
-		HashMap<String, Long> quantities = new HashMap<String, Long>();
-		quantities.put("artworks", artworkRepository.count());
-		quantities.put("exhibitions", exhibitionRepository.count());
-		quantities.put("administrators", administratorRepository.count());
-		quantities.put("beacons", beaconRepository.count());
-		quantities.put("media", mediaRepository.count());
+	public ModelAndView index() {
 
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("quantities", quantities);
-//		return mav;
-		return "redirect:obras";
+		return mav;
+	}
+
+	@RequestMapping(value = "artworks", method = RequestMethod.GET)
+	public ModelAndView prueba() {
+
+		ModelAndView mav = new ModelAndView("artworks");
+		return mav;
 	}
 
 	@RequestMapping(value = "scan", method = RequestMethod.GET)
@@ -83,7 +81,7 @@ public class WebController {
 	@RequestMapping(value = "obras", method = RequestMethod.GET)
 	public ModelAndView artworks() {
 
-		ModelAndView mav = new ModelAndView("artworks");
+		ModelAndView mav = new ModelAndView("artworks-old");
 		mav.addObject("artworks", artworkRepository.findAllByOrderByIdAsc());
 		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());

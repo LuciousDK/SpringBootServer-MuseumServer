@@ -25,7 +25,7 @@ public class ArtworkController {
 	@GetMapping("/api/artworks")
 	@JsonView(DataViews.ArtworkRequest.class)
 	public List<Artwork> getArtworks() {
-		return artworkService.getActiveArtworks();
+		return artworkService.getAllArtworks();
 	}
 
 	@GetMapping("/api/artwork/{id}")

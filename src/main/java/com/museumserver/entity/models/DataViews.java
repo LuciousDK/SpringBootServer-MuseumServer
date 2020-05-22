@@ -36,7 +36,7 @@ public class DataViews {
     
     public interface ExhibitionRequest extends DefaultData, ArtworkListData, MediaListData{};
     
-    public interface ArtworkRequest extends DefaultData, BeaconListData, MediaListData{};
+    public interface ArtworkRequest extends DefaultData, BeaconListData, MediaListData, ExhibitionData{};
     
     public interface BeaconsRequest extends DefaultData, UserData, ArtworkData{};
     

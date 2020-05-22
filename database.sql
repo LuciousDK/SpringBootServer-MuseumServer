@@ -264,13 +264,13 @@ INSERT INTO public.exhibitions(name,opening_date,closing_date,location) VALUES
 ('Greek Mythology','2020/02/01','2020/05/31','Area 2');
 
 INSERT INTO public.artworks(name,author,country,description,exhibition_id) VALUES 
-('La Gioconda','Leonardo Da Vinci','Italy','El Retrato de Lisa Gherardini, esposa de Francesco del Giocondo, más conocido como La Gioconda o La Mona Lisa, es una obra pictórica del polímata renacentista italiano Leonardo da Vinci. Fue adquirida por el rey Francisco I de Francia a comienzos del siglo XVI y desde entonces es propiedad del Estado Francés. Se halla expuesta en el Museo del Louvre de París, siendo, sin duda, la «joya» de sus colecciones. Su nombre, La Gioconda (la alegre, en castellano), deriva de la tesis más aceptada acerca de la identidad de la modelo: la esposa de Francesco Bartolomeo de Giocondo, que realmente se llamaba Lisa Gherardini, de donde viene su otro nombre: Mona (señora, en el italiano antiguo) Lisa. El Museo del Louvre acepta el título completo indicado al principio como el título original de la obra, aunque no reconoce la identidad de la modelo y tan solo la acepta como una hipótesis. Es un óleo sobre tabla de álamo de 77 × 53 cm, pintado entre 1503 y 1519, y retocado varias veces por el autor. Se considera el ejemplo más logrado de sfumato, técnica muy característica de Leonardo, si bien actualmente su colorido original es menos perceptible por el oscurecimiento de los barnices. El cuadro está protegido por múltiples sistemas de seguridad y ambientado a temperatura estable para su preservación óptima. Es revisado constantemente para verificar y prevenir su deterioro. Por medio de estudios históricos se ha determinado que la modelo podría ser una vecina de Leonardo, que podrían conocerse sus descendientes y que la modelo podría haber estado embarazada, por la forma de esconder que tienen sus manos. Pese a todas las suposiciones, las respuestas en firme a los varios interrogantes en torno a la obra de arte resultan francamente insuficientes, lo cual genera más curiosidad entre los admiradores del cuadro. La fama de esta pintura no se basa únicamente en la técnica empleada o en su belleza, sino también en los misterios que la rodean. Además, el robo que sufrió en 1911, las reproducciones realizadas, las múltiples obras de arte que se han inspirado en el cuadro y las parodias existentes contribuyen a convertir a La Gioconda en el cuadro más famoso del mundo, visitado por millones de personas anualmente.',1),
+('La Mona Lisa','Leonardo Da Vinci','Italy','El Retrato de Lisa Gherardini, esposa de Francesco del Giocondo, más conocido como La Gioconda o La Mona Lisa, es una obra pictórica del polímata renacentista italiano Leonardo da Vinci. Fue adquirida por el rey Francisco I de Francia a comienzos del siglo XVI y desde entonces es propiedad del Estado Francés. Se halla expuesta en el Museo del Louvre de París, siendo, sin duda, la «joya» de sus colecciones. Su nombre, La Gioconda (la alegre, en castellano), deriva de la tesis más aceptada acerca de la identidad de la modelo: la esposa de Francesco Bartolomeo de Giocondo, que realmente se llamaba Lisa Gherardini, de donde viene su otro nombre: Mona (señora, en el italiano antiguo) Lisa. El Museo del Louvre acepta el título completo indicado al principio como el título original de la obra, aunque no reconoce la identidad de la modelo y tan solo la acepta como una hipótesis. Es un óleo sobre tabla de álamo de 77 × 53 cm, pintado entre 1503 y 1519, y retocado varias veces por el autor. Se considera el ejemplo más logrado de sfumato, técnica muy característica de Leonardo, si bien actualmente su colorido original es menos perceptible por el oscurecimiento de los barnices. El cuadro está protegido por múltiples sistemas de seguridad y ambientado a temperatura estable para su preservación óptima. Es revisado constantemente para verificar y prevenir su deterioro. Por medio de estudios históricos se ha determinado que la modelo podría ser una vecina de Leonardo, que podrían conocerse sus descendientes y que la modelo podría haber estado embarazada, por la forma de esconder que tienen sus manos. Pese a todas las suposiciones, las respuestas en firme a los varios interrogantes en torno a la obra de arte resultan francamente insuficientes, lo cual genera más curiosidad entre los admiradores del cuadro. La fama de esta pintura no se basa únicamente en la técnica empleada o en su belleza, sino también en los misterios que la rodean. Además, el robo que sufrió en 1911, las reproducciones realizadas, las múltiples obras de arte que se han inspirado en el cuadro y las parodias existentes contribuyen a convertir a La Gioconda en el cuadro más famoso del mundo, visitado por millones de personas anualmente.',1),
 ('La Creación de Adán','Miguel Ángel','Italy','',1),
-('La Última cena','Leonardo Da Vinci','Italy','',1);
+('La Última Cena','Leonardo Da Vinci','Italy','',1);
 
 INSERT INTO public.artworks(name,author,country,description,exhibition_id) VALUES 
 ('La Libertad Guiando al Pueblo','Eugène Delacroix','France','',2),
-('La Ejecución de Cadoudal','Georges Cadoudal','France','',2);
+('La Ejecución de Cadoudal','Armand de Polignac','France','',2);
 
 INSERT INTO public.beacons(artwork_id,uuid) VALUES 
 (1,'DE:67:0D:F4:83:EO'),
@@ -280,11 +280,13 @@ INSERT INTO public.beacons(artwork_id,uuid) VALUES
 (2,'UDMG012');
 
 INSERT INTO public.media(file_type,file_name,display_name,extension) VALUES
-('image','la_gioconda','Mona Lisa','jpg'),
-('video','la_gioconda_following_eyes', 'Following Eyes','mp4'),
+('image','la_mona_lisa','La Mona Lisa','jpg'),
+('video','la_mona_lisa', 'La Mona Lisa','mp4'),
 ('audio','o_fortuna','O Fortuna - Carl Orff','mp3'),
-('image','la_ejecucion_de_cadoudal','La Ejecución de George Cadoudal','jpg'),
-('image','la_libertad_guiando_al_pueblo','La Libertad Guiando al Pueblo','jpg');
+('image','la_ejecucion_de_cadoudal','La Ejecución de Cadoudal','jpg'),
+('image','la_libertad_guiando_al_pueblo','La Libertad Guiando al Pueblo','jpg'),
+('image','la_creacion_de_adan','La Creación de Adán','jpg'),
+('image','la_ultima_cena','La Última Cena','jpg');
 
 INSERT INTO public.artwork_media(artwork_id, media_id) VALUES
 ('1','1'),
@@ -293,7 +295,9 @@ INSERT INTO public.artwork_media(artwork_id, media_id) VALUES
 ('1','4'),
 ('1','5'),
 ('4','5'),
-('5','4');
+('5','4'),
+('2','6'),
+('3','7');
 
 INSERT INTO public.exhibition_media(exhibition_id, media_id) VALUES
 ('1','3');
