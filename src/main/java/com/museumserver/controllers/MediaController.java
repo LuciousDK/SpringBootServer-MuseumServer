@@ -36,12 +36,16 @@ public class MediaController {
 	public Media getMedia(@PathVariable("id") Long id) {
 		return mediaService.getMedia(id);
 	}
+	
+	@GetMapping("/api/media/title/{displayName}")
+	@JsonView(DataViews.MediaRequest.class)
+	public List<Media> getMediaByDisplayName(@PathVariable("displayName") String displayName) {
+		return mediaService.getMediaByDisplayName(displayName);
+	}
 
 	@PostMapping("/api/media")
 	public void addMedia(Media media, @RequestParam("file") MultipartFile file) {
 		mediaService.addMedia(media, file);
-		
-
 	}
 
 	@PutMapping("/api/media")

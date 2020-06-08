@@ -55,6 +55,7 @@ public class WebController {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
 			return "redirect:index";
+			
 		}
 		return "login";
 	}
@@ -86,6 +87,12 @@ public class WebController {
 		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
 		mav.addObject("newArtwork", new Artwork());
+		return mav;
+	}
+	@RequestMapping(value = "files", method = RequestMethod.GET)
+	public ModelAndView files() {
+
+		ModelAndView mav = new ModelAndView("files");
 		return mav;
 	}
 

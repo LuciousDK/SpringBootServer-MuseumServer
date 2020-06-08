@@ -36,7 +36,7 @@ public class MediaServiceImpl implements MediaService {
 		Media original = mediaRepository.findById(id).get();
 		String location = "src/main/resources/";
 		if(original.getFileType().equals("image")) {
-			location += "img/";
+			location += "img/images/";
 		}
 		if(original.getFileType().equals("video")) {
 			location += "video/";
@@ -67,7 +67,7 @@ public class MediaServiceImpl implements MediaService {
 			
 			if (media.getFileType().equals("image")) {
 				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
-						.replace("target/classes/", "src/main/resources/") + "img/" + file.getOriginalFilename());
+						.replace("target/classes/", "src/main/resources/") + "img/images/" + file.getOriginalFilename());
 			}
 			
 			if (media.getFileType().contentEquals("video")) {
@@ -118,6 +118,11 @@ public class MediaServiceImpl implements MediaService {
 		if (mediaRepository.existsById(id))
 			return mediaRepository.findById(id).get();
 		return null;
+	}
+
+	@Override
+	public List<Media> getMediaByDisplayName(String name) {
+		return mediaRepository.getMediaByDisplayName(name);
 	}
 
 }

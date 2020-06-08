@@ -12,11 +12,13 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <script th:src="@{/js/requests.js}" th:inline="javascript"></script>
+    <script src="/js/requests.js"></script>
 
-    <script th:src="@{/js/artworks.js}" th:inline="javascript"></script>
+    <script src="/js/artworks.js"></script>
 
-    <script th:src="@{/js/index.js}" th:inline="javascript"></script>
+    <script src="/js/files.js"></script>
+
+    <script src="/js/index.js"></script>
 
     <link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{/css/index.css}">
 
@@ -27,8 +29,14 @@
     <div id="header" class="row">
         <img id="logo" src="assets/inerza-logo-sq.png">
         <div id="title">MuseumApp</div>
-        <div class="dropdown right row" onclick="openModal()">
-            Perfil <img src="assets/dropdown-icon.png"></div>
+        <div class="dropdown right row">
+            LuatDB <img src="assets/dropdown-icon.png">
+
+            <div class="dropdown-content">
+                <a href="profile">Perfil</a>
+                <a href="logout">Salir</a>
+            </div>
+        </div>
     </div>
     <div class="row" id="content">
 
@@ -45,7 +53,7 @@
                 <img src="assets/beacon.png" alt="Image Not Found">
                 <div class="tab-name">Beacons</div>
             </div>
-            <div class="tab-item" onclick="selectTab('media')">
+            <div class="tab-item" onclick="selectTab('files')">
                 <img src="assets/files.png" alt="Image Not Found">
                 <div class="tab-name">Archivos</div>
             </div>
@@ -59,11 +67,11 @@
         </div>
     </div>
 
-    <div id="main-modal" class="modal" onclick="closeModal()">
+    <div id="main-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header row">
-                <div class="title">dasdadsas</div>
-                <div class="close-button">&times;</div>
+                <div class="title"></div>
+                <div class="close-button" onclick="closeModal()">&times;</div>
             </div>
             <div class="modal-body">
             </div>

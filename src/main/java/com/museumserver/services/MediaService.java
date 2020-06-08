@@ -16,4 +16,6 @@ public interface MediaService {
 	public Media addMedia(Media media, MultipartFile file);
 
 	public Media updateMedia(Media media);
+	
+	public List<Media> getMediaByDisplayName (String name);
 }

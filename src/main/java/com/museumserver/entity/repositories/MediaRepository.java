@@ -12,6 +12,8 @@ import com.museumserver.entity.models.Media;
 public interface MediaRepository extends CrudRepository<Media,Long>{
 	List<Media> findAllByOrderByIdAsc();
 	
+	@Query("SELECT file FROM media file WHERE file.displayName = ?1 ORDER BY file.id ASC")
+	List<Media> getMediaByDisplayName(String displayName);
 	
 	@Query("SELECT new com.museumserver.entity.models.DataCount(v.fileType ,COUNT(v)) FROM media AS v GROUP BY v.fileType")
 	List<DataCount> getCountOfType();

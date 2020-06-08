@@ -1,0 +1,107 @@
+#files-page {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  line-height: 30px;
+  font-size: large;
+}
+#table-header {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 0 10px;
+}
+#search-bar {
+  position: absolute;
+  right: 50px;
+}
+#search-bar input {
+  padding-right: 25px;
+}
+#search-icon {
+  position: absolute;
+  right: 0;
+  width: 30px;
+  padding: 5px;
+  cursor: pointer;
+}
+#search-bar input,
+#result-count select {
+  line-height: 25px;
+  font-size: medium;
+  height: 25px;
+}
+#data-table {
+  width: 100%;
+  background-color: rgb(197, 251, 255);
+  border-collapse: collapse;
+  border: 3px rgb(64, 147, 255) solid;
+}
+#data-table th {
+  position: relative;
+  line-height: 30px;
+  padding-left: 10px;
+  text-align: left;
+  background-image: linear-gradient(rgb(58, 209, 255), rgb(255, 255, 255));
+  cursor: pointer;
+}
+#data-table th:active {
+  box-shadow: inset 0 0 0 99999px rgba(0, 0, 0, 0.2);
+}
+#data-table th .sort {
+  height: 15px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+#data-table td {
+  border-top: 2px solid rgb(93, 170, 218);
+  padding: 10px;
+}
+
+#data-table tr:hover {
+  cursor: pointer;
+  box-shadow: inset 0 0 0 99999px rgba(0, 0, 0, 0.2);
+}
+td[name="actions"],
+th[name="actions"] {
+  width: 200px;
+}
+.action-buttons {
+  text-align: center;
+}
+.action-buttons button {
+  padding: 5px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+}
+.action-buttons button:active {
+  box-shadow: inset 0 0 0 99999px rgba(0, 0, 0, 0.2);
+}
+.action-buttons button:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+.action-buttons button:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.action-buttons button > img {
+  height: 30px;
+}
+
+#table-footer {
+  margin-top: 10px;
+  width: 100%;
+  padding: 0 10px;
+}
+
+#result-navigator {
+  position: absolute;
+  right: 50px;
+}
+#result-navigator > li {
+  display: inline;
+}
+#result-navigator > li > * {
+  width: 25px;
+}
