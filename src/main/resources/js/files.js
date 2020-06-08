@@ -18,6 +18,9 @@ function tableRow(data) {
   <td name="type">${data.fileType}</td>
 </tr>`
   );
+  row.find("td").click(() => {
+    openFileInModal(data);
+  });
   row.append(actionColumn());
   return row;
 }
@@ -246,4 +249,24 @@ function getFileInfo() {
     data.fileType = "audio";
   }
   return data;
+}
+
+function openFileInModal(data) {
+  event.stopPropagation()
+  let modal = $("#main-modal");
+  modal.find(".modal-header .title").text(data.displayName);
+  let body = modal.find(".modal-body");
+  console.log(data)
+  switch (data.fileType) {
+    case "image":
+      body.html(`<img src="img/${data.fileName}.${data.extension}">`)
+      break;
+    case "video":
+      body.html(`<video src="video/${data.fileName}.${data.extension}" controls>`)
+      break;
+    case "audio":
+      body.html(`<audio src="audio/${data.fileName}.${data.extension}" controls>`)
+      break;
+  }
+  openModal()
 }

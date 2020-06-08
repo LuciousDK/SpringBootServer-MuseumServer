@@ -62,11 +62,6 @@ function openImageInModal(event, title) {
   let modalHeader = $("#main-modal .modal-header");
 
   modalBody.append(`<img src="${image.attr("src")}">`);
-  modalBody.find("img").css({
-    display: "block",
-    "max-height": "calc(85vh - 40px)",
-    "max-width": "calc(85vw - 40px)",
-  });
   if (title) {
     modalHeader.find(".title").text(title);
   } else {

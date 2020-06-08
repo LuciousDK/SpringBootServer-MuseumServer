@@ -382,6 +382,11 @@ textarea {
   overflow: auto;
   max-height: 85vh;
 }
+.modal-body > * {
+  display: block;
+  max-height: calc(85vh - 40px);
+  max-width: calc(85vw - 40px);
+}
 .modal-footer {
   padding: 20px;
   background-color: rgb(197, 251, 255);
@@ -438,6 +443,6 @@ textarea {
   cursor: pointer;
   height: 70px;
 }
-.error{
-  color:red
+.error {
+  color: red;
 }
