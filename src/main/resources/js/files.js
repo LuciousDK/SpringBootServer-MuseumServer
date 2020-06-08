@@ -29,7 +29,7 @@ function actionColumn() {
   return $(
     `<td name="actions">
   <div class="action-buttons">
-    <button style="background-color:grey">
+    <button style="background-color:grey" onclick="editTitle()">
       <img src="assets/edit-icon-beige.png">
     </button><button class="danger" onclick="deleteFileWarning()">
       <img src="assets/trashcan.png">
@@ -252,21 +252,44 @@ function getFileInfo() {
 }
 
 function openFileInModal(data) {
-  event.stopPropagation()
+  event.stopPropagation();
   let modal = $("#main-modal");
   modal.find(".modal-header .title").text(data.displayName);
   let body = modal.find(".modal-body");
-  console.log(data)
+  console.log(data);
   switch (data.fileType) {
     case "image":
-      body.html(`<img src="img/${data.fileName}.${data.extension}">`)
+      body.html(`<img src="img/${data.fileName}.${data.extension}">`);
       break;
     case "video":
-      body.html(`<video src="video/${data.fileName}.${data.extension}" controls>`)
+      body.html(
+        `<video src="video/${data.fileName}.${data.extension}" controls>`
+      );
       break;
     case "audio":
-      body.html(`<audio src="audio/${data.fileName}.${data.extension}" controls>`)
+      body.html(
+        `<audio src="audio/${data.fileName}.${data.extension}" controls>`
+      );
       break;
   }
-  openModal()
+  openModal();
+}
+
+function editTitle() {
+  let row = $(event.target).closest("tr");
+  let id = row.find("td[name='id']").text().trim();
+  let title = row.find("td[name='title']").text().trim();
+  let tdTitle = row.find("td[name='title']");
+  tdTitle.css("position", "relative");
+  tdTitle.off("click");
+  tdTitle.html(`<input type="text" style="line-height:30px; font-size:large; width:calc(100% - 90px)">
+  <img name="accept" src="assets/confirm-icon.png" style="height:30px; position:absolute; right:65px">
+  <img name="cancel" src="assets/cancel-icon.png" style="height:30px; position:absolute; right:30px">`);
+  
+  tdTitle.find("img[name='accept']").click(() => {});
+
+  tdTitle.find("img[name='cancel']").click(() => {
+    tdTitle.html(title);
+  });
+  tdTitle.find("input").val(title);
 }
