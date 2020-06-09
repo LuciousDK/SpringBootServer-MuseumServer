@@ -1,7 +1,9 @@
 let sort = ["", ""];
+
 async function getFiles() {
   await requestFiles(createTableRows);
 }
+
 function createTableRows(dataSet) {
   files = dataSet;
   for (var id in files) {
@@ -29,9 +31,9 @@ function actionColumn() {
   return $(
     `<td name="actions">
   <div class="action-buttons">
-    <button style="background-color:grey" onclick="editTitle()">
+    <button name="edit" style="background-color:grey" onclick="editTitle()">
       <img src="assets/edit-icon-beige.png">
-    </button><button class="danger" onclick="deleteFileWarning()">
+    </button><button name="delete" class="danger" onclick="deleteFileWarning()">
       <img src="assets/trashcan.png">
     </button>
   </div>
@@ -256,7 +258,6 @@ function openFileInModal(data) {
   let modal = $("#main-modal");
   modal.find(".modal-header .title").text(data.displayName);
   let body = modal.find(".modal-body");
-  console.log(data);
   switch (data.fileType) {
     case "image":
       body.html(`<img src="img/${data.fileName}.${data.extension}">`);
@@ -276,20 +277,57 @@ function openFileInModal(data) {
 }
 
 function editTitle() {
+  let buttons =  $("#data-table .action-buttons button[name='edit']")
   let row = $(event.target).closest("tr");
   let id = row.find("td[name='id']").text().trim();
   let title = row.find("td[name='title']").text().trim();
   let tdTitle = row.find("td[name='title']");
-  tdTitle.css("position", "relative");
+  buttons.remove()
+  let button= buttons[0]
   tdTitle.off("click");
-  tdTitle.html(`<input type="text" style="line-height:30px; font-size:large; width:calc(100% - 90px)">
+  tdTitle.html(`<input type="text" name="title" style="line-height:30px; font-size:large; width:calc(100% - 90px)">
   <img name="accept" src="assets/confirm-icon.png" style="height:30px; position:absolute; right:65px">
   <img name="cancel" src="assets/cancel-icon.png" style="height:30px; position:absolute; right:30px">`);
-  
-  tdTitle.find("img[name='accept']").click(() => {});
+
+  tdTitle.find("img[name='accept']").click(async () => {
+    if (
+      title.localeCompare(tdTitle.find("input[name='title']").val().trim()) == 0
+    ) {
+      finishEdit(tdTitle, title,button);
+    } else {
+      if (await validateTitle($(event.target).closest("tr"))) {
+        updateFileTitle(
+          id,
+          tdTitle.find("input[name='title']").val().trim(),
+          (result) => {
+            finishEdit(
+              tdTitle,
+              tdTitle.find("input[name='title']").val().trim(),button
+            );
+          }
+        );
+      }
+    }
+  });
 
   tdTitle.find("img[name='cancel']").click(() => {
-    tdTitle.html(title);
+    finishEdit(tdTitle, title,button);
+    tdTitle.click();
   });
   tdTitle.find("input").val(title);
+}
+
+function finishEdit(td, title, button) {
+  td.html(title);
+  let actionButtons = $("#data-table .action-buttons")
+  actionButtons.html(button.outerHTML+actionButtons.html().trim())
+}
+
+async function validateTitle(tableRow) {
+  let title = tableRow
+    .find("td[name='title'] input[name='title']")
+    .val()
+    .trim();
+  let type = tableRow.find("td[name='type']").text().trim();
+  return await nameAvailable(title, type);
 }

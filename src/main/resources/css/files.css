@@ -54,7 +54,7 @@
 }
 #data-table td {
   border-top: 2px solid rgb(93, 170, 218);
-  padding: 10px;
+  padding: 10px; position: relative;
 }
 
 #data-table tr:hover {

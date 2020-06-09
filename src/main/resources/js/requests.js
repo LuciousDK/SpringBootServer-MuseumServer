@@ -37,7 +37,7 @@ async function uploadFile(data, callback) {
   for (var key in data) {
     formData.append(key, data[key]);
   }
-  fetch("api/media", { method: "POST", body: formData }).then(callback());
+  fetch("api/media", { method: "POST", body: formData }).then(callback);
 }
 
 async function requestFiles(callback) {
@@ -67,17 +67,24 @@ async function nameAvailable(title, type) {
   return availability;
 }
 
-async function deleteFile(id, callback) {
-  let request = new XMLHttpRequest();
-
-  var formData = new FormData();
-  formData.append("id", id);
-
-  request.open("DELETE", "api/media");
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
+function deleteFile(id, callback) {
+  $.ajax({
+    url: "api/media",
+    type: "DELETE",
+    success: function (result) {
       callback();
-    }
-  };
-  request.send(formData);
+    },
+    data: { id: id },
+  });
+}
+
+function updateFileTitle(id, title, callback) {
+  $.ajax({
+    url: "api/media",
+    type: "PUT",
+    success: function (result) {
+      callback(result);
+    },
+    data: { id: id, displayName: title },
+  });
 }

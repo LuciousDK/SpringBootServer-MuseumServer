@@ -49,8 +49,8 @@ public class MediaController {
 	}
 
 	@PutMapping("/api/media")
-	public void updateMedia(Media media) {
-		mediaService.updateMedia(media);
+	public Media updateMedia(Media media) {
+		return mediaService.updateMedia(media);
 	}
 
 	@DeleteMapping("/api/media")
