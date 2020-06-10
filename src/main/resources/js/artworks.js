@@ -1,5 +1,3 @@
-let artworks = [];
-
 function createCards(dataset) {
   $("#artworks-page").html("");
   artworks = dataset;

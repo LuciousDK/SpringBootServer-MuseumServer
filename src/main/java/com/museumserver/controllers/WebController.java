@@ -1,7 +1,5 @@
 package com.museumserver.controllers;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,8 +16,6 @@ import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.UserRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
-//import com.museumserver.entity.repositories.BeaconModificationRepository;
-//import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.BeaconRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
 import com.museumserver.entity.repositories.MediaRepository;
@@ -42,12 +38,6 @@ public class WebController {
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
 
-//	@Autowired
-//	private BeaconModificationRepository beaconModificationRepository;
-//
-//	@Autowired
-//	private MediaModificationRepository mediaModificationRepository;
-
 	@GetMapping({ "/", "login" })
 	public String login() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -55,6 +45,7 @@ public class WebController {
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 
 			return "redirect:index";
+			
 		}
 		return "login";
 	}
@@ -86,6 +77,12 @@ public class WebController {
 		mav.addObject("exhibitions", exhibitionRepository.findAllByOrderByIdAsc());
 		mav.addObject("medias", mediaRepository.findAllByOrderByIdAsc());
 		mav.addObject("newArtwork", new Artwork());
+		return mav;
+	}
+	@RequestMapping(value = "files", method = RequestMethod.GET)
+	public ModelAndView files() {
+
+		ModelAndView mav = new ModelAndView("files");
 		return mav;
 	}
 
@@ -146,7 +143,6 @@ public class WebController {
 
 		ModelAndView mav = new ModelAndView("reports/mediasReport");
 		mav.addObject("medias", mediaRepository.findAll());
-		mav.addObject("count", mediaRepository.getCountOfType());
 
 		return mav;
 	}

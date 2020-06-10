@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable()
 			.authorizeRequests()
 			.antMatchers(HttpMethod.GET, "/css/login.css/**","/assets/**","/js/**").permitAll()
-			.antMatchers(HttpMethod.GET, "/artworks/**","/artwork/**","/beacons/**", "/beacon/**","/exhibitions/**","/exhibition/**",
-					"/media/**","/medias/**","/img/**","/audio/**","/video/**").authenticated()
+			.antMatchers(HttpMethod.GET, "/api/artworks/**","/api/artwork/**","/api/beacons/**", "/api/beacon/**","/api/exhibitions/**","/api/exhibition/**",
+					"/api/media/**","/api/medias/**","/img/**","/audio/**","/video/**").authenticated()
 			.antMatchers(HttpMethod.GET, "/**").hasAuthority("ADMIN")
 			.antMatchers(HttpMethod.PUT,"/**").hasAuthority("ADMIN")
 			.antMatchers(HttpMethod.POST,"/**").hasAuthority("ADMIN")

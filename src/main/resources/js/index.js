@@ -1,16 +1,21 @@
-let data = {};
-
-$("*").click(function() {
+let artworks = [];
+let files = [];
+let search = null
+$("*").click(function () {
   event.stopPropagation();
 });
 function selectTab(tabName) {
   if ($(event.target).is(".tab-item:not(.selected)")) {
     $(".tab-item").removeClass("selected");
     $(event.target).addClass("selected");
+    let search = null;
     switch (tabName) {
       case "artworks":
-        $("#content-body").load("artworks");
-        getArtworks();
+        $("#content-body").load("artworks", getArtworks);
+        break;
+      case "files":
+        $("#content-body").load("files", getFiles);
+
         break;
       default:
         break;
@@ -25,10 +30,6 @@ function toggleCard() {
     card.removeClass("toggled");
   } else {
     card.addClass("toggled");
-
-    setTimeout(function () {
-      card.get(0).scrollIntoView();
-    }, 175);
   }
 }
 
@@ -45,7 +46,7 @@ function openModal() {
   $("#main-modal").removeClass("inactive");
 }
 function closeModal() {
-  event.stopPropagation();
+  if (event) event.stopPropagation();
   $("#main-modal").removeClass("active");
   $("#main-modal").addClass("closing");
   setTimeout(() => {
@@ -56,25 +57,16 @@ function closeModal() {
     $("#main-modal .modal-footer").html("");
   }, 150);
 }
-function openImageInModal(event,title) {
+function openImageInModal(event, title) {
   let image = $(event.target);
   let modalBody = $("#main-modal .modal-body");
   let modalHeader = $("#main-modal .modal-header");
-  
 
   modalBody.append(`<img src="${image.attr("src")}">`);
-  modalBody
-    .find("img")
-    .css({
-      display: "block",
-      "max-height": "calc(85vh - 40px)",
-      "max-width": "calc(85vw - 40px)",
-    });
   if (title) {
-    modalHeader.find(".title").text(title)
-  }
-  else{
-    modalHeader.find(".title").text(image.attr("src"))
+    modalHeader.find(".title").text(title);
+  } else {
+    modalHeader.find(".title").text(image.attr("src"));
   }
   openModal();
 }

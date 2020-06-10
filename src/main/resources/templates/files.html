@@ -1,0 +1,32 @@
+<div id="files-page" class="tab-page">
+    <div id="table-header" class="row">
+        <div id="result-count">Mostrar:
+            <select>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+            </select>
+        </div>
+        <div id="search-bar">Buscar: <input type="text"><img id="search-icon" src="assets/search.png" alt="" onclick="searchFiles()"></div>
+    </div>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th onclick="sortTable()" name="id">ID <img src="assets/unsorted.png" class="sort"></th>
+                <th onclick="sortTable()" name="title">Título <img src="assets/unsorted.png" class="sort"></th>
+                <th onclick="sortTable()" name="nombre">Nombre<img src="assets/unsorted.png" class="sort"></th>
+                <th onclick="sortTable()" name="type">Típo<img src="assets/unsorted.png" class="sort"></th>
+                <th name="actions">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <div id="table-footer" class="row">
+        <div id="display-count"></div>
+        <ul id="result-navigator">
+        </ul>
+    </div>
+</div>
+<div class="float-button"><img src="assets/float-button-upload-2.png" onclick="openUploadModal()"></div>
+<link rel="stylesheet" type="text/css" href="css/files.css">

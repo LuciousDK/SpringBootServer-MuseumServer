@@ -1,6 +1,7 @@
 package com.museumserver.services;
 
-import java.util.List;
+
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.museumserver.entity.models.Media;
@@ -9,7 +10,9 @@ public interface MediaService {
 
 	public Media getMedia(Long id);
 	
-	public List<Media> getMedias();
+	public Page<Media> getMedias(int page, int size);
+	
+	public Page<Media> getMediasByName(int page, int size, String Name);
 
 	public void deleteMedia(long id);
 

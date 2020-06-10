@@ -1,48 +1,100 @@
 async function requestArtworks(callback) {
-  let request = new XMLHttpRequest();
-  request.open("GET", "api/artworks", true);
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      let artworkList = {};
-      JSON.parse(request.responseText).forEach((element) => {
-        artworkList[element.id] = element;
-      });
-      callback(artworkList);
-    }
-  };
-  request.send();
+  $.get("api/artworks", (result) => {
+    let artworkList = {};
+    result.forEach((element) => {
+      artworkList[element.id] = element;
+    });
+    callback(artworkList);
+  });
 }
 async function submitArtwork(artwork) {
-  
-  var formData = new FormData();
-  formData.append("id", artwork.id);
-  formData.append("name",artwork.name);
-  formData.append("author", artwork.author);
-  formData.append("description",artwork.description);
-  formData.append("country", artwork.country);
+  let data = {};
+  if (artwork.id) {
+    data.id = artwork.id;
+  }
+  data.name = artwork.name;
+  data.author = artwork.author;
+  data.description = artwork.description;
+  data.country = artwork.country;
   if (artwork.exhibition != null) {
-    
-  formData.append("exhibitionId",artwork.exhibition.id);
-  };
-  let request = new XMLHttpRequest();
-  request.open("POST", "api/artwork");
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      console.log("obra actualizada");
-    }
-  };
-  request.send(formData);   
+    data.exhibitionId = artwork.exhibition.id;
+  }
+  $.post("api/artwork", data).done(() => {
+    console.log("Obra actualizada");
+  });
 }
-async function changeArtworkState(id,callback) {
-  
-  var formData = new FormData();
-  formData.append("id", id);
-  let request = new XMLHttpRequest();
-  request.open("POST", "api/artwork/toggle");
-  request.onreadystatechange = function () {
-    if (request.readyState == 4 && request.status == 200) {
-      callback()
+async function changeArtworkState(id, callback) {
+  $.post("api/artwork/toggle", { id: id }).done(() => {
+    callback();
+  });
+}
+
+/**
+ * Peticiones para manipulación archivos
+ */
+async function uploadFile(data, callback) {
+  let formData = new FormData();
+  for (var key in data) {
+    formData.append(key, data[key]);
+  }
+  fetch("api/media", { method: "POST", body: formData }).then(callback);
+}
+
+async function requestFiles(size, page, search , callback) {
+  let url = `api/medias?page=${page}&size=${size}`;
+  if (search && search.trim().localeCompare("") != 0) {
+    url+=`&title=${search}`
+  }
+  $.get(url, (result) => {
+    let data = {};
+    data.mediaList = {};
+    data.elements = result.elements;
+    data.totalElements = result.totalElements;
+    data.page = result.pageNumber;
+    data.totalPages = result.totalPages;
+
+    result.elements.forEach((element) => {
+      data.mediaList[element.id] = element;
+    });
+    callback(data);
+  });
+}
+
+async function nameAvailable(title, type) {
+  let availability = null;
+  await $.get(`api/media/title/${title}`, async (result) => {
+    let mediaList = result;
+    let valid = true;
+    if (mediaList.length >= 0) {
+      mediaList.forEach((element) => {
+        if (type.localeCompare(element.fileType) == 0) {
+          valid = false;
+        }
+      });
     }
-  };
-  request.send(formData);   
+    availability = valid;
+  });
+  return availability;
+}
+
+function deleteFile(id, callback) {
+  $.ajax({
+    url: "api/media",
+    type: "DELETE",
+    success: function (result) {
+      callback();
+    },
+    data: { id: id },
+  });
+}
+
+function updateFileTitle(id, title, callback) {
+  $.ajax({
+    url: "api/media",
+    type: "PUT",
+    success: function (result) {
+      callback(result);
+    },
+    data: { id: id, displayName: title },
+  });
 }
