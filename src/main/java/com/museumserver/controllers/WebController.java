@@ -153,7 +153,6 @@ public class WebController {
 
 		ModelAndView mav = new ModelAndView("reports/mediasReport");
 		mav.addObject("medias", mediaRepository.findAll());
-		mav.addObject("count", mediaRepository.getCountOfType());
 
 		return mav;
 	}

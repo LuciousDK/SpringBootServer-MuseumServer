@@ -1,11 +1,71 @@
 let sort = ["", ""];
+let elements = null;
+let page = 1;
+let totalElements = null;
+let totalPages = null;
 
 async function getFiles() {
-  await requestFiles(createTableRows);
+  elements = $("#result-count select").val();
+
+  await requestFiles(elements, page, (data) => {
+    createTableRows(data.mediaList);
+    totalElements = data.totalElements;
+    totalPages = data.totalPages;
+    elements = data.elements.length;
+    setPaginationFooter();
+  });
+
+  $("#result-count select").change(() => {
+    page = 1;
+    getFiles();
+  });
+}
+function setPaginationFooter() {
+  $("#display-count").text(
+    `Mostrando ${elements} de ${totalElements} resultados`
+  );
+  let resultNavigator = $("#result-navigator");
+  resultNavigator.html("");
+  if (page > 1) {
+    for (let i = page - 1; i > 0; i--) {
+      let navButton = $(`<li>${i}</li>`);
+      navButton.click(() => {
+        page = i;
+        getFiles();
+      });
+      resultNavigator.prepend(navButton);
+    }
+    let navButton = $(`<li>&lt;</li>`);
+    navButton.click(() => {
+      --page;
+      getFiles();
+    });
+    resultNavigator.prepend(navButton);
+  }
+
+  resultNavigator.append(`<li class="active">${page}</li>`);
+
+  for (let i = page + 1; i <= totalPages && i < page + 3; i++) {
+    let navButton = $(`<li>${i}</li>`);
+    navButton.click(() => {
+      page = i;
+      getFiles();
+    });
+    resultNavigator.append(navButton);
+  }
+  if (page < totalPages) {
+    let navButton = $(`<li>&gt;</li>`);
+    navButton.click(() => {
+      ++page;
+      getFiles();
+    });
+    resultNavigator.append(navButton);
+  }
 }
 
 function createTableRows(dataSet) {
   files = dataSet;
+  $("#data-table tbody").html("");
   for (var id in files) {
     $("#data-table tbody").append(tableRow(files[id]));
   }
@@ -48,7 +108,10 @@ function tableFilter() {
     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
   });
 }
-
+/**
+ * Ordena las filas de las tablas de archivos según la columna sobre
+ * la que se ha clicado
+ */
 function sortTable() {
   let th = $(event.target).closest("th");
   let data = $(`#data-table tbody tr td[name="${th.attr("name")}"]`);
@@ -277,13 +340,13 @@ function openFileInModal(data) {
 }
 
 function editTitle() {
-  let buttons =  $("#data-table .action-buttons button[name='edit']")
+  let buttons = $("#data-table .action-buttons button[name='edit']");
   let row = $(event.target).closest("tr");
   let id = row.find("td[name='id']").text().trim();
   let title = row.find("td[name='title']").text().trim();
   let tdTitle = row.find("td[name='title']");
-  buttons.remove()
-  let button= buttons[0]
+  buttons.remove();
+  let button = buttons[0];
   tdTitle.off("click");
   tdTitle.html(`<input type="text" name="title" style="line-height:30px; font-size:large; width:calc(100% - 90px)">
   <img name="accept" src="assets/confirm-icon.png" style="height:30px; position:absolute; right:65px">
@@ -293,7 +356,7 @@ function editTitle() {
     if (
       title.localeCompare(tdTitle.find("input[name='title']").val().trim()) == 0
     ) {
-      finishEdit(tdTitle, title,button);
+      finishEdit(tdTitle, title, button);
     } else {
       if (await validateTitle($(event.target).closest("tr"))) {
         updateFileTitle(
@@ -302,7 +365,8 @@ function editTitle() {
           (result) => {
             finishEdit(
               tdTitle,
-              tdTitle.find("input[name='title']").val().trim(),button
+              tdTitle.find("input[name='title']").val().trim(),
+              button
             );
           }
         );
@@ -311,7 +375,7 @@ function editTitle() {
   });
 
   tdTitle.find("img[name='cancel']").click(() => {
-    finishEdit(tdTitle, title,button);
+    finishEdit(tdTitle, title, button);
     tdTitle.click();
   });
   tdTitle.find("input").val(title);
@@ -319,8 +383,8 @@ function editTitle() {
 
 function finishEdit(td, title, button) {
   td.html(title);
-  let actionButtons = $("#data-table .action-buttons")
-  actionButtons.html(button.outerHTML+actionButtons.html().trim())
+  let actionButtons = $("#data-table .action-buttons");
+  actionButtons.html(button.outerHTML + actionButtons.html().trim());
 }
 
 async function validateTitle(tableRow) {

@@ -9,12 +9,11 @@ function selectTab(tabName) {
     $(event.target).addClass("selected");
     switch (tabName) {
       case "artworks":
-        $("#content-body").load("artworks");
-        getArtworks();
+        $("#content-body").load("artworks", getArtworks);
         break;
       case "files":
-        $("#content-body").load("files");
-        getFiles();
+        $("#content-body").load("files", getFiles);
+
         break;
       default:
         break;

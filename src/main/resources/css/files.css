@@ -54,7 +54,8 @@
 }
 #data-table td {
   border-top: 2px solid rgb(93, 170, 218);
-  padding: 10px; position: relative;
+  padding: 10px;
+  position: relative;
 }
 
 #data-table tr:hover {
@@ -101,8 +102,15 @@ th[name="actions"] {
   right: 50px;
 }
 #result-navigator > li {
-  display: inline;
-}
-#result-navigator > li > * {
+  display: inline-block;
   width: 25px;
+  cursor: pointer;
+text-align: center;
+}
+#result-navigator > li:not(.active):hover {
+text-decoration: underline;
+}
+#result-navigator > li.active {
+  cursor: initial;
+  background-color: lightblue;
 }

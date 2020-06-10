@@ -8,6 +8,9 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,21 +35,27 @@ public class MediaServiceImpl implements MediaService {
 	}
 
 	@Override
+	public Page<Media> getMediasPaginated(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return mediaRepository.findAll(pageable);
+
+	}
+
+	@Override
 	public void deleteMedia(long id) {
 		Media original = mediaRepository.findById(id).get();
 		String location = "src/main/resources/";
-		if(original.getFileType().equals("image")) {
+		if (original.getFileType().equals("image")) {
 			location += "img/images/";
 		}
-		if(original.getFileType().equals("video")) {
+		if (original.getFileType().equals("video")) {
 			location += "video/";
 		}
-		if(original.getFileType().equals("audio")) {
+		if (original.getFileType().equals("audio")) {
 			location += "audio/";
 		}
-		location += original.getFileName()+"."+original.getExtension();
+		location += original.getFileName() + "." + original.getExtension();
 		new File(location).delete();
-		
 
 		mediaRepository.deleteById(id);
 
@@ -64,28 +73,28 @@ public class MediaServiceImpl implements MediaService {
 			byte[] bytes = file.getBytes();
 
 			Path path = null;
-			
+
 			if (media.getFileType().equals("image")) {
-				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
-						.replace("target/classes/", "src/main/resources/") + "img/images/" + file.getOriginalFilename());
+				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "").replace(
+						"target/classes/", "src/main/resources/") + "img/images/" + file.getOriginalFilename());
 			}
-			
+
 			if (media.getFileType().contentEquals("video")) {
 				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
 						.replace("target/classes/", "src/main/resources/") + "video/" + file.getOriginalFilename());
 			}
-			
+
 			if (media.getFileType().contentEquals("audio")) {
 				path = Paths.get(ClassLoader.getSystemResource("").getPath().replaceFirst("/", "")
 						.replace("target/classes/", "src/main/resources/") + "audio/" + file.getOriginalFilename());
 			}
-			
+
 			Files.write(path, bytes);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		return mediaRepository.save(media);
 
 	}
@@ -106,7 +115,7 @@ public class MediaServiceImpl implements MediaService {
 
 			if (media.getFileType() != null)
 				original.setFileType(media.getFileType());
-			
+
 			return mediaRepository.save(original);
 		}
 		return null;

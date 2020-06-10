@@ -40,13 +40,19 @@ async function uploadFile(data, callback) {
   fetch("api/media", { method: "POST", body: formData }).then(callback);
 }
 
-async function requestFiles(callback) {
-  $.get("api/medias", (result) => {
-    let mediaList = {};
-    result.forEach((element) => {
-      mediaList[element.id] = element;
+async function requestFiles(size, page, callback) {
+  $.get(`api/medias?page=${page}&size=${size}`, (result) => {
+    let data = {};
+    data.mediaList = {}
+    data.elements = result.elements
+    data.totalElements = result.totalElements
+    data.page = result.pageNumber
+    data.totalPages = result.totalPages
+
+    result.elements.forEach((element) => {
+      data.mediaList[element.id] = element;
     });
-    callback(mediaList);
+    callback(data);
   });
 }
 
