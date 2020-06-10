@@ -36,6 +36,7 @@
   border: 3px rgb(64, 147, 255) solid;
 }
 #data-table th {
+  min-width: 60px;
   position: relative;
   line-height: 30px;
   padding-left: 10px;

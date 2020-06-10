@@ -30,7 +30,7 @@ async function changeArtworkState(id, callback) {
 }
 
 /**
- * API Requests For Files Management
+ * Peticiones para manipulación archivos
  */
 async function uploadFile(data, callback) {
   let formData = new FormData();
@@ -40,14 +40,18 @@ async function uploadFile(data, callback) {
   fetch("api/media", { method: "POST", body: formData }).then(callback);
 }
 
-async function requestFiles(size, page, callback) {
-  $.get(`api/medias?page=${page}&size=${size}`, (result) => {
+async function requestFiles(size, page, search , callback) {
+  let url = `api/medias?page=${page}&size=${size}`;
+  if (search && search.trim().localeCompare("") != 0) {
+    url+=`&title=${search}`
+  }
+  $.get(url, (result) => {
     let data = {};
-    data.mediaList = {}
-    data.elements = result.elements
-    data.totalElements = result.totalElements
-    data.page = result.pageNumber
-    data.totalPages = result.totalPages
+    data.mediaList = {};
+    data.elements = result.elements;
+    data.totalElements = result.totalElements;
+    data.page = result.pageNumber;
+    data.totalPages = result.totalPages;
 
     result.elements.forEach((element) => {
       data.mediaList[element.id] = element;

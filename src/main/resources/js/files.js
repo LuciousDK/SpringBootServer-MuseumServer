@@ -6,8 +6,7 @@ let totalPages = null;
 
 async function getFiles() {
   elements = $("#result-count select").val();
-
-  await requestFiles(elements, page, (data) => {
+  await requestFiles(elements, page, search, (data) => {
     createTableRows(data.mediaList);
     totalElements = data.totalElements;
     totalPages = data.totalPages;
@@ -19,6 +18,23 @@ async function getFiles() {
     page = 1;
     getFiles();
   });
+}
+function searchFiles() {
+  search = $("#search-bar input").val().trim();
+  if (search.trim().localeCompare("") != 0) {
+    $("#search-bar img").attr("src", "assets/red-x.png");
+    $("#search-bar img").prop("onclick", null).off("click");
+    $("#search-bar img").on("click",cancelSearch)
+    getFiles();
+  }
+}
+function cancelSearch(){
+  $("#search-bar input").val("")
+  search=null
+  $("#search-bar img").attr("src", "assets/search.png");
+  $("#search-bar img").prop("onclick", null).off("click");
+  $("#search-bar img").on("click",searchFiles)
+  getFiles();
 }
 function setPaginationFooter() {
   $("#display-count").text(

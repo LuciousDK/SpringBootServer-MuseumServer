@@ -1,7 +1,5 @@
 package com.museumserver.controllers;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -18,8 +16,6 @@ import com.museumserver.entity.models.Exhibition;
 import com.museumserver.entity.models.Media;
 import com.museumserver.entity.repositories.UserRepository;
 import com.museumserver.entity.repositories.ArtworkRepository;
-//import com.museumserver.entity.repositories.BeaconModificationRepository;
-//import com.museumserver.entity.repositories.MediaModificationRepository;
 import com.museumserver.entity.repositories.BeaconRepository;
 import com.museumserver.entity.repositories.ExhibitionRepository;
 import com.museumserver.entity.repositories.MediaRepository;
@@ -41,12 +37,6 @@ public class WebController {
 
 	@Autowired
 	private ExhibitionRepository exhibitionRepository;
-
-//	@Autowired
-//	private BeaconModificationRepository beaconModificationRepository;
-//
-//	@Autowired
-//	private MediaModificationRepository mediaModificationRepository;
 
 	@GetMapping({ "/", "login" })
 	public String login() {

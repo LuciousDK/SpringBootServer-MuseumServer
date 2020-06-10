@@ -1,5 +1,6 @@
 let artworks = [];
 let files = [];
+let search = null
 $("*").click(function () {
   event.stopPropagation();
 });
@@ -7,6 +8,7 @@ function selectTab(tabName) {
   if ($(event.target).is(".tab-item:not(.selected)")) {
     $(".tab-item").removeClass("selected");
     $(event.target).addClass("selected");
+    let search = null;
     switch (tabName) {
       case "artworks":
         $("#content-body").load("artworks", getArtworks);

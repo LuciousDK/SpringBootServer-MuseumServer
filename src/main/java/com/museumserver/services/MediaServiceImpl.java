@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,25 +19,21 @@ import com.museumserver.entity.repositories.MediaRepository;
 @Service
 public class MediaServiceImpl implements MediaService {
 
-	public void setRepository(Object repository) {
-		this.mediaRepository = (MediaRepository) repository;
-	}
 
 	@Autowired
 	private MediaRepository mediaRepository;
 
 	@Override
-	public List<Media> getMedias() {
-
-		return (List<Media>) mediaRepository.findAllByOrderByIdAsc();
+	public Page<Media> getMedias(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return mediaRepository.findAll(pageable);
 
 	}
 
 	@Override
-	public Page<Media> getMediasPaginated(int page, int size) {
+	public Page<Media> getMediasByName(int page, int size, String name){
 		Pageable pageable = PageRequest.of(page, size);
-		return mediaRepository.findAll(pageable);
-
+		return mediaRepository.findByDisplayName(pageable, name);
 	}
 
 	@Override
@@ -127,11 +122,6 @@ public class MediaServiceImpl implements MediaService {
 		if (mediaRepository.existsById(id))
 			return mediaRepository.findById(id).get();
 		return null;
-	}
-
-	@Override
-	public List<Media> getMediaByDisplayName(String name) {
-		return mediaRepository.getMediaByDisplayName(name);
 	}
 
 }
