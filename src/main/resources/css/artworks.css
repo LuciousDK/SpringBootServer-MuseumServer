@@ -1,0 +1,28 @@
+#search-bar {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 3px;
+  overflow: hidden;
+}
+#search-bar * {
+  font-size: larger;
+  line-height: 40px;
+}
+#search-bar input {
+  border: none;
+  flex-grow: 90;
+  padding: 0 30px 0 10px;
+}
+#search-bar button {
+  padding: 0 10px;
+  border: none;
+}
+#search-bar button img {
+    max-height:20px;
+}
+#search-bar button:active {
+  border: none;
+}

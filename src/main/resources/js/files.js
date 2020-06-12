@@ -33,7 +33,7 @@ function cancelSearch(){
   search=null
   $("#search-bar img").attr("src", "assets/search.png");
   $("#search-bar img").prop("onclick", null).off("click");
-  $("#search-bar img").on("click",searchFiles)
+  $("#search-bar img").on("click",searchFiles )
   getFiles();
 }
 function setPaginationFooter() {

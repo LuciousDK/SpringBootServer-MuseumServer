@@ -75,12 +75,12 @@
                     
                     <td style="width: auto;">
                         <button style="display: inline;border: none; background: none;" class="icon-container"
-                            th:attr="onclick=|editMedia('${beacon.toJSON()}')|" data-toggle="modal"
+                            th:attr="onclick=|editBeacon('${beacon.toJSON()}')|" data-toggle="modal"
                             data-target="#creation-modal">
-                            <img class="edit-icon" th:src="@{/img/edit-icon.png}">
+                            <img class="edit-icon" th:src="@{/assets/edit-icon.png}">
                         </button>
 
-                        <button th:onclick="|deleteMedia(${beacon.id})|" style="border: none; background: none;"
+                        <button th:onclick="|deleteBeacon(${beacon.id})|" style="border: none; background: none;"
                             type="submit" value="Submit" class="icon-container"><i class="fas fa-times"
                                 style="color: red;"></i>
                         </button>

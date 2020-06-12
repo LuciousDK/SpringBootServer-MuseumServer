@@ -1,8 +1,8 @@
 function createCards(dataset) {
-  $("#artworks-page").html("");
+  $("#cards-container").html("");
   artworks = dataset;
   for (var id in artworks) {
-    $("#artworks-page").append(artworkCard(artworks[id]));
+    $("#cards-container").append(artworkCard(artworks[id]));
   }
 }
 function artworkCard(data) {
