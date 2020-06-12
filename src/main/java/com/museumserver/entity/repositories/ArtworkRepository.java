@@ -15,5 +15,8 @@ public interface ArtworkRepository extends CrudRepository<Artwork,Long>{
 	@Query("SELECT artwork FROM artworks artwork WHERE artwork.state = (SELECT id FROM states WHERE name  = 'ACTIVE') ORDER BY artwork.id")
 	List<Artwork> getActiveArtworks();
 	
+	@Query("SELECT artwork FROM artworks artwork WHERE artwork.state = (SELECT id FROM states WHERE name  = 'INACTIVE') ORDER BY artwork.id")
+	List<Artwork> getInactiveArtworks();
+	
 }
 

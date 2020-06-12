@@ -1,8 +1,14 @@
+let artworkState = null;
+
+async function getArtworks() {
+  await requestArtworks(createCards);
+}
+
 function createCards(dataset) {
-  $("#artworks-page").html("");
+  $("#cards-container").html("");
   artworks = dataset;
   for (var id in artworks) {
-    $("#artworks-page").append(artworkCard(artworks[id]));
+    $("#cards-container").append(artworkCard(artworks[id]));
   }
 }
 function artworkCard(data) {
@@ -118,10 +124,6 @@ function artworkCard(data) {
   return card;
 }
 
-async function getArtworks() {
-  await requestArtworks(createCards);
-}
-
 function editArtworkTextarea(id) {
   let card = $(event.target).closest(".card");
   card.addClass("editing");
@@ -222,4 +224,13 @@ function resetArtworkData(element, id) {
               src="assets/edit-icon-solid.png" alt="Edit"></div>`
   );
   element.closest(".card").removeClass("editing");
+}
+
+function searchArtworks() {
+  search = $("#search-bar input").val().trim();
+  artworkState = $("#search-bar select").val();
+  if(artworkState.localeCompare("ALL")==0){
+    artworkState=null
+  }
+  requestArtworks(createCards);
 }

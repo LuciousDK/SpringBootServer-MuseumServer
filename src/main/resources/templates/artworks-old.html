@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/global.css" th:href="@{/css/global.css}">
 
-    <link rel="stylesheet" type="text/css" href="css/artworks-old.css" th:href="@{/css/artworks.css}">
+    <link rel="stylesheet" type="text/css" href="css/artworks-old.css" th:href="@{/css/artworks-old.css}">
 
 </head>
 
@@ -172,13 +172,13 @@
                         <td class="buttons-container">
                             <div class="icon-container" th:attr="onclick=|editArtwork('${artwork.toJSON()}')|"
                                 data-toggle="modal" data-target="#creation-modal">
-                                <img class="edit-icon" th:src="@{/img/edit-icon.png}">
+                                <img class="edit-icon" th:src="@{/assets/edit-icon.png}">
                             </div>
                             <div class="icon-container" th:onclick="'toggleArtwork(\'' + ${artwork.id} + '\')'">
                                 <img th:if="${artwork.getState().getName() =='ACTIVE'}" class="edit-icon"
-                                    th:src="@{/img/green-light.png}">
+                                    th:src="@{/assets/green-light.png}">
                                 <img th:if="${artwork.getState().getName() =='INACTIVE'}" class="edit-icon"
-                                    th:src="@{/img/red-light.png}">
+                                    th:src="@{/assets/red-light.png}">
                             </div>
                         </td>
                     </tr>
@@ -219,13 +219,13 @@
                             </div>
                             <div th:if="${media.fileType == 'video'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
-                                    <img src="/img/default-video.png" alt="Image Not Found"></a>
+                                    <img src="/assets/default-video.png" alt="Image Not Found"></a>
 
 
                             </div>
                             <div th:if="${media.fileType == 'audio'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
-                                    <img src="/img/default-audio.png" alt="Image Not Found"></a>
+                                    <img src="/assets/default-audio.png" alt="Image Not Found"></a>
 
 
                             </div>
@@ -252,13 +252,13 @@
                             </div>
                             <div th:if="${media.fileType == 'video'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
-                                    <img src="/img/default-video.png" alt="Image Not Found"></a>
+                                    <img src="/assets/default-video.png" alt="Image Not Found"></a>
 
 
                             </div>
                             <div th:if="${media.fileType == 'audio'}">
                                 <a type="button" data-toggle="modal" th:data-target="|#modal-${media.id}|">
-                                    <img src="/img/default-audio.png" alt="Image Not Found"></a>
+                                    <img src="/assets/default-audio.png" alt="Image Not Found"></a>
 
 
                             </div>

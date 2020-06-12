@@ -1,4 +1,11 @@
-<div id="artworks-page" class="tab-page"></div>
+<div id="search-bar"><button onclick="searchArtworks()"style="background-color:rgb(197, 251, 255);">Buscar</button><input type="text"><select
+        name="state" onchange="searchArtworks()">
+        <option value="ALL">Todos</option>
+        <option value="ACTIVE">Activos</option>
+        <option value="INACTIVE">Inactivos</option>
+    </select></div>
+<div id="cards-container" class="tab-page">
+</div>
 
 <div class="float-button"><img src="assets/float-button-add.png" alt=""></div>
 <link rel="stylesheet" type="text/css" href="css/artworks.css" th:href="@{/css/artworks.css}">
