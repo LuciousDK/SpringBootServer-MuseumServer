@@ -49,9 +49,12 @@ public class ArtworkServiceImpl implements ArtworkService {
 
 	@Override
 	public List<Artwork> getActiveArtworks() {
-
 		return (List<Artwork>) artworkRepository.getActiveArtworks();
-
+	}
+	
+	@Override
+	public List<Artwork> getInactiveArtworks() {
+		return (List<Artwork>) artworkRepository.getInactiveArtworks();
 	}
 
 	@Override

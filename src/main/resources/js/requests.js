@@ -1,5 +1,21 @@
 async function requestArtworks(callback) {
-  $.get("api/artworks", (result) => {
+  let firstParam = true;
+  let url = `api/artworks`;
+  if (search && search.trim().localeCompare("") != 0) {
+    if (firstParam) {
+      url += "?";
+      firstParam = false;
+    }
+    url += `name=${search}`;
+  }
+  if (artworkState!=null && artworkState.localeCompare("ALL") != 0) {
+    if (firstParam) {
+      url += "?";
+      firstParam = false;
+    }
+    url += `state=${artworkState}`;
+  }
+  $.get(url, (result) => {
     let artworkList = {};
     result.forEach((element) => {
       artworkList[element.id] = element;
@@ -40,10 +56,10 @@ async function uploadFile(data, callback) {
   fetch("api/media", { method: "POST", body: formData }).then(callback);
 }
 
-async function requestFiles(size, page, search , callback) {
+async function requestFiles(size, page, search, callback) {
   let url = `api/medias?page=${page}&size=${size}`;
   if (search && search.trim().localeCompare("") != 0) {
-    url+=`&title=${search}`
+    url += `&title=${search}`;
   }
   $.get(url, (result) => {
     let data = {};

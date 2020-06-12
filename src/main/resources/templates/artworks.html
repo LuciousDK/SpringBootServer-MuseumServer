@@ -1,5 +1,9 @@
-
-<div id="search-bar"><button style="background-color:rgb(197, 251, 255) ;">Buscar</button><input type="text"><select name="state"><option value="ALL">Todos</option><option value="ACTIVE">Activos</option><option value="INACTIVE">Inactivos</option></select></div>
+<div id="search-bar"><button onclick="searchArtworks()"style="background-color:rgb(197, 251, 255);">Buscar</button><input type="text"><select
+        name="state" onchange="searchArtworks()">
+        <option value="ALL">Todos</option>
+        <option value="ACTIVE">Activos</option>
+        <option value="INACTIVE">Inactivos</option>
+    </select></div>
 <div id="cards-container" class="tab-page">
 </div>
 

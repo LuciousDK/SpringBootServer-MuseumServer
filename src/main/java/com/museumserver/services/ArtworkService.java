@@ -11,6 +11,8 @@ public interface ArtworkService {
 	public List<Artwork> getAllArtworks();
 	
 	public List<Artwork> getActiveArtworks();
+	
+	public List<Artwork> getInactiveArtworks();
 
 	public void deleteArtwork(long id);
 
